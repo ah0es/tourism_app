@@ -8,7 +8,7 @@ class AppColors {
   static Color red = Colors.red;
   static const cNumberMessaging = Color(0xffFC4646);
   static const cLogOutColor = Color(0xffC10000);
-  static const appTextColor = Color(0xff787878);
+  static const appTextColor = Color(0xffEEEEEE);
 
   static Color grey = Colors.grey;
   static Color amber = Colors.amber;
@@ -17,7 +17,7 @@ class AppColors {
   static const green = Color(0xff12B76A);
   static const greenWarm = Color(0xff00713B);
 
-  static const scaffoldBackGround = white;
+  static const scaffoldBackGround = Color(0xff46A0DB);
   static const primaryColor = Color(0xff33C0A8);
   static const secondPrimaryColor = Color(0xffC3D301);
   static const cBookedColor = Color(0xffF1B244);
@@ -33,7 +33,8 @@ class AppColors {
 
   // Bottom Navigation
   static const cUnSelectedItemColor = Color(0xffC5C5C5);
-  static Color cBackGroundEstatesCardColor = const Color(0xff909090).withOpacity(.1);
+  static Color cBackGroundEstatesCardColor =
+      const Color(0xff909090).withOpacity(.1);
 
   // Text color
   static const anotherTextColor = Color(0xff9EAB01);
@@ -66,7 +67,8 @@ class AppColors {
   static const cBorderImageProfile = Color(0xffD9D9D9);
   static const cBackGroundNotificationColor = Color(0x66F6F6F6);
   static const cBackGroundRequestEstateColor = Color(0xffF6F6F6);
-  static Color cTextColorSwitchFavorites = const Color(0xff0D0D0D).withOpacity(.32);
+  static Color cTextColorSwitchFavorites =
+      const Color(0xff0D0D0D).withOpacity(.32);
   static const cBorderLessColor = Color(0xff8D6E3D);
   static const cPaymentColor = Color(0xA31B1F27);
   static const cBlurColor = Color(0xffBBBCC4);

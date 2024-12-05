@@ -1,8 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:tourism_app/core/themes/colors.dart';
 import 'package:tourism_app/core/utils/app_images.dart';
+import 'package:tourism_app/core/utils/navigate.dart';
+import 'package:tourism_app/core/utils/responsive_text.dart';
+import 'package:tourism_app/features/onbording/presentation/onbordingbody.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,7 +15,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   late Animation<double> animation;
   late AnimationController controller;
   late Timer timer;
@@ -20,11 +25,14 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   void initState() {
     super.initState();
     //currentLocation();
-    controller = AnimationController(vsync: this, duration: const Duration(seconds: 3))..forward();
+    controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 60))
+          ..forward();
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
     timer = Timer(
-      const Duration(seconds: 3),
+      const Duration(seconds: 60),
       () {
+        context.navigateToPage(OnBordingView());
         // if (onBoardingValue) {
         //   //   runAnimation = true;
         //   setState(() {});
@@ -81,19 +89,28 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackGround,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: ClipOval(
-              child: Image.asset(
-                AppImages.logo,
-                height: 200,
-                width: 200,
-              ),
+
+      //   mainAxisAlignment: MainAxisAlignment.center,
+
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Guide To Egypt',
+              style: TextStyle(
+                  color: AppColors.appTextColor,
+                  fontSize: getResponsiveFontSize(context, fontSize: 40),
+                  fontWeight: FontWeight.bold),
             ),
-          ),
-        ],
+            SizedBox(width: MediaQuery.of(context).size.width * .02),
+            HugeIcon(
+              icon: HugeIcons.strokeRoundedLocation05,
+              color: AppColors.appTextColor,
+              size: getResponsiveFontSize(context, fontSize: 60),
+            )
+          ],
+        ),
       ),
     );
   }

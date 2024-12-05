@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 class Constants {
   static String fontFamily = 'Montserrat';
   static bool user = true;
-  
+
   // static LatLng cairoLatLng = const LatLng(30.033333, 31.233334);
   static String locationCache = '';
   static String token = '';
@@ -18,13 +18,13 @@ class Constants {
   static String currentLanguage = 'en';
   static String passwordApi = r'#as@$#$@as#';
   static Map jsonServerKey = {};
+
 // static RemoteMessage? messageGlobal;
 }
 
 enum StatusRequest { completed, pending, canceled }
 
 bool arabicLanguage = true;
-
 
 class IconAndText {
   final String icon;

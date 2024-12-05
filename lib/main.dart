@@ -76,24 +76,23 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       designSize: const Size(360, 840),
-      child: MultiBlocProvider(
-        providers: const [
-          // BlocProvider(create: (_) => ChatCubit()),
-          // BlocProvider(create: (_) => BottomNavBarCubit()),
-          // BlocProvider(create: (_) => ServiceDetailsCubit()),
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          navigatorKey: navigatorKey,
+      // child: MultiBlocProvider(
+      //   providers: const [
+      //     // BlocProvider(create: (_) => ChatCubit()),
+      //     // BlocProvider(create: (_) => BottomNavBarCubit()),
+      //     // BlocProvider(create: (_) => ServiceDetailsCubit()),
+      //   ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        navigatorKey: navigatorKey,
 
-          //locale: DevicePreview.locale(context),
-          //builder: DevicePreview.appBuilder,
-          theme: light,
-          home: const SplashScreen(),
-        ),
+        //locale: DevicePreview.locale(context),
+        //builder: DevicePreview.appBuilder,
+        theme: light,
+        home: const SplashScreen(),
       ),
     );
   }
