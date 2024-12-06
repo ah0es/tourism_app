@@ -71,6 +71,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    
     arabicLanguage = context.locale.toString() == 'ar_SA';
     Constants.tablet = MediaQuery.of(context).size.width > 600;
     return ScreenUtilInit(
