@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen>
           ..forward();
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
     timer = Timer(
-      const Duration(seconds: 60),
+      const Duration(seconds: 20),
       () {
         context.navigateToPage(OnBordingView());
         // if (onBoardingValue) {
