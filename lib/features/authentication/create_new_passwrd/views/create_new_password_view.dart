@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_app/core/utils/responsive_text.dart';
 import 'package:tourism_app/features/authentication/widgets/custom_button.dart';
-import 'package:tourism_app/features/authentication/widgets/custom_text.dart';
+import 'package:tourism_app/core/component/custom_text.dart';
 import 'package:tourism_app/features/authentication/widgets/custom_textfield.dart';
 
 class CreateNewPasswordView extends StatefulWidget {

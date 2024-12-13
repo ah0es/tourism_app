@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tourism_app/core/themes/colors.dart';
 
 class CustomText extends StatelessWidget {
   final String text;
@@ -7,14 +8,15 @@ class CustomText extends StatelessWidget {
   final Color color;
   final double height;
   final String? fontFamily;
-  final TextAlign textAlign; // Add textAlign property
+  final TextAlign textAlign; 
 
   const CustomText({
     super.key,
     required this.text,
     this.fontSize = 24.0,
     this.fontWeight = FontWeight.w500,
-    this.color = const Color(0xfff9B9496),
+    this.color = AppColors.appTextColor,
+    
     this.height = 1.2,
     this.fontFamily,
     this.textAlign = TextAlign.start, 

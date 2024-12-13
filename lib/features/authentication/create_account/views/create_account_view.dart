@@ -3,7 +3,7 @@ import 'package:tourism_app/core/utils/responsive_text.dart';
 import 'package:tourism_app/features/authentication/login/views/login_view.dart';
 import 'package:tourism_app/features/authentication/signup/views/signup_view.dart';
 import 'package:tourism_app/features/authentication/widgets/custom_button.dart';
-import 'package:tourism_app/features/authentication/widgets/custom_text.dart';
+import 'package:tourism_app/core/component/custom_text.dart';
 
 class CreateAccountView extends StatelessWidget {
   const CreateAccountView({super.key});

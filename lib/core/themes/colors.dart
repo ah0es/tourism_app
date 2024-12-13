@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 class AppColors {
   // Main Colors
   static Color primarycolor = const Color(0xff8D6E3D);
-
+  
+  static const backgroundColor = Color(0xffFDFDFD);
+  static const backgroundColorCard = Color(0xffFFFFFF);
   static const white = Colors.white;
   static Color red = Colors.red;
   static const cNumberMessaging = Color(0xffFC4646);
   static const cLogOutColor = Color(0xffC10000);
-  static const appTextColor = Color(0xffEEEEEE);
-
+  static const appTextColor = Color(0xfff9B9496);
+  
+  static Color babyblue = Color(0xff46A0DB);
+  static Color iconsColor = Color(0xff25161A);
   static Color grey = Colors.grey;
   static Color amber = Colors.amber;
   static Color black = Colors.black;
@@ -43,7 +47,7 @@ class AppColors {
   static const warmTextColor = Color(0xff565656);
   static Color cBackGroundTextField = const Color(0xff99ABC6).withOpacity(.18);
   static const textColor = Color(0xff6B6B6B);
-  static const cBoldTextColor = Color(0xff171E44);
+  static const cBoldTextColor = Color(0xff25161A);
   static const subTextColor = Color(0xff979797);
   static const subTextThinColor = Color(0xff9F9F9F);
   static const fillColorTextFormField = Color(0xffF5F6FA);

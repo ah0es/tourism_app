@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tourism_app/core/themes/colors.dart';
 
 import 'package:tourism_app/core/utils/responsive_text.dart';
+import 'package:tourism_app/features/Profile/presentation/widgets/profile_body.dart';
 import 'package:tourism_app/features/authentication/forgot_password/views/forgot_password.dart';
 import 'package:tourism_app/features/authentication/signup/views/signup_view.dart';
 import 'package:tourism_app/features/authentication/widgets/custom_button.dart';
-import 'package:tourism_app/features/authentication/widgets/custom_text.dart';
+import 'package:tourism_app/core/component/custom_text.dart';
 import 'package:tourism_app/features/authentication/widgets/custom_textfield.dart';
 
 class LoginView extends StatefulWidget {
@@ -102,16 +104,21 @@ class _SignUpState extends State<LoginView> {
                     },
                   ),
                 ),
-                SizedBox(height: 8,),
+                SizedBox(
+                  height: 8,
+                ),
                 Row(
                   children: [
                     Spacer(),
                     GestureDetector(
-                       onTap: () {
-                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => ForgotPasswordView()));
-                  
-                },
-                      child: CustomText(text: 'Forgot Password?',fontSize: getResponsiveFontSize(context, fontSize: 16),),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ForgotPasswordView()));
+                      },
+                      child: CustomText(
+                        text: 'Forgot Password?',
+                        fontSize: getResponsiveFontSize(context, fontSize: 16),
+                      ),
                     ),
                   ],
                 ),
@@ -119,11 +126,15 @@ class _SignUpState extends State<LoginView> {
                 // Sign Up Button
                 CustomButton(
                   text: 'Log In',
-                  backgroundColor: const Color(0xff46A0DB),
+                  backgroundColor: AppColors.babyblue,
                   color: Colors.white,
                   height: buttonHeight,
                   onPressed: () {
-                    print('Log In pressed');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfileBody()),
+                    );
+                    ;
                   },
                 ),
                 SizedBox(height: verticalSpacing * 2),
@@ -177,8 +188,8 @@ class _SignUpState extends State<LoginView> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => SignupView()));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SignupView()));
                       },
                       child: CustomText(
                         text: 'Sign Up',

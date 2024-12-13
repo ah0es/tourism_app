@@ -21,7 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           bottomRight: Radius.circular(20.0),
         ),
         child: Container(
-          color: AppColors.primaryColor,
+          color: AppColors.backgroundColor,
           child: Row(
             children: [
               const ArrowBackButton(
@@ -33,7 +33,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               Center(
                 child: Text(
                   title.tr(),
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.white),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black),
                 ),
               ),
             ],

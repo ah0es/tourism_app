@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:tourism_app/features/authentication/widgets/custom_text.dart';
+import 'package:tourism_app/core/component/custom_text.dart';
 
 
 class CustomButton extends StatefulWidget {

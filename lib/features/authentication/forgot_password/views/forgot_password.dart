@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tourism_app/core/utils/responsive_text.dart';
 import 'package:tourism_app/features/authentication/create_new_passwrd/views/create_new_password_view.dart';
 import 'package:tourism_app/features/authentication/widgets/custom_button.dart';
-import 'package:tourism_app/features/authentication/widgets/custom_text.dart';
+import 'package:tourism_app/core/component/custom_text.dart';
 import 'package:tourism_app/features/authentication/widgets/custom_textfield.dart';
 
 class ForgotPasswordView extends StatelessWidget {
