@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
     timer = Timer(
       const Duration(seconds: 3),
       () {
-        context.navigateToPage(PaymentBody());
+        context.navigateToPage(OnBordingView());
         // if (onBoardingValue) {
         //   //   runAnimation = true;
         //   setState(() {});

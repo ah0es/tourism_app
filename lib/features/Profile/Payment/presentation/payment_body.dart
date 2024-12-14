@@ -43,7 +43,49 @@ class _PaymentBodyState extends State<PaymentBody> {
             SizedBox(
               height: 20,
             ),
-            Expanded(flex: 2, child: ListTileComponent()),
+            Expanded(
+              flex: 2,
+              child: ListView.builder(
+                  itemCount: radioListTileData.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 1.5,
+                          ),
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: ListTile(
+                          leading: Image.asset(
+                            radioListTileData[index].image ??
+                                'assets/images/whats-app.png',
+                            width: 40.w,
+                            height: 40.h,
+                          ),
+                          title: Text(
+                            radioListTileData[index].title,
+                            style: TextStyle(fontSize: 16.sp),
+                          ),
+                          trailing: Transform.scale(
+                            scale: 1.5,
+                            child: Radio(
+                                value: radioListTileData[index].title,
+                                groupValue: selectedPayment,
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedPayment = value;
+                                  });
+                                }),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+            ),
             Padding(
               padding: const EdgeInsets.only(bottom: 170, left: 10, right: 10),
               child: CustomButton(
@@ -76,47 +118,5 @@ class _PaymentBodyState extends State<PaymentBody> {
         ),
       ),
     );
-  }
-
-  ListView ListTileComponent() {
-    return ListView.builder(
-        itemCount: radioListTileData.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.grey,
-                  width: 1.5,
-                ),
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: ListTile(
-                leading: Image.asset(
-                  radioListTileData[index].image ??
-                      'assets/images/whats-app.png',
-                  width: 40.w,
-                  height: 40.h,
-                ),
-                title: Text(
-                  radioListTileData[index].title,
-                  style: TextStyle(fontSize: 16.sp),
-                ),
-                trailing: Transform.scale(
-                  scale: 1.5,
-                  child: Radio(
-                      value: radioListTileData[index].title,
-                      groupValue: selectedPayment,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedPayment = value;
-                        });
-                      }),
-                ),
-              ),
-            ),
-          );
-        });
   }
 }
