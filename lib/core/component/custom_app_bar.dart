@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:tourism_app/core/component/buttons/arrow_back_button.dart';
 import 'package:tourism_app/core/themes/colors.dart';
 
-
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
@@ -25,15 +24,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Row(
             children: [
               const ArrowBackButton(
-                borderColor: Colors.white,
-                iconColor: Colors.white,
+                borderColor: Colors.black,
+                iconColor: Colors.black,
                 backgroundColor: Colors.transparent,
               ),
               const SizedBox(width: 10),
               Center(
                 child: Text(
                   title.tr(),
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(color: Colors.black),
                 ),
               ),
             ],

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/utils/constants.dart';
+import 'package:tourism_app/features/Profile/Payment/presentation/payment_body.dart';
+import 'package:tourism_app/features/Profile/presentation/widgets/profile_body.dart';
 import 'package:tourism_app/features/authentication/create_account/views/create_account_view.dart';
 import 'package:tourism_app/features/authentication/login/views/login_view.dart';
 import 'package:tourism_app/features/splashScreen/view/presentation/splash_screen.dart';
@@ -60,7 +62,7 @@ void main() async {
             Locale('ar', 'SA'),
           ],
           path: 'assets/translation',
-          startLocale: const Locale('ar', 'SA'),
+          startLocale: const Locale('en', 'US'),
           child: const MyApp(),
         );
       },
@@ -72,7 +74,6 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    
     arabicLanguage = context.locale.toString() == 'ar_SA';
     Constants.tablet = MediaQuery.of(context).size.width > 600;
     return ScreenUtilInit(

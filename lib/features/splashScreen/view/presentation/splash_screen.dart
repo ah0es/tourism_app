@@ -6,6 +6,7 @@ import 'package:tourism_app/core/themes/colors.dart';
 import 'package:tourism_app/core/utils/app_images.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/core/utils/responsive_text.dart';
+import 'package:tourism_app/features/Profile/Payment/presentation/payment_body.dart';
 import 'package:tourism_app/features/onbording/presentation/onbordingbody.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -26,13 +27,13 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     //currentLocation();
     controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 60))
+        AnimationController(vsync: this, duration: const Duration(seconds: 3))
           ..forward();
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
     timer = Timer(
-      const Duration(seconds: 20),
+      const Duration(seconds: 3),
       () {
-        context.navigateToPage(OnBordingView());
+        context.navigateToPage(PaymentBody());
         // if (onBoardingValue) {
         //   //   runAnimation = true;
         //   setState(() {});

@@ -3,7 +3,9 @@ import 'package:tourism_app/core/component/custom_cardItem.dart';
 import 'package:tourism_app/core/component/custom_text.dart';
 import 'package:tourism_app/core/themes/colors.dart';
 import 'package:tourism_app/core/utils/app_images.dart';
+import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/core/utils/responsive_text.dart';
+import 'package:tourism_app/features/Profile/Payment/presentation/payment_body.dart';
 import 'package:tourism_app/features/Profile/data/models/list_item_model.dart';
 import 'package:tourism_app/features/Profile/data/models/profile_model.dart';
 
@@ -56,9 +58,9 @@ class ProfileBody extends StatelessWidget {
       ListItemModel(
         icon: Icons.payment,
         title: 'Payment Method',
-        // onTap: () {
-
-        // },
+        onTap: () {
+          context.navigateToPage(PaymentBody());
+        },
       ),
       ListItemModel(
         icon: Icons.help_outline,
@@ -141,7 +143,7 @@ class ProfileBody extends StatelessWidget {
                   return CardItem(
                     icon: item.icon,
                     title: item.title,
-                    // onTap: item.onTap,
+                    onTap: item.onTap,
                   );
                 }).toList(),
               ),
