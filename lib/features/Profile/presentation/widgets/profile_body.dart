@@ -8,6 +8,7 @@ import 'package:tourism_app/core/utils/responsive_text.dart';
 import 'package:tourism_app/features/Profile/Payment/presentation/payment_body.dart';
 import 'package:tourism_app/features/Profile/data/models/list_item_model.dart';
 import 'package:tourism_app/features/Profile/data/models/profile_model.dart';
+import 'package:tourism_app/features/Profile/notifications/presentation/notifications_body.dart';
 
 class ProfileBody extends StatelessWidget {
   const ProfileBody({super.key});
@@ -33,6 +34,13 @@ class ProfileBody extends StatelessWidget {
         // onTap: () {
 
         // },
+      ),
+      ListItemModel(
+        icon: Icons.notifications,
+        title: 'My Notification',
+        onTap: () {
+          context.navigateToPage(NotificationsBody());
+        },
       ),
       ListItemModel(
         icon: Icons.chat,

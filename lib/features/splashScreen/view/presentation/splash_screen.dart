@@ -7,6 +7,8 @@ import 'package:tourism_app/core/utils/app_images.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/core/utils/responsive_text.dart';
 import 'package:tourism_app/features/Profile/Payment/presentation/payment_body.dart';
+import 'package:tourism_app/features/Profile/notifications/presentation/notifications_body.dart';
+import 'package:tourism_app/features/Profile/presentation/widgets/profile_body.dart';
 import 'package:tourism_app/features/onbording/presentation/onbordingbody.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -33,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen>
     timer = Timer(
       const Duration(seconds: 3),
       () {
-        context.navigateToPage(OnBordingView());
+        context.navigateToPage(ProfileBody());
         // if (onBoardingValue) {
         //   //   runAnimation = true;
         //   setState(() {});

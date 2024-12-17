@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class AppColors {
   // Main Colors
   static Color primarycolor = const Color(0xff8D6E3D);
-  
-  static const backgroundColor = Color(0xffFDFDFD);
+
+  static const backgroundColor = Colors.white;
   static const backgroundColorCard = Color(0xffFFFFFF);
   static const white = Colors.white;
   static Color red = Colors.red;
   static const cNumberMessaging = Color(0xffFC4646);
   static const cLogOutColor = Color(0xffC10000);
   static const appTextColor = Color(0xfff9B9496);
-  
+
   static Color babyblue = Color(0xff46A0DB);
   static Color iconsColor = Color(0xff25161A);
   static Color grey = Colors.grey;

@@ -36,7 +36,7 @@ class _OnBordingViewState extends State<OnBordingView> {
   ];
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundColor,
       body: Stack(
         children: [
           Expanded(
