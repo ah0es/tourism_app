@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/component/custom_app_bar.dart';
 import 'package:tourism_app/core/component/row_imag_payment.dart';
+import 'package:tourism_app/core/themes/colors.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/core/utils/responsive_text.dart';
 import 'package:tourism_app/features/Profile/Payment/data/radio_list_tile_data.dart';
@@ -34,7 +35,7 @@ class _PaymentBodyState extends State<PaymentBody> {
       //   title: 'Payment Method',
       // ),
       appBar: AppBar(),
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundColor,
       body: Directionality(
         textDirection: TextDirection.ltr,
         child: Column(

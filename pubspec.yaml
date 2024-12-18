@@ -50,6 +50,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   fluttertoast: ^8.2.5
   geolocator: ^13.0.2
+  gestures: ^1.0.0
   google_maps_flutter: ^2.6.1
   googleapis_auth: ^1.6.0
   hive: ^2.2.3
