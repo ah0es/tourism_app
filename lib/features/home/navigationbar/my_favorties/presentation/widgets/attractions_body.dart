@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tourism_app/core/component/custom_card_image_attractions.dart';
+import 'package:tourism_app/core/utils/app_images.dart';
 
 class AttractionsBody extends StatelessWidget {
   const AttractionsBody({super.key});
@@ -11,7 +12,7 @@ class AttractionsBody extends StatelessWidget {
       child: Column(
         children: [
           CustomCardImageAttractions(
-            image: 'assets/images/Rectangle.png',
+            image: AppImages.rectangleAttraction,
             name: 'East and West Banks',
             governorate: 'Luxor',
             country: 'Egypt',
@@ -37,7 +38,7 @@ class AttractionsBody extends StatelessWidget {
             },
           ),
           CustomCardImageAttractions(
-            image: 'assets/images/Rectangle.png',
+            image: AppImages.rectangleAttraction,
             name: 'East and West Banks',
             governorate: 'Luxor',
             country: 'Egypt',
@@ -50,7 +51,7 @@ class AttractionsBody extends StatelessWidget {
             },
           ),
           CustomCardImageAttractions(
-            image: 'assets/images/Rectangle.png',
+            image: AppImages.rectangleAttraction,
             name: 'East and West Banks',
             governorate: 'Luxor',
             country: 'Egypt',
@@ -63,7 +64,7 @@ class AttractionsBody extends StatelessWidget {
             },
           ),
           CustomCardImageAttractions(
-            image: 'assets/images/Rectangle.png',
+            image: AppImages.rectangleAttraction,
             name: 'East and West Banks',
             governorate: 'Luxor',
             country: 'Egypt',
@@ -76,7 +77,7 @@ class AttractionsBody extends StatelessWidget {
             },
           ),
           CustomCardImageAttractions(
-            image: 'assets/images/Rectangle.png',
+            image: AppImages.rectangleAttraction,
             name: 'East and West Banks',
             governorate: 'Luxor',
             country: 'Egypt',

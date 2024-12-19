@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tourism_app/core/component/custom_card_image_restaurant.dart';
+import 'package:tourism_app/core/utils/app_images.dart';
 
 class RestaurantCafeBody extends StatelessWidget {
   const RestaurantCafeBody({super.key});
@@ -14,7 +15,7 @@ class RestaurantCafeBody extends StatelessWidget {
             children: [
               Flexible(
                 child: CustomCardImageRestaurant(
-                  image: 'assets/images/Rectangle.png',
+                  image: AppImages.rectangleAttraction,
                   name: 'East and West Banks',
                   governorate: 'Luxor',
                   country: 'Egypt',
@@ -27,7 +28,7 @@ class RestaurantCafeBody extends StatelessWidget {
               ),
               Flexible(
                 child: CustomCardImageRestaurant(
-                  image: 'assets/images/Rectangle.png',
+                  image: AppImages.rectangleAttraction,
                   name: 'East and West Banks',
                   governorate: 'Luxor',
                   country: 'Egypt',
@@ -41,7 +42,7 @@ class RestaurantCafeBody extends StatelessWidget {
             children: [
               Flexible(
                 child: CustomCardImageRestaurant(
-                  image: 'assets/images/Rectangle.png',
+                  image: AppImages.rectangleAttraction,
                   name: 'East and West Banks',
                   governorate: 'Luxor',
                   country: 'Egypt',
@@ -54,7 +55,7 @@ class RestaurantCafeBody extends StatelessWidget {
               ),
               Flexible(
                 child: CustomCardImageRestaurant(
-                  image: 'assets/images/Rectangle.png',
+                  image: AppImages.rectangleAttraction,
                   name: 'East and West Banks',
                   governorate: 'Luxor',
                   country: 'Egypt',
@@ -68,7 +69,7 @@ class RestaurantCafeBody extends StatelessWidget {
             children: [
               Flexible(
                 child: CustomCardImageRestaurant(
-                  image: 'assets/images/Rectangle.png',
+                  image: AppImages.rectangleAttraction,
                   name: 'East and West Banks',
                   governorate: 'Luxor',
                   country: 'Egypt',
@@ -81,7 +82,7 @@ class RestaurantCafeBody extends StatelessWidget {
               ),
               Flexible(
                 child: CustomCardImageRestaurant(
-                  image: 'assets/images/Rectangle.png',
+                  image: AppImages.rectangleAttraction,
                   name: 'East and West Banks',
                   governorate: 'Luxor',
                   country: 'Egypt',
@@ -95,7 +96,7 @@ class RestaurantCafeBody extends StatelessWidget {
             children: [
               Flexible(
                 child: CustomCardImageRestaurant(
-                  image: 'assets/images/Rectangle.png',
+                  image: AppImages.rectangleAttraction,
                   name: 'East and West Banks',
                   governorate: 'Luxor',
                   country: 'Egypt',
@@ -108,7 +109,7 @@ class RestaurantCafeBody extends StatelessWidget {
               ),
               Flexible(
                 child: CustomCardImageRestaurant(
-                  image: 'assets/images/Rectangle.png',
+                  image: AppImages.rectangleAttraction,
                   name: 'East and West Banks',
                   governorate: 'Luxor',
                   country: 'Egypt',

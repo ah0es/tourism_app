@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:tourism_app/core/themes/colors.dart';
+import 'package:tourism_app/core/utils/app_images.dart';
 import 'package:tourism_app/features/onbording/data/models/onbording_data_model.dart';
 import 'package:tourism_app/features/onbording/presentation/widgets/onbording_data_page.dart';
 
@@ -19,17 +20,17 @@ class _OnBordingViewState extends State<OnBordingView> {
   int currentPage = 0;
   final List<OnBordingData> onbordingData = [
     OnBordingData(
-        image: 'assets/images/test-select-image.png',
+        image: AppImages.testbording,
         title: 'Start an Easy Journey through Egypt',
         description:
             'Discover the best hotels, restaurants, and museums in every city with personalized recommendations tailored to your interests.'),
     OnBordingData(
-        image: 'assets/images/test-select-image.png',
+        image: AppImages.testbording,
         title: 'All Information at Your Fingertips',
         description:
             'Take pictures of places to get instant details and history, while avoiding tourist scams by knowing local prices for food, transport, and services.'),
     OnBordingData(
-        image: 'assets/images/test-select-image.png',
+        image: AppImages.testbording,
         title: 'Additional Services to Enhance Your Journey',
         description:
             'Book a trusted tour guide with a single click and use real-time translation to easily communicate with locals.')
