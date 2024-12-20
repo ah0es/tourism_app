@@ -58,13 +58,29 @@ class MyBookingBody extends StatelessWidget {
               color: AppColors.black,
             ),
             SizedBox(height: 8.h),
-            CustomCardImageTourguide(
-              image: 'assets/images/Group1.png',
-              language1: 'English',
-              language2: 'Japanese',
-              name: 'Ahmed fathy',
-              rate: 1,
-              price: 500,
+            Row(
+              children: [
+                Flexible(
+                  child: CustomCardImageTourguide(
+                    image: AppImages.groupTourguide,
+                    language1: 'English',
+                    language2: 'Japanese',
+                    name: 'Ahmed fathy',
+                    rate: 1,
+                    price: 500,
+                  ),
+                ),
+                Flexible(
+                  child: CustomCardImageTourguide(
+                    image: AppImages.groupTourguide,
+                    language1: 'English',
+                    language2: 'Japanese',
+                    name: 'Ahmed fathy',
+                    rate: 1,
+                    price: 500,
+                  ),
+                ),
+              ],
             ),
             //     );
             // GridView.builder(
