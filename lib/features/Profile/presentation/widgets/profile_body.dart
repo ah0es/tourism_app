@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tourism_app/core/component/buttons/custom_pop_button.dart';
+import 'package:tourism_app/core/component/custom_app_bar.dart';
 import 'package:tourism_app/core/component/custom_cardItem.dart';
 import 'package:tourism_app/core/component/custom_text.dart';
 import 'package:tourism_app/core/themes/colors.dart';
@@ -81,23 +84,7 @@ class ProfileBody extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.backgroundColor,
-        title: CustomText(
-          text: 'My Profile',
-          color: AppColors.cBoldTextColor,
-          fontSize: getResponsiveFontSize(
-            context,
-            fontSize: 20,
-          ),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+      appBar: CustomAppBar(title: 'My Profile',),
       body: SingleChildScrollView(
         child: Column(
           children: [

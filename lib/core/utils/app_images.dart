@@ -34,4 +34,5 @@ class AppImages {
   static const googleMap = '$baseUrl/Google Map.png';
   static const commonQuestions = '$baseUrl/common-question.png';
   static const editImageProfile = '$baseUrl/edit-image-profile.png';
+  static const tourImageProfile ='$baseUrl/Group1.png';
 }

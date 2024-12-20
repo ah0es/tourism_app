@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   awesome_notifications: any
+  barcode_widget: ^2.0.4
   cached_network_image: ^3.3.1
   carousel_slider: ^5.0.0
   cupertino_icons: ^1.0.8
