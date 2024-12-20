@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tourism_app/core/component/custom_card_image_hotels.dart';
+import 'package:tourism_app/core/utils/app_images.dart';
 
 class HotelsBody extends StatelessWidget {
   const HotelsBody({super.key});
@@ -14,7 +15,7 @@ class HotelsBody extends StatelessWidget {
             country: 'Egypt',
             governorate: 'Luxor',
             iconData: Icons.location_pin,
-            image: 'assets/images/Rectangle1.png',
+            image: AppImages.Rectangle1Hotels,
             name: 'Four Seasons',
             price: 20,
             rate: 3,
@@ -23,7 +24,7 @@ class HotelsBody extends StatelessWidget {
             country: 'Egypt',
             governorate: 'Luxor',
             iconData: Icons.location_pin,
-            image: 'assets/images/Rectangle2.png',
+            image: AppImages.Rectangle2Hotels,
             name: 'Four Seasons',
             price: 20,
             rate: 3,
@@ -32,7 +33,7 @@ class HotelsBody extends StatelessWidget {
             country: 'Egypt',
             governorate: 'Luxor',
             iconData: Icons.location_pin,
-            image: 'assets/images/Rectangle3.png',
+            image: AppImages.Rectangle3Hotels,
             name: 'Four Seasons',
             price: 20,
             rate: 3,
@@ -41,7 +42,7 @@ class HotelsBody extends StatelessWidget {
             country: 'Egypt',
             governorate: 'Luxor',
             iconData: Icons.location_pin,
-            image: 'assets/images/Rectangle4.png',
+            image: AppImages.Rectangle4Hotels,
             name: 'Four Seasons',
             price: 20,
             rate: 3,
@@ -50,7 +51,7 @@ class HotelsBody extends StatelessWidget {
             country: 'Egypt',
             governorate: 'Luxor',
             iconData: Icons.location_pin,
-            image: 'assets/images/Rectangle5.png',
+            image: AppImages.Rectangle5Hotels,
             name: 'Four Seasons',
             price: 20,
             rate: 3,

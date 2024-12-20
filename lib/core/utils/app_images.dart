@@ -7,12 +7,22 @@ class AppImages {
   static const loginImage = '$baseUrl/Login_image.png';
   static const passwordChangeImage = '$baseUrl/Password_change.png';
   static const homeImage = '$baseUrl/homeImage.png';
+  static const testbording = '$baseUrl/test-select-image.png';
+  static const notification = '$baseUrl/Ellipse 226.png';
+  static const rectangleAttraction = '$baseUrl/Rectangle.png';
+  static const groupTourguide = '$baseUrl/Group1.png';
+  static const Rectangle1Hotels = '$baseUrl/Rectangle1.png';
+  static const Rectangle2Hotels = '$baseUrl/Rectangle2.png';
+  static const Rectangle3Hotels = '$baseUrl/Rectangle3.png';
+  static const Rectangle4Hotels = '$baseUrl/Rectangle4.png';
+  static const Rectangle5Hotels = '$baseUrl/Rectangle5.png';
   static const categoryTestImage = '$baseUrl/categoryTestImage.png';
   static const categoryTestImage2 = '$baseUrl/categoryTestImage2.png';
   static const productDetailsTestImage = '$baseUrl/ProductDetailsTestImage.png';
   static const commentTestImage = '$baseUrl/CommentTestImage.png';
   static const emptyCartImage = '$baseUrl/emptyCartImage.png';
-  static const backgroundProductDetails = '$baseUrl/backgroundProductDetails.png';
+  static const backgroundProductDetails =
+      '$baseUrl/backgroundProductDetails.png';
   static const categoryImageTest3 = '$baseUrl/categoryImageTest3.png';
   static const categoryImageTest4 = '$baseUrl/categoryImageTest4.png';
   static const orderDone = '$baseUrl/orderDone.png';

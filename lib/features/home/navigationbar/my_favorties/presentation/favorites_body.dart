@@ -32,14 +32,26 @@ class _MyFavoritesBodyState extends State<MyFavoritesBody> {
       appBar: AppBar(),
       body: Column(
         children: [
-          Row(
-            //mainAxisAlignment: CrossAxisAlignment.,
-            children: [
-              Expanded(child: TextClikable('Attractions')),
-              Expanded(child: TextClikable('Hotels')),
-              Expanded(child: TextClikable('RestaurantCafe')),
-              Expanded(child: TextClikable('TourGuides')),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              //mainAxisAlignment: CrossAxisAlignment.,
+              children: [
+                TextClikable('Attractions'),
+                SizedBox(
+                  width: 7,
+                ),
+                TextClikable('Hotels'),
+                SizedBox(
+                  width: 7,
+                ),
+                TextClikable('RestaurantCafe'),
+                SizedBox(
+                  width: 7,
+                ),
+                TextClikable('TourGuides'),
+              ],
+            ),
           ),
           Expanded(child: ShowContent()),
         ],
@@ -57,7 +69,7 @@ class _MyFavoritesBodyState extends State<MyFavoritesBody> {
       child: Text(
         text,
         style: TextStyle(
-            fontSize: 13.sp,
+            fontSize: 20.sp,
             fontWeight: FontWeight.w600,
             color: selectedText == text ? Colors.blue : Colors.black),
       ),

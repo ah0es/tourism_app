@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_app/core/component/custom_card_image_tourguide.dart';
+import 'package:tourism_app/core/utils/app_images.dart';
 
 class TourguideBody extends StatelessWidget {
   const TourguideBody({super.key});
@@ -12,7 +13,7 @@ class TourguideBody extends StatelessWidget {
         Row(children: [
           Flexible(
               child: CustomCardImageTourguide(
-            image: 'assets/images/Group1.png',
+            image: AppImages.groupTourguide,
             language1: 'English',
             language2: 'Japanese',
             name: 'Ahmed fathy',
@@ -22,7 +23,7 @@ class TourguideBody extends StatelessWidget {
           ),
           Flexible(
               child: CustomCardImageTourguide(
-            image: 'assets/images/Group1.png',
+            image: AppImages.groupTourguide,
             language1: 'English',
             language2: 'Japanese',
             name: 'Ahmed fathy',
@@ -34,7 +35,7 @@ class TourguideBody extends StatelessWidget {
           children: [
             Flexible(
                 child: CustomCardImageTourguide(
-              image: 'assets/images/Group1.png',
+              image: AppImages.groupTourguide,
               language1: 'English',
               language2: 'Japanese',
               name: 'Ahmed fathy',
@@ -44,7 +45,7 @@ class TourguideBody extends StatelessWidget {
             ),
             Flexible(
                 child: CustomCardImageTourguide(
-              image: 'assets/images/Group1.png',
+              image: AppImages.groupTourguide,
               language1: 'English',
               language2: 'Japanese',
               name: 'Ahmed fathy',
@@ -57,7 +58,7 @@ class TourguideBody extends StatelessWidget {
           children: [
             Flexible(
                 child: CustomCardImageTourguide(
-              image: 'assets/images/Group1.png',
+              image: AppImages.groupTourguide,
               language1: 'English',
               language2: 'Japanese',
               name: 'Ahmed fathy',
@@ -66,7 +67,7 @@ class TourguideBody extends StatelessWidget {
             )),
             Flexible(
                 child: CustomCardImageTourguide(
-              image: 'assets/images/Group1.png',
+              image: AppImages.groupTourguide,
               language1: 'English',
               language2: 'Japanese',
               name: 'Ahmed fathy',

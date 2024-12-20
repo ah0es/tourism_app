@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/component/custom_card_notification.dart';
 import 'package:tourism_app/core/themes/colors.dart';
+import 'package:tourism_app/core/utils/app_images.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
 
 class NotificationsBody extends StatelessWidget {
@@ -24,21 +25,21 @@ class NotificationsBody extends StatelessWidget {
               height: 20,
             ),
             CustomCardNotification(
-              image: 'assets/images/Ellipse 226.png',
+              image: AppImages.notification,
               title: 'You Have 15% Discount On Your First Ticket',
               description:
                   'Congratulations! Enjoy A Special 15% Discount On Your First Booking With Guide To Egypt',
               dateTime: DateTime(2024, 12, 16),
             ),
             CustomCardNotification(
-              image: 'assets/images/Ellipse 226.png',
+              image: AppImages.notification,
               title: 'You Have 15% Discount On Your First Ticket',
               description:
                   'Congratulations! Enjoy A Special 15% Discount On Your First Booking With Guide To Egypt',
               dateTime: DateTime(2024, 12, 16),
             ),
             CustomCardNotification(
-              image: 'assets/images/Ellipse 226.png',
+              image: AppImages.notification,
               title: 'You Have 15% Discount On Your First Ticket',
               description:
                   'Congratulations! Enjoy A Special 15% Discount On Your First Booking With Guide To Egypt',
@@ -48,42 +49,42 @@ class NotificationsBody extends StatelessWidget {
               height: 10,
             ),
             CustomCardNotification(
-              image: 'assets/images/Ellipse 226.png',
+              image: AppImages.notification,
               title: 'You Have 15% Discount On Your First Ticket',
               description:
                   'Congratulations! Enjoy A Special 15% Discount On Your First Booking With Guide To Egypt',
               dateTime: DateTime(2024, 12, 16),
             ),
             CustomCardNotification(
-              image: 'assets/images/Ellipse 226.png',
+              image: AppImages.notification,
               title: 'You Have 15% Discount On Your First Ticket',
               description:
                   'Congratulations! Enjoy A Special 15% Discount On Your First Booking With Guide To Egypt',
               dateTime: DateTime(2024, 12, 16),
             ),
             CustomCardNotification(
-              image: 'assets/images/Ellipse 226.png',
+              image: AppImages.notification,
               title: 'You Have 15% Discount On Your First Ticket',
               description:
                   'Congratulations! Enjoy A Special 15% Discount On Your First Booking With Guide To Egypt',
               dateTime: DateTime(2024, 12, 16),
             ),
             CustomCardNotification(
-              image: 'assets/images/Ellipse 226.png',
+              image: AppImages.notification,
               title: 'You Have 15% Discount On Your First Ticket',
               description:
                   'Congratulations! Enjoy A Special 15% Discount On Your First Booking With Guide To Egypt',
               dateTime: DateTime(2024, 12, 16),
             ),
             CustomCardNotification(
-              image: 'assets/images/Ellipse 226.png',
+              image: AppImages.notification,
               title: 'You Have 15% Discount On Your First Ticket',
               description:
                   'Congratulations! Enjoy A Special 15% Discount On Your First Booking With Guide To Egypt',
               dateTime: DateTime(2024, 12, 16),
             ),
             CustomCardNotification(
-              image: 'assets/images/Ellipse 226.png',
+              image: AppImages.notification,
               title: 'You Have 15% Discount On Your First Ticket',
               description:
                   'Congratulations! Enjoy A Special 15% Discount On Your First Booking With Guide To Egypt',
