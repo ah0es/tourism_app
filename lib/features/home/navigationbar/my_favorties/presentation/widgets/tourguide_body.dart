@@ -18,7 +18,9 @@ class TourguideBody extends StatelessWidget {
             language2: 'Japanese',
             name: 'Ahmed fathy',
             rate: 1,
-          )),
+            price: 500,
+          ),
+          ),
           Flexible(
               child: CustomCardImageTourguide(
             image: AppImages.groupTourguide,
@@ -26,6 +28,7 @@ class TourguideBody extends StatelessWidget {
             language2: 'Japanese',
             name: 'Ahmed fathy',
             rate: 1,
+            price: 500,
           )),
         ]),
         Row(
@@ -37,7 +40,9 @@ class TourguideBody extends StatelessWidget {
               language2: 'Japanese',
               name: 'Ahmed fathy',
               rate: 1,
-            )),
+              price: 500,
+            ),
+            ),
             Flexible(
                 child: CustomCardImageTourguide(
               image: AppImages.groupTourguide,
@@ -45,6 +50,7 @@ class TourguideBody extends StatelessWidget {
               language2: 'Japanese',
               name: 'Ahmed fathy',
               rate: 1,
+              price: 500,
             )),
           ],
         ),
@@ -57,6 +63,7 @@ class TourguideBody extends StatelessWidget {
               language2: 'Japanese',
               name: 'Ahmed fathy',
               rate: 1,
+              price: 500,
             )),
             Flexible(
                 child: CustomCardImageTourguide(
@@ -65,6 +72,7 @@ class TourguideBody extends StatelessWidget {
               language2: 'Japanese',
               name: 'Ahmed fathy',
               rate: 1,
+              price: 500,
             )),
           ],
         ),

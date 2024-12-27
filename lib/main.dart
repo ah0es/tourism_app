@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/utils/constants.dart';
+import 'package:tourism_app/features/Profile/Payment/mybooking/presentation/my_booking_body.dart';
 import 'package:tourism_app/features/Profile/Payment/presentation/payment_body.dart';
 import 'package:tourism_app/features/Profile/presentation/widgets/profile_body.dart';
 import 'package:tourism_app/features/authentication/create_account/views/create_account_view.dart';
 import 'package:tourism_app/features/authentication/login/views/login_view.dart';
+import 'package:tourism_app/features/home/navigationbar/my_favorties/presentation/favorites_body.dart';
 import 'package:tourism_app/features/splashScreen/view/presentation/splash_screen.dart';
 import 'core/network/dio_helper.dart';
 import 'core/network/local/cache.dart';
@@ -96,7 +98,7 @@ class MyApp extends StatelessWidget {
         //locale: DevicePreview.locale(context),
         //builder: DevicePreview.appBuilder,
         theme: light,
-        home: const SplashScreen(),
+        home: MyBookingBody(),
       ),
     );
   }
