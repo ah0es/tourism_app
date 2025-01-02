@@ -22,7 +22,7 @@ class AppColors {
   static const greenWarm = Color(0xff00713B);
 
   static const scaffoldBackGround = Color(0xff46A0DB);
-  static const primaryColor = Color(0xff33C0A8);
+  static const primaryColor = Color(0xff46A0DB);
   static const secondPrimaryColor = Color(0xffC3D301);
   static const cBookedColor = Color(0xffF1B244);
 

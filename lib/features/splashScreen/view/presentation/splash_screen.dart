@@ -10,7 +10,7 @@ import 'package:tourism_app/features/Profile/Payment/presentation/payment_body.d
 import 'package:tourism_app/features/Profile/notifications/presentation/notifications_body.dart';
 import 'package:tourism_app/features/Profile/presentation/widgets/profile_body.dart';
 import 'package:tourism_app/features/home/navigationbar/my_favorties/presentation/favorites_body.dart';
-import 'package:tourism_app/features/onbording/presentation/onbordingbody.dart';
+import 'package:tourism_app/features/onbording/presentation/onboarding_view.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,8 +19,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
   late Animation<double> animation;
   late AnimationController controller;
   late Timer timer;
@@ -29,14 +28,12 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     //currentLocation();
-    controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 3))
-          ..forward();
+    controller = AnimationController(vsync: this, duration: const Duration(seconds: 3))..forward();
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
     timer = Timer(
       const Duration(seconds: 3),
       () {
-        context.navigateToPage(MyFavoritesBody());
+        context.navigateToPage(OnBoardingView());
         // if (onBoardingValue) {
         //   //   runAnimation = true;
         //   setState(() {});
@@ -102,10 +99,7 @@ class _SplashScreenState extends State<SplashScreen>
           children: [
             Text(
               'Guide To Egypt',
-              style: TextStyle(
-                  color: AppColors.appTextColor,
-                  fontSize: getResponsiveFontSize(context, fontSize: 40),
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(color: AppColors.appTextColor, fontSize: getResponsiveFontSize(context, fontSize: 40), fontWeight: FontWeight.bold),
             ),
             SizedBox(width: MediaQuery.of(context).size.width * .02),
             HugeIcon(

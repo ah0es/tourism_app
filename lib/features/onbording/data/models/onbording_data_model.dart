@@ -1,8 +1,6 @@
-class OnBordingData {
-  final String image;
+class OnBoardingData {
   final String title;
   final String description;
 
-  OnBordingData(
-      {required this.image, required this.title, required this.description});
+  OnBoardingData({required this.title, required this.description});
 }

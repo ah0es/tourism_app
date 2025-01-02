@@ -92,9 +92,7 @@ class _SignUpState extends State<LoginView> {
                   controller: passwordController,
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _isPasswordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off,
+                      _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                       color: const Color(0xff9B9496),
                     ),
                     onPressed: () {
@@ -112,8 +110,7 @@ class _SignUpState extends State<LoginView> {
                     Spacer(),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ForgotPasswordView()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ForgotPasswordView()));
                       },
                       child: CustomText(
                         text: 'Forgot Password?',
@@ -134,7 +131,6 @@ class _SignUpState extends State<LoginView> {
                       context,
                       MaterialPageRoute(builder: (context) => ProfileBody()),
                     );
-                    ;
                   },
                 ),
                 SizedBox(height: verticalSpacing * 2),
@@ -170,10 +166,8 @@ class _SignUpState extends State<LoginView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Image.asset(
-                        'assets/images/google-icon-logo-svgrepo-com 1.png'),
-                    Image.asset(
-                        'assets/images/facebook-3-logo-svgrepo-com 1.png'),
+                    Image.asset('assets/images/google-icon-logo-svgrepo-com 1.png'),
+                    Image.asset('assets/images/facebook-3-logo-svgrepo-com 1.png'),
                   ],
                 ),
                 SizedBox(height: verticalSpacing * 2),
@@ -188,8 +182,7 @@ class _SignUpState extends State<LoginView> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => SignupView()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignupView()));
                       },
                       child: CustomText(
                         text: 'Sign Up',

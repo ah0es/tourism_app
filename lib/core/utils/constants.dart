@@ -1,5 +1,7 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:tourism_app/core/utils/app_images.dart';
+import 'package:tourism_app/features/onbording/data/models/onbording_data_model.dart';
 
 class Constants {
   static String fontFamily = 'Montserrat';
@@ -25,49 +27,24 @@ class Constants {
 enum StatusRequest { completed, pending, canceled }
 
 bool arabicLanguage = true;
-
-class IconAndText {
-  final String icon;
-  final String text;
-
-  IconAndText({required this.icon, required this.text});
-}
-
-List<DayAndMonth> weekDay = [
-  DayAndMonth(day: 'السبت'.tr(), dayInMonth: '30'),
-  DayAndMonth(day: 'الاحد'.tr(), dayInMonth: '01'),
-  DayAndMonth(day: 'الاثنين'.tr(), dayInMonth: '02'),
-  DayAndMonth(day: 'الثلاثاء'.tr(), dayInMonth: '03'),
-  DayAndMonth(day: 'الاربعاء'.tr(), dayInMonth: '04'),
-  DayAndMonth(day: 'الخميس'.tr(), dayInMonth: '05'),
-  DayAndMonth(day: 'الجمعه'.tr(), dayInMonth: '06'),
+List<String> onboardingImages = [
+  AppImages.onboardingOne,
+  AppImages.onboardingTwo,
+  AppImages.onboardingThree,
+];
+final List<OnBoardingData> onboardingData = [
+  OnBoardingData(
+      title: 'Start an Easy Journey through Egypt',
+      description: 'Discover the best hotels, restaurants, and museums in every city with personalized recommendations tailored to your interests.'),
+  OnBoardingData(
+      title: 'All Information at Your Fingertips',
+      description:
+          'Take pictures of places to get instant details and history, while avoiding tourist scams by knowing local prices for food, transport, and services.'),
+  OnBoardingData(
+      title: 'Additional Services to Enhance Your Journey',
+      description: 'Book a trusted tour guide with a single click and use real-time translation to easily communicate with locals.'),
 ];
 
-class DayAndMonth {
-  final String day;
-  final String dayInMonth;
-
-  DayAndMonth({required this.day, required this.dayInMonth});
-}
-
-// class TaskData {
-//   final String? time;
-//   final String? title;
-//   final String? discription;
-//   final String? taskType;
-
-//   TaskData(
-//       {required this.time,
-//       required this.title,
-//       required this.discription,
-//       required this.taskType});
-// }
-
-// WHATSAPP  = '1'
-// EMAIL  = '2'
-// CALL = '3'
-// MEETING = '4';
-// PROJECT = '5';
 enum ContactMethods { whatsapp, email, call, meeting, project }
 
 enum Gender { male, female }

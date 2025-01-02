@@ -1,9 +1,9 @@
 class AppImages {
   static const baseUrl = 'assets/images';
   static const logo = '$baseUrl/splash-screen-logo.png';
-  static const onboardingOne = '$baseUrl/onboardingOne.png';
-  static const onboardingTwo = '$baseUrl/onBoardingTwo.png';
-  static const onboardingThree = '$baseUrl/onBoardingThree.png';
+  static const onboardingOne = '$baseUrl/onboarding-one.png';
+  static const onboardingTwo = '$baseUrl/onboarding-two.png';
+  static const onboardingThree = '$baseUrl/onboarding-three.png';
   static const loginImage = '$baseUrl/Login_image.png';
   static const passwordChangeImage = '$baseUrl/Password_change.png';
   static const homeImage = '$baseUrl/homeImage.png';
@@ -21,8 +21,7 @@ class AppImages {
   static const productDetailsTestImage = '$baseUrl/ProductDetailsTestImage.png';
   static const commentTestImage = '$baseUrl/CommentTestImage.png';
   static const emptyCartImage = '$baseUrl/emptyCartImage.png';
-  static const backgroundProductDetails =
-      '$baseUrl/backgroundProductDetails.png';
+  static const backgroundProductDetails = '$baseUrl/backgroundProductDetails.png';
   static const categoryImageTest3 = '$baseUrl/categoryImageTest3.png';
   static const categoryImageTest4 = '$baseUrl/categoryImageTest4.png';
   static const orderDone = '$baseUrl/orderDone.png';
@@ -44,5 +43,5 @@ class AppImages {
   static const googleMap = '$baseUrl/Google Map.png';
   static const commonQuestions = '$baseUrl/common-question.png';
   static const editImageProfile = '$baseUrl/edit-image-profile.png';
-  static const tourImageProfile ='$baseUrl/Group1.png';
+  static const tourImageProfile = '$baseUrl/Group1.png';
 }
