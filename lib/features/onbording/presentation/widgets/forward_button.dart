@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/themes/colors.dart';
 
 class ForwardButton extends StatelessWidget {
@@ -40,6 +41,7 @@ class ForwardButton extends StatelessWidget {
                     fit: BoxFit.scaleDown,
                     child: Icon(
                       Icons.arrow_forward_ios,
+                      size: 12.sp,
                       color: Colors.white,
                     ),
                   ),

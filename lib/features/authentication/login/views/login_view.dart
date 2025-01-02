@@ -13,10 +13,10 @@ class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
   @override
-  _SignUpState createState() => _SignUpState();
+  SignUpState createState() => SignUpState();
 }
 
-class _SignUpState extends State<LoginView> {
+class SignUpState extends State<LoginView> {
   // Controllers for text fields
 
   final TextEditingController emailController = TextEditingController();
@@ -86,6 +86,7 @@ class _SignUpState extends State<LoginView> {
                   ],
                 ),
                 SizedBox(height: verticalSpacing),
+                
                 CustomTextfield(
                   hintText: 'Password',
                   obscureText: !_isPasswordVisible,
