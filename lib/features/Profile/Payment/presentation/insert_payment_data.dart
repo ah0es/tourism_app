@@ -6,8 +6,6 @@ import 'package:tourism_app/core/component/row_imag_payment.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/features/Profile/Payment/data/radio_list_tile_data.dart';
 import 'package:tourism_app/features/Profile/Payment/mybooking/presentation/my_booking_body.dart';
-import 'package:tourism_app/features/authentication/widgets/custom_button.dart';
-import 'package:tourism_app/features/authentication/widgets/custom_textfield.dart';
 
 class InsertPaymentData extends StatelessWidget {
   InsertPaymentData({super.key, required this.radioTile});
@@ -77,10 +75,10 @@ class InsertPaymentData extends StatelessWidget {
                 SizedBox(
                   height: 3,
                 ),
-                CustomTextfield(
-                  hintText: '1234 1234 1234 1234',
-                  controller: cardNumberController,
-                ),
+                // CustomTextfield(
+                //   hintText: '1234 1234 1234 1234',
+                //   controller: cardNumberController,
+                // ),
                 SizedBox(
                   height: 10,
                 ),
@@ -99,9 +97,9 @@ class InsertPaymentData extends StatelessWidget {
                           SizedBox(
                             height: 3,
                           ),
-                          CustomTextfield(
-                              hintText: 'MM / YY',
-                              controller: expiryController),
+                          // CustomTextfield(
+                          //     hintText: 'MM / YY',
+                          //     controller: expiryController),
                         ],
                       ),
                     ),
@@ -121,8 +119,8 @@ class InsertPaymentData extends StatelessWidget {
                           SizedBox(
                             height: 3,
                           ),
-                          CustomTextfield(
-                              hintText: 'cvv', controller: cvvController),
+                          // CustomTextfield(
+                          //     hintText: 'cvv', controller: cvvController),
                         ],
                       ),
                     )
@@ -131,17 +129,17 @@ class InsertPaymentData extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 110, right: 10, left: 10),
-            child: CustomButton(
-                text: 'Submit',
-                backgroundColor: const Color(0xff46A0DB),
-                color: const Color(0xffffffff),
-                height: 70.h,
-                onPressed: () {
-                  context.navigateToPage(MyBookingBody());
-                }),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 110, right: 10, left: 10),
+          //   child: CustomButton(
+          //       text: 'Submit',
+          //       backgroundColor: const Color(0xff46A0DB),
+          //       color: const Color(0xffffffff),
+          //       height: 70.h,
+          //       onPressed: () {
+          //         context.navigateToPage(MyBookingBody());
+          //       }),
+          // ),
         ],
       ),
     );

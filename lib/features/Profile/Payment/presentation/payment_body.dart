@@ -7,7 +7,6 @@ import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/core/utils/responsive_text.dart';
 import 'package:tourism_app/features/Profile/Payment/data/radio_list_tile_data.dart';
 import 'package:tourism_app/features/Profile/Payment/presentation/insert_payment_data.dart';
-import 'package:tourism_app/features/authentication/widgets/custom_button.dart';
 
 class PaymentBody extends StatefulWidget {
   const PaymentBody({super.key});
@@ -87,34 +86,38 @@ class _PaymentBodyState extends State<PaymentBody> {
                     );
                   }),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 170, left: 10, right: 10),
-              child: CustomButton(
-                text: 'Confirme',
-                backgroundColor: const Color(0xff46A0DB),
-                color: const Color(0xffffffff),
-                height: 70.h,
-                onPressed: () {
-                  if (selectedPayment != null) {
-                    final selectedData = radioListTileData.firstWhere(
-                      (data) => data.title == selectedPayment,
-                    );
+            // Padding(
+            //   padding: const EdgeInsets.only(bottom: 170, left: 10, right: 10),
+            //   child: CustomButton(
+            //     text: 'Confirme',
+            //     backgroundColor: const Color(0xff46A0DB),
+            //     color: const Color(0xffffffff),
+            //     height: 70.h,
+            //     onPressed: () {
+            //       if (selectedPayment != null) {
+            //         final selectedData = radioListTileData.firstWhere(
+            //           (data) => data.title == selectedPayment,
+            //         );
 
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            InsertPaymentData(radioTile: selectedData),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text('Please select a payment method!')),
-                    );
-                  }
-                },
-              ),
-            ),
+            //         Navigator.of(context).push(
+            //           MaterialPageRoute(
+            //             builder: (context) =>
+            //                 InsertPaymentData(radioTile: selectedData),
+            //           ),
+            //         );
+            //       } else {
+            //         ScaffoldMessenger.of(context).showSnackBar(
+            //           const SnackBar(
+            //               content: Text('Please select a payment method!')),
+            //         );
+            //       }
+            //     },
+            //   ),
+            // ),
+          
+          
+          
+          
           ],
         ),
       ),
