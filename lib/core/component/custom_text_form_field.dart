@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -199,14 +198,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                             child: InkWell(
                               onTap: _toggle,
                               child: _obscureText
-                                  ? SvgPicture.asset(
-                                      AppIcons.eye,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : SvgPicture.asset(
-                                      AppIcons.hidePassword,
-                                      fit: BoxFit.cover,
-                                    ),
+                                  ? Icon(Icons.visibility, color: AppColors.textColorTextFormField)
+                                  : Icon(Icons.visibility_off, color: AppColors.textColorTextFormField),
                             ),
                           )
                         : widget.suffixIcon,

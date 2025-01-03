@@ -44,4 +44,7 @@ class AppImages {
   static const commonQuestions = '$baseUrl/common-question.png';
   static const editImageProfile = '$baseUrl/edit-image-profile.png';
   static const tourImageProfile = '$baseUrl/Group1.png';
+
+// login images
+  static const egypt = '$baseUrl/egypt.jpg';
 }

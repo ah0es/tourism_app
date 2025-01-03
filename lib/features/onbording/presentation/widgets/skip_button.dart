@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
-import 'package:tourism_app/features/authentication/login/views/login_view.dart';
+import 'package:tourism_app/features/authentication/login/login_view.dart';
 
 class SkipButton extends StatelessWidget {
   const SkipButton({
@@ -10,7 +10,9 @@ class SkipButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.navigateToPage(LoginView()),
+      onTap: () {
+        context.navigateToPage(LoginView());
+      },
       child: SizedBox(
         height: 30,
         child: Text(

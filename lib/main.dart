@@ -51,7 +51,7 @@ void main() async {
   // Constants.jsonServerKey = await loadJsonFile();
   runApp(
     DevicePreview(
-      enabled: false,
+     // enabled: false,
       builder: (context) {
         return EasyLocalization(
           supportedLocales: const [
