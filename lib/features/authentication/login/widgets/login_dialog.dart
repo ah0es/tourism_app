@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tourism_app/core/component/buttons/custom_text_button.dart';
 import 'package:tourism_app/core/component/custom_text_form_field.dart';
 import 'package:tourism_app/core/themes/colors.dart';
+import 'package:tourism_app/core/utils/navigate.dart';
+import 'package:tourism_app/features/authentication/forgot_password/presentation/forget_password_view.dart';
 
 class LoginDialog extends StatelessWidget {
   const LoginDialog({
@@ -46,7 +48,11 @@ class LoginDialog extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          Text('Forget Password?', style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.primaryColor)),
+          InkWell(
+              onTap: () {
+                context.navigateToPage(ForgetPasswordView());
+              },
+              child: Text('Forget Password?', style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.primaryColor))),
           SizedBox(
             height: 20,
           ),
