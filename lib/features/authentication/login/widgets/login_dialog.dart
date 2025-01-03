@@ -28,18 +28,20 @@ class LoginDialog extends StatelessWidget {
             height: 20,
           ),
           CustomTextFormField(
+            labelStringText: 'Email',
             outPadding: EdgeInsets.zero,
             controller: TextEditingController(),
-            hintText: 'Email',
+            hintText: 'Enter your Email',
           ),
           SizedBox(
             height: 20,
           ),
           CustomTextFormField(
+            labelStringText: 'Password',
             outPadding: EdgeInsets.zero,
             controller: TextEditingController(),
             password: true,
-            hintText: 'password',
+            hintText: 'Enter your password',
           ),
           SizedBox(
             height: 20,

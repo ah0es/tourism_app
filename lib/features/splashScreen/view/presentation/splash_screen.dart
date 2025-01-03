@@ -1,16 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:tourism_app/core/themes/colors.dart';
-import 'package:tourism_app/core/utils/app_images.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/core/utils/responsive_text.dart';
-import 'package:tourism_app/features/Profile/Payment/presentation/payment_body.dart';
-import 'package:tourism_app/features/Profile/notifications/presentation/notifications_body.dart';
-import 'package:tourism_app/features/Profile/presentation/widgets/profile_body.dart';
-import 'package:tourism_app/features/authentication/login/login_view.dart';
-import 'package:tourism_app/features/home/navigationbar/my_favorties/presentation/favorites_body.dart';
 import 'package:tourism_app/features/onbording/presentation/onboarding_view.dart';
 
 class SplashScreen extends StatefulWidget {

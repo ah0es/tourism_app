@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/themes/colors.dart';
 import 'package:tourism_app/core/utils/extensions.dart';
 
-
-
 class CustomTextButton extends StatefulWidget {
   final Widget child;
   final Color? backgroundColor; // Background color
@@ -16,7 +14,7 @@ class CustomTextButton extends StatefulWidget {
   final double? height;
   final double? borderRadius;
   final EdgeInsetsGeometry? padding;
-
+  final EdgeInsetsGeometry? margin;
   const CustomTextButton({
     super.key,
     required this.child,
@@ -28,7 +26,7 @@ class CustomTextButton extends StatefulWidget {
     this.width,
     this.height,
     this.borderRadius,
-    this.padding,
+    this.padding, this.margin,
   });
 
   @override
@@ -39,6 +37,7 @@ class _CustomTextButtonState extends State<CustomTextButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: widget.margin,
       width: context.screenWidth * (widget.width ?? .9),
       height: widget.height ?? 50.h,
       decoration: BoxDecoration(

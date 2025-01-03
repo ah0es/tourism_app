@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/features/authentication/login/widgets/auth_prompt.dart';
 import 'package:tourism_app/features/authentication/login/widgets/curved_container.dart';
 import 'package:tourism_app/features/authentication/login/widgets/login_dialog.dart';
+import 'package:tourism_app/features/authentication/signup/signup_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -68,6 +71,7 @@ class LoginViewState extends State<LoginView> with SingleTickerProviderStateMixi
               child: AuthPrompt(
                 text: 'Don\'t have an account? ',
                 actionText: 'Sign Up',
+                onTap: () => context.navigateToPage(pageTransitionType: PageTransitionType.bottomToTop, SignupView()),
               ),
             ),
           ],

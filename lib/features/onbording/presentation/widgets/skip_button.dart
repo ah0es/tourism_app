@@ -11,7 +11,7 @@ class SkipButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.navigateToPage(LoginView());
+        context.navigateToPageWithReplacement(LoginView());
       },
       child: SizedBox(
         height: 30,

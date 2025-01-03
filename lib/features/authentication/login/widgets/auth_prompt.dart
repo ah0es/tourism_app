@@ -17,10 +17,10 @@ class AuthPrompt extends StatelessWidget {
     return RichText(
       text: TextSpan(
         children: [
-          TextSpan(text: text, style: Theme.of(context).textTheme.bodySmall),
+          TextSpan(text: text, style: Theme.of(context).textTheme.bodyMedium),
           TextSpan(
             text: actionText,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.primaryColor),
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: AppColors.primaryColor),
             recognizer: TapGestureRecognizer()..onTap = onTap,
           ),
         ],
