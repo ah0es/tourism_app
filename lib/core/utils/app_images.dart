@@ -5,6 +5,10 @@ class AppImages {
   static const onboardingTwo = '$baseUrl/onboarding-two.png';
   static const onboardingThree = '$baseUrl/onboarding-three.png';
   static const loginImage = '$baseUrl/Login_image.png';
+  static const posterOne = '$baseUrl/poster-one.webp';
+  static const posterTow = '$baseUrl/poster-two.webp';
+  static const posterThree = '$baseUrl/poster-three.webp';
+
   static const passwordChangeImage = '$baseUrl/Password_change.png';
   static const homeImage = '$baseUrl/homeImage.png';
   static const testbording = '$baseUrl/test-select-image.png';

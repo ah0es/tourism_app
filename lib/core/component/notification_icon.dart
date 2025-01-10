@@ -34,11 +34,11 @@ class NotificationIcon extends StatelessWidget {
                     color: const Color(0xffF0F0F3).withOpacity(0.4),
                   ),
                 ]),
-            child: Icon(Icons.notifications_none),
+            child: SvgPicture.asset(AppIcons.notification),
           ),
           Positioned(
-            top: 0,
-            right: 2,
+            top: 7,
+            right: 7,
             child: Container(
               height: 12,
               width: 12,

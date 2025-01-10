@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:tourism_app/core/themes/colors.dart';
+import 'package:tourism_app/core/utils/navigate.dart';
+import 'package:tourism_app/features/authentication/login/login_view.dart';
 import 'package:tourism_app/features/onbording/presentation/widgets/forward_button.dart';
 
 class ProgressIndicatorWidget extends StatelessWidget {
@@ -30,7 +32,18 @@ class ProgressIndicatorWidget extends StatelessWidget {
               dotColor: AppColors.primaryColor.withOpacity(0.2),
             ),
           ),
-          ForwardButton(pageController: pageController, circularProgressValue: circularProgressValue),
+          circularProgressValue == 1.0
+              ? ElevatedButton(
+                  onPressed: () {
+                    context.navigateToPageWithReplacement(LoginView());
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: AppColors.primaryColor,
+                  ),
+                  child: Text('Start'),
+                )
+              : ForwardButton(pageController: pageController, circularProgressValue: circularProgressValue),
         ],
       ),
     );
