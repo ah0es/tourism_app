@@ -48,7 +48,7 @@ dependencies:
   flutter_localization: ^0.2.0
   flutter_screenutil: ^5.9.3
   flutter_spinkit: ^5.2.1
-  flutter_svg: ^2.0.10+1
+  flutter_svg: ^2.0.17
   fluttertoast: ^8.2.5
   geolocator: ^13.0.2
   gestures: ^1.0.0
@@ -98,7 +98,7 @@ flutter:
     - assets/fonts/
     - assets/translation/
     - assets/images/
-
+    - assets/images/svg/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

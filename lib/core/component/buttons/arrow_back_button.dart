@@ -34,22 +34,22 @@ class ArrowBackButton extends StatelessWidget {
           shape: BoxShape.circle,
           border: Border.all(width: 1.3, color: borderColor ?? const Color(0xFF000000)),
         ),
-        child: context.locale.languageCode == 'ar'
-            ? SvgPicture.asset(
-                colorFilter: ColorFilter.mode(iconColor ?? Colors.black, BlendMode.srcIn),
-                AppIcons.arrowBack,
-                height: 13,
-                width: 13,
-              )
-            : Transform.rotate(
-                angle: pi,
-                child: SvgPicture.asset(
-                  colorFilter: ColorFilter.mode(iconColor ?? Colors.black, BlendMode.srcIn),
-                  AppIcons.arrowBack,
-                  height: 13,
-                  width: 13,
-                ),
-              ),
+        // child: context.locale.languageCode == 'ar'
+        //     ? SvgPicture.asset(
+        //         colorFilter: ColorFilter.mode(iconColor ?? Colors.black, BlendMode.srcIn),
+        //         AppIcons.arrowBack,
+        //         height: 13,
+        //         width: 13,
+        //       )
+        //     : Transform.rotate(
+        //         angle: pi,
+        //         child: SvgPicture.asset(
+        //           colorFilter: ColorFilter.mode(iconColor ?? Colors.black, BlendMode.srcIn),
+        //           AppIcons.arrowBack,
+        //           height: 13,
+        //           width: 13,
+        //         ),
+        //       ),
       ),
     );
   }

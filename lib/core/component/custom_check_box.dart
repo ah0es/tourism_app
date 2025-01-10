@@ -59,10 +59,10 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
                 width: widget.widthBorder ?? 1,
               ),
             ),
-            child: SvgPicture.asset(
-              AppIcons.checkBoxTrue,
-              colorFilter: ColorFilter.mode(widget.checkBox! ? AppColors.primaryColor : AppColors.transparent, BlendMode.srcIn),
-            ),
+            // child: SvgPicture.asset(
+            //   AppIcons.checkBoxTrue,
+            //   colorFilter: ColorFilter.mode(widget.checkBox! ? AppColors.primaryColor : AppColors.transparent, BlendMode.srcIn),
+            // ),
           ),
           if (widget.textValue != null) 10.ESW(),
           Text(

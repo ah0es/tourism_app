@@ -4,6 +4,8 @@ import 'package:tourism_app/core/component/custom_text_form_field.dart';
 import 'package:tourism_app/core/themes/colors.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/features/authentication/forgot_password/presentation/forget_password_view.dart';
+import 'package:tourism_app/features/bottomNavigationBar/presentation/botton_navigation_bar_view.dart';
+import 'package:tourism_app/features/home/presentation/home_view.dart';
 
 class LoginDialog extends StatelessWidget {
   const LoginDialog({
@@ -59,7 +61,9 @@ class LoginDialog extends StatelessWidget {
           CustomTextButton(
             borderRadius: 12,
             child: Text('Login', style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white)),
-            onPress: () {},
+            onPress: () {
+              context.navigateToPage(BottomNavigationBarView());
+            },
           ),
           Spacer()
         ],

@@ -88,7 +88,6 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         navigatorKey: navigatorKey,
-
         //locale: DevicePreview.locale(context),
         //builder: DevicePreview.appBuilder,
         theme: light,

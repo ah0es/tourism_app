@@ -12,6 +12,7 @@ class Constants {
   static String token = '';
   static bool tablet = false;
   static String unKnownValue = 'Un Known Value'.tr();
+  static String unKnown = 'Un Known'.tr();
   static String notificationChannelKey = 'channel_id2';
   static LatLng saudiLatLng = const LatLng(24.7248316, 47.152177);
 
