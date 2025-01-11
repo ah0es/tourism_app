@@ -26,14 +26,14 @@ class LoginViewState extends State<LoginView> with SingleTickerProviderStateMixi
     );
 
     _slideAnimation = Tween<Offset>(
-      begin: Offset(0, -1), // Start position: above the screen
-      end: Offset(0, 0), // End position: current position
+      begin: Offset(0, -1),
+      end: Offset(0, 0), 
     ).animate(CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeOut,
     ));
 
-    // Trigger the animation as the screen loads
+   
     _animationController.forward();
   }
 
@@ -58,7 +58,6 @@ class LoginViewState extends State<LoginView> with SingleTickerProviderStateMixi
               top: 0,
               child: CurvedContainer(),
             ),
-            // Corrected: Wrap SlideTransition in Positioned
             Positioned(
               top: MediaQuery.of(context).viewInsets.bottom == 0 ? MediaQuery.sizeOf(context).height * 0.3 : MediaQuery.sizeOf(context).height * 0.17,
               child: SlideTransition(
