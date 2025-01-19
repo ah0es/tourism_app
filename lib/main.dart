@@ -92,7 +92,7 @@ class MyApp extends StatelessWidget {
         //locale: DevicePreview.locale(context),
         //builder: DevicePreview.appBuilder,
         theme: light,
-        home: MyFavoritesBody(),
+        home: SplashScreen(),
       ),
     );
   }
