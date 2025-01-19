@@ -15,6 +15,7 @@ class SignUpState extends State<SignupView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.transparent,
       body: Stack(
         clipBehavior: Clip.none,
