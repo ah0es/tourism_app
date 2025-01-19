@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/utils/constants.dart';
+import 'package:tourism_app/features/home/navigationbar/my_favorties/presentation/favorites_body.dart';
 import 'package:tourism_app/features/splashScreen/presentation/splash_screen.dart';
 import 'core/network/dio_helper.dart';
 import 'core/network/local/cache.dart';
@@ -91,7 +92,7 @@ class MyApp extends StatelessWidget {
         //locale: DevicePreview.locale(context),
         //builder: DevicePreview.appBuilder,
         theme: light,
-        home: SplashScreen(),
+        home: MyFavoritesBody(),
       ),
     );
   }

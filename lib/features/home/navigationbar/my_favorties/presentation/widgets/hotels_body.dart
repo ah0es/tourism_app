@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/component/custom_card_image_hotels.dart';
 import 'package:tourism_app/core/utils/app_images.dart';
 
@@ -20,6 +21,7 @@ class HotelsBody extends StatelessWidget {
             price: 20,
             rate: 3,
           ),
+          SizedBox(height: 16.h,),
           CustomCardImageHotels(
             country: 'Egypt',
             governorate: 'Luxor',
@@ -27,8 +29,9 @@ class HotelsBody extends StatelessWidget {
             image: AppImages.Rectangle2Hotels,
             name: 'Four Seasons',
             price: 20,
-            rate: 3,
+            rate: 4,
           ),
+          SizedBox(height: 16.h,),
           CustomCardImageHotels(
             country: 'Egypt',
             governorate: 'Luxor',
@@ -36,8 +39,9 @@ class HotelsBody extends StatelessWidget {
             image: AppImages.Rectangle3Hotels,
             name: 'Four Seasons',
             price: 20,
-            rate: 3,
+            rate: 4,
           ),
+          SizedBox(height: 16.h,),
           CustomCardImageHotels(
             country: 'Egypt',
             governorate: 'Luxor',
@@ -47,6 +51,7 @@ class HotelsBody extends StatelessWidget {
             price: 20,
             rate: 3,
           ),
+          SizedBox(height: 16.h,),
           CustomCardImageHotels(
             country: 'Egypt',
             governorate: 'Luxor',
@@ -55,7 +60,8 @@ class HotelsBody extends StatelessWidget {
             name: 'Four Seasons',
             price: 20,
             rate: 3,
-          )
+          ),
+          SizedBox(height: 16.h,),
         ],
       ),
     );
