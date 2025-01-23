@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/themes/colors.dart';
-import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/features/home/navigationbar/my_favorties/presentation/widgets/attractions_body.dart';
 import 'package:tourism_app/features/home/navigationbar/my_favorties/presentation/widgets/hotels_body.dart';
 import 'package:tourism_app/features/home/navigationbar/my_favorties/presentation/widgets/restaurant_cafe_body.dart';
@@ -19,6 +17,7 @@ class _MyFavoritesBodyState extends State<MyFavoritesBody> {
   Color dafultColor = Colors.black;
   Color pressedColor = Colors.blue;
   String selectedText = '';
+
   void _onTap(String text) {
     setState(() {
       dafultColor = pressedColor;
@@ -35,20 +34,13 @@ class _MyFavoritesBodyState extends State<MyFavoritesBody> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              //mainAxisAlignment: CrossAxisAlignment.,
               children: [
                 TextClikable('Attractions'),
-                SizedBox(
-                  width: 7,
-                ),
+                SizedBox(width: 7),
                 TextClikable('Hotels'),
-                SizedBox(
-                  width: 7,
-                ),
+                SizedBox(width: 7),
                 TextClikable('RestaurantCafe'),
-                SizedBox(
-                  width: 7,
-                ),
+                SizedBox(width: 7),
                 TextClikable('TourGuides'),
               ],
             ),
@@ -69,9 +61,10 @@ class _MyFavoritesBodyState extends State<MyFavoritesBody> {
       child: Text(
         text,
         style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
-            color: selectedText == text ? Colors.blue : Colors.black),
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w600,
+          color: selectedText == text ? Colors.blue : Colors.black,
+        ),
       ),
     );
   }
