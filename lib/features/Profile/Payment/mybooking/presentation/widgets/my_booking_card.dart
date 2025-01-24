@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tourism_app/core/themes/colors.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:tourism_app/features/Profile/Payment/mybooking/data/booking_model.dart';
 
 class MyBookingCard extends StatelessWidget {
   final BookingModel? booking;
 
-  const MyBookingCard({this.booking, Key? key}) : super(key: key);
+  const MyBookingCard({this.booking, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class MyBookingCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           if (booking!.barcodeData != null)
-            Container(
+            SizedBox(
               height: 120.h,
               width: 30.w,
               child: Transform.rotate(

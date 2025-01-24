@@ -29,6 +29,8 @@ class MyBookingBody extends StatelessWidget {
     ),
   ];
 
+  const MyBookingBody({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,9 +1,5 @@
-import 'dart:math';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:tourism_app/core/utils/app_icons.dart';
 
 class ArrowBackButton extends StatelessWidget {
   const ArrowBackButton({
@@ -22,7 +18,9 @@ class ArrowBackButton extends StatelessWidget {
         Navigator.pop(context);
       },
       child: Container(
-        margin: EdgeInsets.only(right: context.locale.languageCode == 'ar' ? 16 : 0, left: context.locale.languageCode == 'ar' ? 0 : 16),
+        margin: EdgeInsets.only(
+            right: context.locale.languageCode == 'ar' ? 16 : 0,
+            left: context.locale.languageCode == 'ar' ? 0 : 16),
         padding: EdgeInsets.only(
           left: context.locale.languageCode == 'ar' ? 9.5 : 8,
           right: context.locale.languageCode == 'ar' ? 8 : 9.5,
@@ -32,7 +30,8 @@ class ArrowBackButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor ?? Colors.white,
           shape: BoxShape.circle,
-          border: Border.all(width: 1.3, color: borderColor ?? const Color(0xFF000000)),
+          border: Border.all(
+              width: 1.3, color: borderColor ?? const Color(0xFF000000)),
         ),
         // child: context.locale.languageCode == 'ar'
         //     ? SvgPicture.asset(

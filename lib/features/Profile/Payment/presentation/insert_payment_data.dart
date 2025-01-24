@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/component/custom_text.dart';
-import 'package:tourism_app/core/component/radio_list_tile.dart';
 import 'package:tourism_app/core/component/row_imag_payment.dart';
-import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/features/Profile/Payment/data/radio_list_tile_data.dart';
-import 'package:tourism_app/features/Profile/Payment/mybooking/presentation/my_booking_body.dart';
 
 class InsertPaymentData extends StatelessWidget {
   InsertPaymentData({super.key, required this.radioTile});

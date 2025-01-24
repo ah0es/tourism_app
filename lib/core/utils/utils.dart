@@ -34,7 +34,8 @@ class Utils {
     spreadRadius: -4,
   );
 
-  static TextSpan highlightText({required String text, bool isExpanded = false}) {
+  static TextSpan highlightText(
+      {required String text, bool isExpanded = false}) {
     final List<TextSpan> spans = [];
     final List<String> words = text.split(' ');
     final int sizeWords = words.length <= 25 ? words.length : 25;
@@ -45,11 +46,16 @@ class Utils {
           spans.add(
             TextSpan(
               text: '${words[i]} ',
-              style: TextStyle(color: AppColors.secondPrimaryColor, fontWeight: FontWeight.bold, fontFamily: Constants.fontFamily),
+              style: TextStyle(
+                  color: AppColors.secondPrimaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: Constants.fontFamily),
             ),
           );
         } else {
-          spans.add(TextSpan(text: '${words[i]} ', style: Styles.style12400.copyWith(color: AppColors.black)));
+          spans.add(TextSpan(
+              text: '${words[i]} ',
+              style: Styles.style12400.copyWith(color: AppColors.black)));
         }
       }
     } else {
@@ -65,7 +71,9 @@ class Utils {
             ),
           );
         } else {
-          spans.add(TextSpan(text: '$word ', style: Styles.style12400.copyWith(color: AppColors.black)));
+          spans.add(TextSpan(
+              text: '$word ',
+              style: Styles.style12400.copyWith(color: AppColors.black)));
         }
       }
     }
@@ -91,7 +99,8 @@ class Utils {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {
-      Utils.showToast(title: 'Sorry, Cannot launch url'.tr(), state: UtilState.error);
+      Utils.showToast(
+          title: 'Sorry, Cannot launch url'.tr(), state: UtilState.error);
     }
     // await launchUrl(Uri.parse(url), mode: mode);
   }
@@ -183,7 +192,9 @@ Future<void> customModalBottomSheet({
           padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
             color: AppColors.white,
-            borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(10.r),
+                topLeft: Radius.circular(10.r)),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -199,7 +210,8 @@ Future<void> customModalBottomSheet({
                     height: 5,
                     decoration: ShapeDecoration(
                       color: const Color(0xFF858585),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4)),
                     ),
                   ),
                 ],
@@ -209,7 +221,8 @@ Future<void> customModalBottomSheet({
               ),
               Text(
                 title,
-                style: Styles.style18300.copyWith(fontWeight: FontWeight.w400, color: AppColors.textColor),
+                style: Styles.style18300.copyWith(
+                    fontWeight: FontWeight.w400, color: AppColors.textColor),
               ),
               ...List.generate(
                 subTitle.length,
@@ -223,7 +236,8 @@ Future<void> customModalBottomSheet({
                       },
                       title: Text(
                         subTitle.keys.toList()[index],
-                        style: Styles.style14300.copyWith(color: AppColors.textColor),
+                        style: Styles.style14300
+                            .copyWith(color: AppColors.textColor),
                       ),
                       controlAffinity: ListTileControlAffinity.leading,
                       checkboxShape: RoundedRectangleBorder(
@@ -249,7 +263,9 @@ Future<void> customModalBottomSheet({
                       borderColor: AppColors.textColor,
                       child: Text(
                         nameConfirmButton,
-                        style: Styles.style16400.copyWith(fontWeight: FontWeight.w500, color: AppColors.textColor),
+                        style: Styles.style16400.copyWith(
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.textColor),
                       ),
                       onPress: () {
                         subTitle.forEach((key, value) {
@@ -270,7 +286,9 @@ Future<void> customModalBottomSheet({
                       backgroundColor: AppColors.black,
                       child: Text(
                         nameCancelButton,
-                        style: Styles.style16400.copyWith(fontWeight: FontWeight.w500, color: AppColors.white),
+                        style: Styles.style16400.copyWith(
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.white),
                       ),
                       onPress: () {
                         Navigator.pop(context);
@@ -304,7 +322,9 @@ Future<void> languagesModalBottomSheet({
           padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
             color: AppColors.white,
-            borderRadius: BorderRadius.only(topRight: Radius.circular(10.r), topLeft: Radius.circular(10.r)),
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(10.r),
+                topLeft: Radius.circular(10.r)),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -320,7 +340,8 @@ Future<void> languagesModalBottomSheet({
                     height: 5,
                     decoration: ShapeDecoration(
                       color: const Color(0xFF858585),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4)),
                     ),
                   ),
                 ],
@@ -330,7 +351,8 @@ Future<void> languagesModalBottomSheet({
               ),
               Text(
                 'languages'.tr(),
-                style: Styles.style18300.copyWith(fontWeight: FontWeight.w400, color: AppColors.textColor),
+                style: Styles.style18300.copyWith(
+                    fontWeight: FontWeight.w400, color: AppColors.textColor),
               ),
               const SizedBox(
                 height: 24,
@@ -339,12 +361,16 @@ Future<void> languagesModalBottomSheet({
                 decoration: ShapeDecoration(
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(color: convertLocal.languageCode == 'ar' ? AppColors.textColor : AppColors.cBorderTextFormField),
+                    side: BorderSide(
+                        color: convertLocal.languageCode == 'ar'
+                            ? AppColors.textColor
+                            : AppColors.cBorderTextFormField),
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
                 child: RadioListTile(
-                  value: convertLocal.languageCode == 'ar' ? 'العربية' : 'English',
+                  value:
+                      convertLocal.languageCode == 'ar' ? 'العربية' : 'English',
                   groupValue: 'العربية',
                   //  fillColor: MaterialStatePropertyAll(AppColors.green),
                   title: Text(
@@ -365,12 +391,16 @@ Future<void> languagesModalBottomSheet({
                 decoration: ShapeDecoration(
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(color: convertLocal.languageCode == 'en' ? AppColors.textColor : AppColors.cBorderTextFormField),
+                    side: BorderSide(
+                        color: convertLocal.languageCode == 'en'
+                            ? AppColors.textColor
+                            : AppColors.cBorderTextFormField),
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
                 child: RadioListTile(
-                  value: convertLocal.languageCode == 'ar' ? 'العربية' : 'English',
+                  value:
+                      convertLocal.languageCode == 'ar' ? 'العربية' : 'English',
                   groupValue: 'English',
                   title: Text(
                     'English',
@@ -394,7 +424,9 @@ Future<void> languagesModalBottomSheet({
                   borderColor: AppColors.textColor,
                   child: Text(
                     'Save'.tr(),
-                    style: Styles.style16400.copyWith(fontWeight: FontWeight.w500, color: AppColors.textColor),
+                    style: Styles.style16400.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.textColor),
                   ),
                   onPress: () {
                     context.setLocale(convertLocal);
@@ -423,7 +455,7 @@ Future<DateTime> customShowDatePicker({
       data: Theme.of(context).copyWith(
         colorScheme: const ColorScheme.light(
           primary: AppColors.primaryColor,
-          onBackground: AppColors.white,
+          onSurface: AppColors.white,
         ),
       ),
       child: child!,

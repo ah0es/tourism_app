@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/utils/constants.dart';
-import 'package:tourism_app/features/home/navigationbar/my_favorties/presentation/favorites_body.dart';
 import 'package:tourism_app/features/splashScreen/presentation/splash_screen.dart';
 import 'core/network/dio_helper.dart';
 import 'core/network/local/cache.dart';
@@ -51,7 +50,7 @@ void main() async {
   // Constants.jsonServerKey = await loadJsonFile();
   runApp(
     DevicePreview(
-     // enabled: false,
+      // enabled: false,
       builder: (context) {
         return EasyLocalization(
           supportedLocales: const [
@@ -98,8 +97,3 @@ class MyApp extends StatelessWidget {
   }
 }
 //updates
-
-
-
-
-

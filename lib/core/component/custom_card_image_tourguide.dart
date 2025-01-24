@@ -6,7 +6,7 @@ class CustomCardImageTourguide extends StatefulWidget {
   final String name;
   final String language1;
   final String language2;
-  final double rate;
+  final int rate;
   final double price;
 
   final VoidCallback? onTap;
@@ -43,104 +43,108 @@ class _CustomCardImageTourguideState extends State<CustomCardImageTourguide> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Stack(
-              children: [
-                Image.asset(
-                  widget.image,
-                  height: 200.h,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-                Positioned(
-                  top: 10.h,
-                  left: 10.w,
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isFavourite = !isFavourite;
-                      });
-                    },
-                    child: Icon(
-                      isFavourite
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color: isFavourite ? Colors.red : Colors.black,
-                      size: 24.sp,
+            SizedBox(
+              height: 160.h,
+              width: double.infinity,
+              child: Stack(
+                children: [
+                  Image.asset(
+                    widget.image,
+                    height: double.infinity,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                  Positioned(
+                    top: 10.h,
+                    left: 10.w,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isFavourite = !isFavourite;
+                        });
+                      },
+                      child: Icon(
+                        isFavourite ? Icons.favorite : Icons.favorite_border,
+                        color: isFavourite ? Colors.red : Colors.black,
+                        size: 24.sp,
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  bottom: 1.h,
-                  right: 1.w,
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-                    decoration: BoxDecoration(
-                      color: Colors.blue.shade900,
-                      borderRadius: BorderRadius.circular(8.r),
+                  Positioned(
+                    bottom: 4.h,
+                    right: 4.w,
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade900,
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: Text(
+                        "${widget.price.toStringAsFixed(0)} EGP/Hr",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                    child: Text(
-                      "${widget.price.toStringAsFixed(0)} EGP/Hr",
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(5.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // mainAxisAlignment: MainAxisAlignment
+                  //     .spaceBetween,
+                  children: [
+                    Text(
+                      widget.name,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.sp,
+                        color: Colors.black,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.all(12.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.name,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.language,
+                          color: Colors.grey,
+                          size: 16.sp,
+                        ),
+                        SizedBox(width: 6.w),
+                        Text(
+                          "${widget.language1}, ${widget.language2}",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  SizedBox(height: 8.h),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.language,
-                        color: Colors.grey,
-                        size: 16.sp,
-                      ),
-                      SizedBox(width: 6.w),
-                      Text(
-                        "${widget.language1}, ${widget.language2}",
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14.sp,
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                          size: 16.sp,
                         ),
-                      ),
-                      Spacer(),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                        size: 16.sp,
-                      ),
-                      SizedBox(width: 4.w),
-                      Text(
-                        widget.rate.toStringAsFixed(1),
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14.sp,
+                        SizedBox(width: 4.w),
+                        Text(
+                          widget.rate.toStringAsFixed(1),
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14.sp,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

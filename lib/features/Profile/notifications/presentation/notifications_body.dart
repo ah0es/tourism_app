@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/component/custom_card_notification.dart';
 import 'package:tourism_app/core/themes/colors.dart';
 import 'package:tourism_app/core/utils/app_images.dart';
-import 'package:tourism_app/core/utils/navigate.dart';
 
 class NotificationsBody extends StatelessWidget {
   const NotificationsBody({super.key});

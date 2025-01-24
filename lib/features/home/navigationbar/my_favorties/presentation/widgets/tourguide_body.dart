@@ -2,81 +2,98 @@ import 'package:flutter/material.dart';
 import 'package:tourism_app/core/component/custom_card_image_tourguide.dart';
 import 'package:tourism_app/core/utils/app_images.dart';
 
-class TourguideBody extends StatelessWidget {
+class TourguideBody extends StatefulWidget {
   const TourguideBody({super.key});
 
   @override
+  State<TourguideBody> createState() => _TourguideBodyState();
+}
+
+class _TourguideBodyState extends State<TourguideBody> {
+  final List<Map<String, dynamic>> tourGuide = [
+    {
+      "image": AppImages.groupTourguide,
+      "language1": 'English',
+      "language2": 'Japanese',
+      "name": 'Ahmed fathy',
+      "rate": 1,
+      "price": 500.0,
+    },
+    {
+      "image": AppImages.groupTourguide,
+      "language1": 'English',
+      "language2": 'Japanese',
+      "name": 'Ahmed fathy',
+      "rate": 1,
+      "price": 500.0,
+    },
+    {
+      "image": AppImages.groupTourguide,
+      "language1": 'English',
+      "language2": 'Japanese',
+      "name": 'Ahmed fathy',
+      "rate": 1,
+      "price": 500.0,
+    },
+    {
+      "image": AppImages.groupTourguide,
+      "language1": 'English',
+      "language2": 'Japanese',
+      "name": 'Ahmed fathy',
+      "rate": 1,
+      "price": 500.0,
+    },
+    {
+      "image": AppImages.groupTourguide,
+      "language1": 'English',
+      "language2": 'Japanese',
+      "name": 'Ahmed fathy',
+      "rate": 1,
+      "price": 500,
+    },
+    {
+      "image": AppImages.groupTourguide,
+      "language1": 'English',
+      "language2": 'Japanese',
+      "name": 'Ahmed fathy',
+      "rate": 1,
+      "price": 500.0,
+    },
+    {
+      "image": AppImages.groupTourguide,
+      "language1": 'English',
+      "language2": 'Japanese',
+      "name": 'Ahmed fathy',
+      "rate": 1,
+      "price": 500.0,
+    }
+  ];
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: Column(
-      children: [
-        Row(children: [
-          Flexible(
-              child: CustomCardImageTourguide(
-            image: AppImages.groupTourguide,
-            language1: 'English',
-            language2: 'Japanese',
-            name: 'Ahmed fathy',
-            rate: 1,
-            price: 500,
-          ),
-          ),
-          Flexible(
-              child: CustomCardImageTourguide(
-            image: AppImages.groupTourguide,
-            language1: 'English',
-            language2: 'Japanese',
-            name: 'Ahmed fathy',
-            rate: 1,
-            price: 500,
-          )),
-        ]),
-        Row(
-          children: [
-            Flexible(
-                child: CustomCardImageTourguide(
-              image: AppImages.groupTourguide,
-              language1: 'English',
-              language2: 'Japanese',
-              name: 'Ahmed fathy',
-              rate: 1,
-              price: 500,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: tourGuide.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.8,
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 8,
             ),
-            ),
-            Flexible(
-                child: CustomCardImageTourguide(
-              image: AppImages.groupTourguide,
-              language1: 'English',
-              language2: 'Japanese',
-              name: 'Ahmed fathy',
-              rate: 1,
-              price: 500,
-            )),
-          ],
-        ),
-        Row(
-          children: [
-            Flexible(
-                child: CustomCardImageTourguide(
-              image: AppImages.groupTourguide,
-              language1: 'English',
-              language2: 'Japanese',
-              name: 'Ahmed fathy',
-              rate: 1,
-              price: 500,
-            )),
-            Flexible(
-                child: CustomCardImageTourguide(
-              image: AppImages.groupTourguide,
-              language1: 'English',
-              language2: 'Japanese',
-              name: 'Ahmed fathy',
-              rate: 1,
-              price: 500,
-            )),
-          ],
-        ),
-      ],
-    ));
+            itemBuilder: (context, index) {
+              final tourguide = tourGuide[index];
+              return CustomCardImageTourguide(
+                  name: tourguide["name"],
+                  rate: tourguide["rate"],
+                  image: tourguide["image"],
+                  language1: tourguide["language1"],
+                  language2: tourguide["language2"],
+                  price: tourguide["price"]);
+            }),
+      ),
+    );
   }
 }

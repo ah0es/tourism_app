@@ -10,25 +10,21 @@ class HotelsBody extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          
           ListView.builder(
-            shrinkWrap: true, 
+              shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-            itemCount: 10,
-            
-            itemBuilder: (context,index){
-            return CustomCardImageHotels(
-            country: 'Egypt',
-            governorate: 'Luxor',
-            iconData: Icons.location_pin,
-            image: AppImages.Rectangle2Hotels,
-            name: 'Four Seasons',
-            price: 20,
-            rate: 3,);
-          
-          })
-
-          
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return CustomCardImageHotels(
+                  country: 'Egypt',
+                  governorate: 'Luxor',
+                  iconData: Icons.location_pin,
+                  image: AppImages.Rectangle2Hotels,
+                  name: 'Four Seasons',
+                  price: 20,
+                  rate: 3,
+                );
+              }),
         ],
       ),
     );

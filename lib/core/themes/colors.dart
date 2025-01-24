@@ -10,7 +10,7 @@ class AppColors {
   static Color red = Colors.red;
   static const cNumberMessaging = Color(0xffFC4646);
   static const cLogOutColor = Color(0xffC10000);
-  static const appTextColor = Color(0xfff9B9496);
+  static const appTextColor = Color(0xfff9b9496);
 
   static Color babyblue = Color(0xff46A0DB);
   static Color iconsColor = Color(0xff25161A);

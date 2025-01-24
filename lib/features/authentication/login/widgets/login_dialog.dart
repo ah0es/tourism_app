@@ -5,7 +5,6 @@ import 'package:tourism_app/core/themes/colors.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/features/authentication/forgot_password/presentation/forget_password_view.dart';
 import 'package:tourism_app/features/bottomNavigationBar/presentation/botton_navigation_bar_view.dart';
-import 'package:tourism_app/features/home/presentation/home_view.dart';
 
 class LoginDialog extends StatelessWidget {
   const LoginDialog({
@@ -20,14 +19,21 @@ class LoginDialog extends StatelessWidget {
       width: MediaQuery.sizeOf(context).width * 0.8,
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 15, spreadRadius: 2)],
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 15,
+              spreadRadius: 2)
+        ],
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Spacer(),
-          Center(child: Text('Login Account', style: Theme.of(context).textTheme.headlineMedium)),
+          Center(
+              child: Text('Login Account',
+                  style: Theme.of(context).textTheme.headlineMedium)),
           SizedBox(
             height: 20,
           ),
@@ -54,13 +60,21 @@ class LoginDialog extends StatelessWidget {
               onTap: () {
                 context.navigateToPage(ForgetPasswordView());
               },
-              child: Text('Forget Password?', style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.primaryColor))),
+              child: Text('Forget Password?',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(color: AppColors.primaryColor))),
           SizedBox(
             height: 20,
           ),
           CustomTextButton(
             borderRadius: 12,
-            child: Text('Login', style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white)),
+            child: Text('Login',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(color: Colors.white)),
             onPress: () {
               context.navigateToPage(BottomNavigationBarView());
             },

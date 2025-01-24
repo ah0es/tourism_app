@@ -2,13 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tourism_app/core/themes/colors.dart';
 import 'package:tourism_app/core/themes/styles.dart';
 import 'package:tourism_app/core/utils/constants.dart';
 import 'package:tourism_app/core/utils/screen_spaces_extension.dart';
-
-import '../utils/app_icons.dart';
 
 class CustomTextFormField extends StatefulWidget {
   final TextEditingController controller;
@@ -107,7 +104,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       mainAxisSize: widget.mainAxisSize ?? MainAxisSize.max,
       children: [
         Padding(
-          padding: widget.outPadding ?? const EdgeInsets.symmetric(horizontal: 20),
+          padding:
+              widget.outPadding ?? const EdgeInsets.symmetric(horizontal: 20),
           child: Container(
             // width: context.screenWidth * (widget.width ?? .9),
             // height: context.screenHeight * (widget.height ?? .13),
@@ -128,7 +126,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 if (widget.nameField != null)
                   Text(
                     widget.nameField!.tr(),
-                    style: Styles.style14300.copyWith(color: AppColors.cPaymentColor),
+                    style: Styles.style14300
+                        .copyWith(color: AppColors.cPaymentColor),
                   ),
                 if (widget.nameField != null) 10.ESH(),
                 TextFormField(
@@ -136,8 +135,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   onTap: widget.onTap,
                   obscureText: _obscureText,
                   controller: widget.controller,
-                  keyboardType: widget.textInputType ?? TextInputType.visiblePassword,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.textColor.withOpacity(0.6), fontSize: 13.sp),
+                  keyboardType:
+                      widget.textInputType ?? TextInputType.visiblePassword,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: AppColors.textColor.withOpacity(0.6),
+                      fontSize: 13.sp),
                   onChanged: (value) {
                     if (widget.onChange != null) {
                       widget.onChange!.call(value);
@@ -151,7 +153,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   },
                   inputFormatters: widget.inputFormatters ??
                       [
-                        if (widget.validationOnNumber != null && widget.validationOnNumber!) FilteringTextInputFormatter.allow(RegExp(r'^\d{0,2}$')),
+                        if (widget.validationOnNumber != null &&
+                            widget.validationOnNumber!)
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'^\d{0,2}$')),
                       ],
                   maxLines: widget.maxLines ?? 1,
                   cursorColor: AppColors.textColorTextFormField,
@@ -161,7 +166,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                     hintStyle: widget.hintStyle ??
                         TextStyle(
                           color: AppColors.textColor,
-                          fontSize: Constants.tablet ? (widget.fontSizeHintText ?? 14) : (widget.fontSizeHintText ?? 14).sp,
+                          fontSize: Constants.tablet
+                              ? (widget.fontSizeHintText ?? 14)
+                              : (widget.fontSizeHintText ?? 14).sp,
                           fontWeight: FontWeight.w300,
                         ),
                     prefixIcon: widget.prefixIcon,
@@ -170,27 +177,42 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                     labelStyle: const TextStyle(color: Colors.black),
                     fillColor: AppColors.white,
                     filled: true,
-                    contentPadding: (widget.contentPadding ?? const EdgeInsets.symmetric(horizontal: 8)).w,
+                    contentPadding: (widget.contentPadding ??
+                            const EdgeInsets.symmetric(horizontal: 8))
+                        .w,
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(widget.borderRadius ?? 15.r)),
-                      borderSide: BorderSide(color: widget.borderColor ?? AppColors.primaryColor.withOpacity(0.1)),
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(widget.borderRadius ?? 15.r)),
+                      borderSide: BorderSide(
+                          color: widget.borderColor ??
+                              AppColors.primaryColor.withOpacity(0.1)),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(widget.borderRadius ?? 15.r)),
-                      borderSide: BorderSide(color: widget.borderColor ?? AppColors.primaryColor.withOpacity(0.1)),
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(widget.borderRadius ?? 15.r)),
+                      borderSide: BorderSide(
+                          color: widget.borderColor ??
+                              AppColors.primaryColor.withOpacity(0.1)),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(widget.borderRadius ?? 15.r)),
-                      borderSide: BorderSide(color: widget.borderColor ?? AppColors.primaryColor.withOpacity(0.1)),
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(widget.borderRadius ?? 15.r)),
+                      borderSide: BorderSide(
+                          color: widget.borderColor ??
+                              AppColors.primaryColor.withOpacity(0.1)),
                     ),
                     errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(widget.borderRadius ?? 15.r)),
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(widget.borderRadius ?? 15.r)),
                       borderSide: BorderSide(color: AppColors.red),
                     ),
                     disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(widget.borderRadius ?? 15.r)),
-                      borderSide: BorderSide(color: widget.borderColor ?? AppColors.primaryColor.withOpacity(0.1)),
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(widget.borderRadius ?? 15.r)),
+                      borderSide: BorderSide(
+                          color: widget.borderColor ??
+                              AppColors.primaryColor.withOpacity(0.1)),
                     ),
                     suffixIcon: widget.password != null && widget.password!
                         ? Padding(
@@ -198,8 +220,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                             child: InkWell(
                               onTap: _toggle,
                               child: _obscureText
-                                  ? Icon(Icons.visibility, color: AppColors.textColorTextFormField)
-                                  : Icon(Icons.visibility_off, color: AppColors.textColorTextFormField),
+                                  ? Icon(Icons.visibility,
+                                      color: AppColors.textColorTextFormField)
+                                  : Icon(Icons.visibility_off,
+                                      color: AppColors.textColorTextFormField),
                             ),
                           )
                         : widget.suffixIcon,

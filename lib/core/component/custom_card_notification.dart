@@ -8,7 +8,8 @@ class CustomCardNotification extends StatelessWidget {
   final DateTime dateTime;
   final VoidCallback? onTap;
 
-  CustomCardNotification({
+  const CustomCardNotification({
+    super.key,
     required this.image,
     required this.title,
     required this.description,

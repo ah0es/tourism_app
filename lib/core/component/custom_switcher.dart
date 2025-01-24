@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:tourism_app/core/themes/colors.dart';
 
-
 class CustomSwitcher extends StatelessWidget {
   final int selectedIndex;
   final double pageOffset;
   final Function(int) onSwitcherTapped;
 
   const CustomSwitcher({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.pageOffset,
     required this.onSwitcherTapped,
-  }) : super(key: key);
+  });
 
   double getAnimationWidth(BuildContext context, double pageOffset) {
     final double screenWidth = MediaQuery.sizeOf(context).width;
@@ -38,8 +37,12 @@ class CustomSwitcher extends StatelessWidget {
           AnimatedPositioned(
             duration: const Duration(milliseconds: 500),
             curve: Curves.fastLinearToSlowEaseIn,
-            left: context.locale.languageCode == 'en' ? getAnimationWidth(context, pageOffset) : null,
-            right: context.locale.languageCode == 'en' ? null : getAnimationWidth(context, pageOffset),
+            left: context.locale.languageCode == 'en'
+                ? getAnimationWidth(context, pageOffset)
+                : null,
+            right: context.locale.languageCode == 'en'
+                ? null
+                : getAnimationWidth(context, pageOffset),
             top: 0,
             bottom: 0,
             child: Container(
@@ -71,7 +74,9 @@ class CustomSwitcher extends StatelessWidget {
                                 ? 'Completed'.tr()
                                 : 'Cancelled'.tr(),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: selectedIndex == index ? Colors.white : Colors.grey,
+                              color: selectedIndex == index
+                                  ? Colors.white
+                                  : Colors.grey,
                             ),
                       ),
                     ),

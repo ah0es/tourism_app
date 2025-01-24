@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomCardImageRestaurant extends StatelessWidget {
+class CustomCardImageRestaurant extends StatefulWidget {
   final String image;
   final String name;
   final String governorate;
@@ -21,10 +20,19 @@ class CustomCardImageRestaurant extends StatelessWidget {
       required this.iconData,
       this.onTap,
       required this.image});
+
+  @override
+  State<CustomCardImageRestaurant> createState() =>
+      _CustomCardImageRestaurantState();
+}
+
+class _CustomCardImageRestaurantState extends State<CustomCardImageRestaurant> {
+  bool isFavorite = false;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Card(
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
@@ -34,7 +42,7 @@ class CustomCardImageRestaurant extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Image.asset(
-              image,
+              widget.image,
               height: 300.h,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -45,7 +53,7 @@ class CustomCardImageRestaurant extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    widget.name,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.sp,
@@ -57,7 +65,7 @@ class CustomCardImageRestaurant extends StatelessWidget {
                   Row(
                     children: [
                       Icon(
-                        iconData,
+                        widget.iconData,
                         color: Colors.white,
                         size: 16.w,
                       ),
@@ -65,7 +73,7 @@ class CustomCardImageRestaurant extends StatelessWidget {
                         width: 3,
                       ),
                       Text(
-                        governorate,
+                        widget.governorate,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
@@ -75,7 +83,7 @@ class CustomCardImageRestaurant extends StatelessWidget {
                         width: 3,
                       ),
                       Text(
-                        country,
+                        widget.country,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18.sp,
@@ -92,7 +100,9 @@ class CustomCardImageRestaurant extends StatelessWidget {
                         children: List.generate(
                             5,
                             (index) => Icon(
-                                  index < rate ? Icons.star : Icons.star_border,
+                                  index < widget.rate
+                                      ? Icons.star
+                                      : Icons.star_border,
                                   color: Colors.amber,
                                   size: 16.w,
                                 )),
@@ -101,7 +111,7 @@ class CustomCardImageRestaurant extends StatelessWidget {
                         width: 20,
                       ),
                       Icon(
-                        iconData,
+                        widget.iconData,
                         color: Colors.white,
                         size: 16.w,
                       ),
@@ -109,7 +119,23 @@ class CustomCardImageRestaurant extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            Positioned(
+              top: 8,
+              right: 8,
+              child: IconButton(
+                icon: Icon(
+                  isFavorite ? Icons.favorite : Icons.favorite_border,
+                  color: isFavorite ? Colors.red : Colors.grey,
+                  size: 26.w,
+                ),
+                onPressed: () {
+                  setState(() {
+                    isFavorite = !isFavorite;
+                  });
+                },
+              ),
+            ),
           ],
         ),
       ),

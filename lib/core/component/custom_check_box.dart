@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tourism_app/core/themes/styles.dart';
-import 'package:tourism_app/core/utils/app_icons.dart';
 import 'package:tourism_app/core/utils/screen_spaces_extension.dart';
-
 
 import '../themes/colors.dart';
 
@@ -53,9 +50,13 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
             padding: EdgeInsets.all(widget.paddingIcon ?? 10).w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular((widget.borderRadius ?? 8).r),
-              color: widget.checkBox! ? widget.fillTrueValue ?? AppColors.secondPrimaryColor : widget.fillFalseValue ?? AppColors.white,
+              color: widget.checkBox!
+                  ? widget.fillTrueValue ?? AppColors.secondPrimaryColor
+                  : widget.fillFalseValue ?? AppColors.white,
               border: Border.all(
-                color: widget.borderEnable ? widget.borderColor ?? AppColors.cBorderDecoration : AppColors.transparent,
+                color: widget.borderEnable
+                    ? widget.borderColor ?? AppColors.cBorderDecoration
+                    : AppColors.transparent,
                 width: widget.widthBorder ?? 1,
               ),
             ),
