@@ -49,7 +49,7 @@ class _TourguideBodyState extends State<TourguideBody> {
       "language2": 'Japanese',
       "name": 'Ahmed fathy',
       "rate": 1,
-      "price": 500,
+      "price": 500.0,
     },
     {
       "image": AppImages.groupTourguide,

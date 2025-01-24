@@ -43,8 +43,13 @@ class _CustomCardImageTourguideState extends State<CustomCardImageTourguide> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+<<<<<<< HEAD
             SizedBox(
               height: 160.h,
+=======
+            Container(
+              height: 180.h,
+>>>>>>> 259991b (add changes pages restaurants and tourguide)
               width: double.infinity,
               child: Stack(
                 children: [
