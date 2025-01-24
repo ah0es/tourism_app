@@ -43,13 +43,8 @@ class _CustomCardImageTourguideState extends State<CustomCardImageTourguide> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-<<<<<<< HEAD
-            SizedBox(
-              height: 160.h,
-=======
             Container(
-              height: 180.h,
->>>>>>> 259991b (add changes pages restaurants and tourguide)
+              height: 165.h,
               width: double.infinity,
               child: Stack(
                 children: [
@@ -76,8 +71,8 @@ class _CustomCardImageTourguideState extends State<CustomCardImageTourguide> {
                     ),
                   ),
                   Positioned(
-                    bottom: 4.h,
-                    right: 4.w,
+                    bottom: 0.h,
+                    right: 0.w,
                     child: Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
@@ -100,7 +95,7 @@ class _CustomCardImageTourguideState extends State<CustomCardImageTourguide> {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.all(5.w),
+                padding: EdgeInsets.symmetric(horizontal: 4.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   // mainAxisAlignment: MainAxisAlignment
@@ -110,7 +105,7 @@ class _CustomCardImageTourguideState extends State<CustomCardImageTourguide> {
                       widget.name,
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18.sp,
+                        fontSize: 13.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -119,14 +114,14 @@ class _CustomCardImageTourguideState extends State<CustomCardImageTourguide> {
                         Icon(
                           Icons.language,
                           color: Colors.grey,
-                          size: 16.sp,
+                          size: 10.sp,
                         ),
                         SizedBox(width: 6.w),
                         Text(
                           "${widget.language1}, ${widget.language2}",
                           style: TextStyle(
                             color: Colors.grey,
-                            fontSize: 14.sp,
+                            fontSize: 10.sp,
                           ),
                         ),
                       ],
@@ -136,14 +131,14 @@ class _CustomCardImageTourguideState extends State<CustomCardImageTourguide> {
                         Icon(
                           Icons.star,
                           color: Colors.amber,
-                          size: 16.sp,
+                          size: 12.sp,
                         ),
                         SizedBox(width: 4.w),
                         Text(
                           widget.rate.toStringAsFixed(1),
                           style: TextStyle(
                             color: Colors.grey,
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                           ),
                         ),
                       ],
