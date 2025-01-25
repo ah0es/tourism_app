@@ -9,41 +9,38 @@ class HotelsViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
+    return Scaffold(
+      appBar: CustomAppBar(
+        title: "Hotels",
+      ),
+      body: Column(
         children: [
-          CustomAppBar(
-            title: "Hotels",
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          CustomSearchBar(
-            hintText: "Search",
-            prefixIcon: Icon(
-              Icons.search,
-              color: Colors.grey,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CustomSearchBar(
+              hintText: "Search",
+              prefixIcon: Icon(
+                Icons.search,
+                color: Colors.grey,
+              ),
+              suffixIcon: Icon(Icons.filter_list, color: Colors.grey),
             ),
-            suffixIcon: Icon(Icons.filter_list, color: Colors.grey),
           ),
-          SizedBox(
-            height: 8,
+          Flexible(
+            child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return CustomCardImageHotels(
+                    country: 'Egypt',
+                    governorate: 'Luxor',
+                    iconData: Icons.location_pin,
+                    image: AppImages.Rectangle2Hotels,
+                    name: 'Four Seasons',
+                    price: 20,
+                    rate: 3,
+                  );
+                }),
           ),
-          ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return CustomCardImageHotels(
-                  country: 'Egypt',
-                  governorate: 'Luxor',
-                  iconData: Icons.location_pin,
-                  image: AppImages.Rectangle2Hotels,
-                  name: 'Four Seasons',
-                  price: 20,
-                  rate: 3,
-                );
-              }),
         ],
       ),
     );

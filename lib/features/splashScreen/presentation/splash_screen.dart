@@ -4,6 +4,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:tourism_app/core/themes/colors.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/core/utils/responsive_text.dart';
+import 'package:tourism_app/features/home/hotelse/presentation/hotels_view_body.dart';
 import 'package:tourism_app/features/home/navigationbar/my_favorties/presentation/favorites_body.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -30,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen>
     timer = Timer(
       const Duration(seconds: 3),
       () {
-        context.navigateToPage(MyFavoritesBody());
+        context.navigateToPage(HotelsViewBody());
         // if (onBoardingValue) {
         //   //   runAnimation = true;
         //   setState(() {});

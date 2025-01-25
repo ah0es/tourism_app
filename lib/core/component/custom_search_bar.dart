@@ -19,38 +19,33 @@ class CustomSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white, // Background color
-          borderRadius: BorderRadius.circular(30.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              blurRadius: 8,
-              offset: Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Expanded(
-          child: TextFormField(
-            decoration: InputDecoration(
-              prefixIcon: prefixIcon,
-              hintText: hintText,
-              hintStyle: TextStyle(color: Colors.black),
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(vertical: 12.0),
-              suffixIcon: IconButton(
-                icon: suffixIcon,
-                onPressed: () {},
-              ),
-            ),
-            onFieldSubmitted: (value) {
-              print("Search query: $value");
-            },
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white, // Background color
+        borderRadius: BorderRadius.circular(30.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            blurRadius: 8,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: TextFormField(
+        decoration: InputDecoration(
+          prefixIcon: prefixIcon,
+          hintText: hintText,
+          hintStyle: TextStyle(color: Colors.black),
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.symmetric(vertical: 12.0),
+          suffixIcon: IconButton(
+            icon: suffixIcon,
+            onPressed: () {},
           ),
         ),
+        onFieldSubmitted: (value) {
+          print("Search query: $value");
+        },
       ),
     );
   }
