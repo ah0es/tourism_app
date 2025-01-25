@@ -14,6 +14,7 @@ class AppImages {
   static const testbording = '$baseUrl/test-select-image.png';
   static const notification = '$baseUrl/Ellipse 226.png';
   static const rectangleAttraction = '$baseUrl/Rectangle.png';
+  static const destination = '$baseUrl/Rectangle.png';
   static const groupTourguide = '$baseUrl/Group1.png';
   static const Rectangle1Hotels = '$baseUrl/Rectangle1.png';
   static const Rectangle2Hotels = '$baseUrl/Rectangle2.png';
@@ -25,7 +26,8 @@ class AppImages {
   static const productDetailsTestImage = '$baseUrl/ProductDetailsTestImage.png';
   static const commentTestImage = '$baseUrl/CommentTestImage.png';
   static const emptyCartImage = '$baseUrl/emptyCartImage.png';
-  static const backgroundProductDetails = '$baseUrl/backgroundProductDetails.png';
+  static const backgroundProductDetails =
+      '$baseUrl/backgroundProductDetails.png';
   static const categoryImageTest3 = '$baseUrl/categoryImageTest3.png';
   static const categoryImageTest4 = '$baseUrl/categoryImageTest4.png';
   static const orderDone = '$baseUrl/orderDone.png';

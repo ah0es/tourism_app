@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_app/core/component/custom_app_bar.dart';
 import 'package:tourism_app/core/component/custom_card_image_hotels.dart';
+import 'package:tourism_app/core/component/custom_card_image_tourist_destination.dart';
 import 'package:tourism_app/core/component/custom_search_bar.dart';
 import 'package:tourism_app/core/utils/app_images.dart';
 
-class HotelsViewBody extends StatelessWidget {
-  const HotelsViewBody({super.key});
+class TouristDestinationViewBody extends StatelessWidget {
+  const TouristDestinationViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Hotels",
+        title: "Choose your Tourist destination ",
         icon: Icons.arrow_back,
       ),
       body: Column(
@@ -28,19 +29,21 @@ class HotelsViewBody extends StatelessWidget {
             ),
           ),
           Flexible(
-            child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return CustomCardImageHotels(
-                    country: 'Egypt',
-                    governorate: 'Luxor',
-                    iconData: Icons.location_pin,
-                    image: AppImages.Rectangle2Hotels,
-                    name: 'Four Seasons',
-                    price: 20,
-                    rate: 3,
-                  );
-                }),
+            child: GridView.builder(
+              itemCount: 12,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.8,
+                crossAxisSpacing: 6,
+                mainAxisSpacing: 8,
+              ),
+              itemBuilder: (context, index) {
+                return CustomCardImageDestination(
+                  name: 'Cairo',
+                  image: AppImages.Rectangle2Hotels,
+                );
+              },
+            ),
           ),
         ],
       ),

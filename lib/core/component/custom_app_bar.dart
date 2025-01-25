@@ -33,7 +33,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(icon),
+          icon: Icon(
+            icon,
+            color: Colors.black,
+          ),
           onPressed: onBackPressed ?? () => Navigator.pop(context),
         ),
         actions: actions);

@@ -48,7 +48,7 @@ class _CustomCardImageRestaurantState extends State<CustomCardImageRestaurant> {
               fit: BoxFit.cover,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 12, top: 50),
+              padding: const EdgeInsets.only(left: 6, right: 6, top: 50),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -56,7 +56,7 @@ class _CustomCardImageRestaurantState extends State<CustomCardImageRestaurant> {
                     widget.name,
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20.sp,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w500),
                   ),
                   SizedBox(
@@ -76,7 +76,7 @@ class _CustomCardImageRestaurantState extends State<CustomCardImageRestaurant> {
                         widget.governorate,
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18.sp,
+                            fontSize: 15.sp,
                             fontWeight: FontWeight.w400),
                       ),
                       SizedBox(

@@ -6,6 +6,10 @@ import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/core/utils/responsive_text.dart';
 import 'package:tourism_app/features/home/hotelse/presentation/hotels_view_body.dart';
 import 'package:tourism_app/features/home/navigationbar/my_favorties/presentation/favorites_body.dart';
+import 'package:tourism_app/features/home/plan/presentation/plan_view_body.dart';
+import 'package:tourism_app/features/home/restaurant/presentation/restaurants_view_body.dart';
+import 'package:tourism_app/features/home/tourguide/presentation/tourguide_view_body.dart';
+import 'package:tourism_app/features/home/tourist_destination/presentation/tourist_destination_view_body.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -31,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen>
     timer = Timer(
       const Duration(seconds: 3),
       () {
-        context.navigateToPage(HotelsViewBody());
+        context.navigateToPage(TouristDestinationViewBody());
         // if (onBoardingValue) {
         //   //   runAnimation = true;
         //   setState(() {});

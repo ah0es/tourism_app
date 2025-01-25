@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tourism_app/core/component/custom_app_bar.dart';
 import 'package:tourism_app/core/component/custom_card_image_restaurant.dart';
+import 'package:tourism_app/core/component/custom_search_bar.dart';
 import 'package:tourism_app/core/utils/app_images.dart';
 
 class RestaurantCafeViewBody extends StatelessWidget {
@@ -57,28 +59,44 @@ class RestaurantCafeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: GridView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: restaurants.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.8,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
+    return Scaffold(
+        appBar: CustomAppBar(
+          title: "Restaurants",
+          icon: Icons.arrow_back,
         ),
-        itemBuilder: (context, index) {
-          final restaurant = restaurants[index];
-          return CustomCardImageRestaurant(
-              name: restaurant["name"],
-              governorate: restaurant["governorate"],
-              country: restaurant["country"],
-              rate: restaurant["rate"],
-              iconData: restaurant["iconData"],
-              image: restaurant["image"]);
-        },
-      ),
-    );
+        body: Column(children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CustomSearchBar(
+              hintText: "Search",
+              prefixIcon: Icon(
+                Icons.search,
+                color: Colors.grey,
+              ),
+              suffixIcon: Icon(Icons.filter_list, color: Colors.grey),
+            ),
+          ),
+          Flexible(
+            child: GridView.builder(
+              itemCount: restaurants.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.8,
+                crossAxisSpacing: 6,
+                mainAxisSpacing: 8,
+              ),
+              itemBuilder: (context, index) {
+                final restaurant = restaurants[index];
+                return CustomCardImageRestaurant(
+                    name: restaurant["name"],
+                    governorate: restaurant["governorate"],
+                    country: restaurant["country"],
+                    rate: restaurant["rate"],
+                    iconData: restaurant["iconData"],
+                    image: restaurant["image"]);
+              },
+            ),
+          ),
+        ]));
   }
 }
