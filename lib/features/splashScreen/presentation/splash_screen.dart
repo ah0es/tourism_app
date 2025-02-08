@@ -4,6 +4,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:tourism_app/core/themes/colors.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/core/utils/responsive_text.dart';
+import 'package:tourism_app/features/authentication/login/login_view.dart';
 import 'package:tourism_app/features/home/hotelse/presentation/hotels_view_body.dart';
 import 'package:tourism_app/features/home/navigationbar/my_favorties/presentation/favorites_body.dart';
 import 'package:tourism_app/features/home/plan/presentation/plan_view_body.dart';
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen>
     timer = Timer(
       const Duration(seconds: 3),
       () {
-        context.navigateToPage(TouristDestinationViewBody());
+        context.navigateToPage(LoginView());
         // if (onBoardingValue) {
         //   //   runAnimation = true;
         //   setState(() {});

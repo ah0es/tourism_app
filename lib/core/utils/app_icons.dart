@@ -13,4 +13,6 @@ class AppIcons {
   static const plansSelected = '$baseUrl/plans-selected.svg';
   static const menuUnSelected = '$baseUrl/menu-un-selected.svg';
   static const menuSelected = '$baseUrl/menu-selected.svg';
+  static const starList = '$baseUrl/star-list.svg';
+  static const addReview = '$baseUrl/edit.svg';
 }

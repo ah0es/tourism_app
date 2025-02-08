@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:tourism_app/core/component/cache_image.dart';
 import 'package:tourism_app/core/utils/app_images.dart';
 
 class EventList extends StatefulWidget {
@@ -57,13 +58,9 @@ class EventListState extends State<EventList> {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.asset(
-                sliderImages[index],
-                fit: BoxFit.fill,
-                width: MediaQuery.sizeOf(context).width * 0.8,
-              ),
+            child: CacheImage(
+              imageUrl: '',
+              errorColor: Colors.grey,
             ),
           );
         },
