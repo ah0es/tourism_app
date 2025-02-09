@@ -33,7 +33,7 @@ class AppImages {
   static const orderDone = '$baseUrl/orderDone.png';
   static const doneAddAddress = '$baseUrl/doneAddAddressImage.png';
   static const addCardDone = '$baseUrl/addCardDone.png';
-  static const MapBackground = '$baseUrl/Map.png';
+  static const mapExample = '$baseUrl/map-example.png';
   static const avatar = '$baseUrl/Avatar-png.png';
   static const homePageTest = '$baseUrl/home-page-test.png';
   static const ourService = '$baseUrl/our-service.png';

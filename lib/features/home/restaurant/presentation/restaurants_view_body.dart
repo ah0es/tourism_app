@@ -3,6 +3,7 @@ import 'package:tourism_app/core/component/custom_app_bar.dart';
 import 'package:tourism_app/core/component/custom_card_image_restaurant.dart';
 import 'package:tourism_app/core/component/custom_search_bar.dart';
 import 'package:tourism_app/core/utils/app_images.dart';
+import 'package:tourism_app/features/city/persentaiton/place_details_view.dart';
 
 class RestaurantCafeViewBody extends StatelessWidget {
   RestaurantCafeViewBody({super.key});
@@ -77,24 +78,26 @@ class RestaurantCafeViewBody extends StatelessWidget {
             ),
           ),
           Flexible(
-            child: GridView.builder(
-              itemCount: restaurants.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.8,
-                crossAxisSpacing: 6,
-                mainAxisSpacing: 8,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: GridView.builder(
+                itemCount: restaurants.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.8,
+                  crossAxisSpacing: 6,
+                  mainAxisSpacing: 8,
+                ),
+                itemBuilder: (context, index) {
+                  final restaurant = restaurants[index];
+                  return NearbyRestaurantCard(
+                    imageUrl: '',
+                    name: 'The Plo',
+                    location: 'Luxor, Egypt',
+                    rating: 5.0,
+                  );
+                },
               ),
-              itemBuilder: (context, index) {
-                final restaurant = restaurants[index];
-                return CustomCardImageRestaurant(
-                    name: restaurant["name"],
-                    governorate: restaurant["governorate"],
-                    country: restaurant["country"],
-                    rate: restaurant["rate"],
-                    iconData: restaurant["iconData"],
-                    image: restaurant["image"]);
-              },
             ),
           ),
         ]));

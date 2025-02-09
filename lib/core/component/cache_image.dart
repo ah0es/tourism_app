@@ -15,7 +15,7 @@ class CacheImage extends StatelessWidget {
   final Color? errorColor;
   final Widget Function(BuildContext)? errorWidget;
   final Widget Function(BuildContext)? loadingWidget;
-
+  final BorderRadiusGeometry? customBorderRadius;
   const CacheImage({
     super.key,
     required this.imageUrl,
@@ -29,6 +29,7 @@ class CacheImage extends StatelessWidget {
     this.errorColor,
     this.errorWidget,
     this.loadingWidget,
+    this.customBorderRadius,
   });
 
   @override
@@ -51,7 +52,7 @@ class CacheImage extends StatelessWidget {
           clipBehavior: circle ? Clip.antiAlias : Clip.none,
           child: !imageUrl.contains('.svg')
               ? ClipRRect(
-                  borderRadius: BorderRadius.circular(borderRadius ?? 8),
+                  borderRadius: customBorderRadius ?? BorderRadius.circular(borderRadius ?? 8),
                   child: CachedNetworkImage(
                     imageUrl: imageUrl,
                     width: width,
@@ -74,7 +75,7 @@ class CacheImage extends StatelessWidget {
                           width: width,
                           height: height,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(borderRadius ?? 8),
+                            borderRadius: customBorderRadius ?? BorderRadius.circular(borderRadius ?? 8),
                             color: errorColor,
                           ),
                         );
