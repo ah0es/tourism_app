@@ -19,7 +19,7 @@ ThemeData light = ThemeData(
     elevation: 0,
     systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: AppColors.transparent, statusBarIconBrightness: Brightness.dark),
   ),
-  cardTheme: CardTheme(
+  cardTheme: CardThemeData(
     shape: ContinuousRectangleBorder(
       borderRadius: BorderRadius.circular(15),
     ),

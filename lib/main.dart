@@ -11,7 +11,7 @@ import 'core/network/local/hive_data_base.dart';
 import 'core/themes/light.dart';
 import 'core/utils/bloc_observe.dart';
 
-//Widget appStartScreen = const SplashScreenOne();
+//Widget appStartScreen = const SplashScreenOne();c
 final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {

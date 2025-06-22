@@ -9,7 +9,7 @@ class CustomTextButton extends StatefulWidget {
   final List<Color>? gradientColors; // Gradient colors
   final List<double>? stops; // Gradient stops
   final Color? borderColor;
-  final Function onPress;
+  final Function? onPress;
   final double? width;
   final double? height;
   final double? borderRadius;
@@ -61,7 +61,9 @@ class _CustomTextButtonState extends State<CustomTextButton> {
         child: InkWell(
           borderRadius: BorderRadius.circular((widget.borderRadius ?? 30).r),
           onTap: () {
-            widget.onPress();
+            if (widget.onPress != null) {
+              widget.onPress!();
+            }
           },
           child: Padding(
             padding: widget.padding ?? EdgeInsets.zero,

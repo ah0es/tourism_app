@@ -70,7 +70,7 @@ class LoginViewState extends State<LoginView> with SingleTickerProviderStateMixi
               child: AuthPrompt(
                 text: 'Don\'t have an account? ',
                 actionText: 'Sign Up',
-                onTap: () => context.navigateToPage(pageTransitionType: PageTransitionType.bottomToTop, SignupView()),
+                onTap: () => context.navigateToPage(pageTransitionType: PageTransitionType.bottomToTop, SignUpScreen()),
               ),
             ),
           ],

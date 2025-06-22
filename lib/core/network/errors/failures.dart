@@ -42,8 +42,8 @@ class ServerFailure extends Failure {
     if (statusCode == 400 || statusCode == 401 || statusCode == 403 || statusCode == 422) {
       // return ServerFailure(response['error']['message']);
       log('message $response');
-      log('====== Token error ===== ${Constants.token}');
-      log('Token error ${response['message'].contains('Token') ?? false}');
+      // log('====== Token error ===== ${Constants.token}');
+      // log('Token error ${response['message'].contains('Token') ?? false}');
       // if (response['message'].toString().toLowerCase().contains('token')) {
       //   Constants.token = '';
       //   Constants.user = true;
@@ -51,7 +51,8 @@ class ServerFailure extends Failure {
       //   userCacheValue = null;
       //   navigatorKey.currentState?.context.navigateToPageWithClearStack(const SplashScreenOne());
       // }
-      return ServerFailure(response['message'] ?? response['error'] ?? 'Something went wrong, Please try again');
+      final firstItem = response[0]; // if it's a List
+      return ServerFailure(firstItem['message']?.toString() ?? firstItem['error']?.toString() ?? 'Something went wrong, Please try again');
     } else if (statusCode == 404) {
       return ServerFailure('Your request not found, Please try later!');
     } else if (statusCode == 500) {
