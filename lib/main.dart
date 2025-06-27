@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/utils/constants.dart';
+import 'package:tourism_app/features/authentication/login/data/models/login_model.dart';
 import 'package:tourism_app/features/splashScreen/presentation/splash_screen.dart';
 import 'core/network/dio_helper.dart';
 import 'core/network/local/cache.dart';
@@ -25,9 +28,9 @@ void main() async {
 
   userCache = await openHiveBox(userCacheBoxKey);
 
-  //onBoardingValue = userCache?.get(onBoardingKey, defaultValue: true);
-  //userCacheValue = LoginModel.fromJson(jsonDecode(await userCache!.get(userCacheKey, defaultValue: '{}')));
-  //Constants.token = userCacheValue?.data?.token ?? '';
+  onBoardingValue = userCache?.get(onBoardingKey, defaultValue: true);
+  userCacheValue = LoginModel.fromJson(jsonDecode(await userCache!.get(userCacheKey, defaultValue: '{}')));
+  Constants.token = userCacheValue?.token ?? '';
   // Constants.user = userCacheValue?.data?.type == 'developer';
   // checkInCache = userCache?.get(checkInKey, defaultValue: false);
   //log('user id ======> ${userCacheValue?.data?.id}');

@@ -1,4 +1,5 @@
 import 'package:hive_flutter/adapters.dart';
+import 'package:tourism_app/features/authentication/login/data/models/login_model.dart';
 
 Box? userCache;
 String userCacheBoxKey = 'userCache';
@@ -15,3 +16,4 @@ String checkInKey = 'checkInKey';
 bool onBoardingValue = true;
 bool rememberMe = false;
 bool checkInCache = false;
+LoginModel ? userCacheValue;
