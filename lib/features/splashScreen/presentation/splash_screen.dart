@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:tourism_app/core/network/local/cache.dart';
 import 'package:tourism_app/core/themes/colors.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/core/utils/responsive_text.dart';
 import 'package:tourism_app/features/authentication/login/login_view.dart';
+import 'package:tourism_app/features/bottomNavigationBar/presentation/botton_navigation_bar_view.dart';
 import 'package:tourism_app/features/home/hotelse/presentation/hotels_view_body.dart';
 import 'package:tourism_app/features/home/navigationbar/my_favorties/presentation/favorites_body.dart';
 import 'package:tourism_app/features/home/plan/presentation/plan_view_body.dart';
@@ -19,8 +21,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
   late Animation<double> animation;
   late AnimationController controller;
   late Timer timer;
@@ -29,14 +30,16 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     //currentLocation();
-    controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 3))
-          ..forward();
+    controller = AnimationController(vsync: this, duration: const Duration(seconds: 3))..forward();
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
     timer = Timer(
       const Duration(seconds: 3),
       () {
-        context.navigateToPage(LoginView());
+        if (userCacheValue?.user != null) {
+          context.navigateToPage(BottomNavigationBarView());
+        } else {
+          context.navigateToPage(LoginView());
+        }
         // if (onBoardingValue) {
         //   //   runAnimation = true;
         //   setState(() {});
@@ -102,10 +105,7 @@ class _SplashScreenState extends State<SplashScreen>
           children: [
             Text(
               'Guide To Egypt',
-              style: TextStyle(
-                  color: AppColors.appTextColor,
-                  fontSize: getResponsiveFontSize(context, fontSize: 40),
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(color: AppColors.appTextColor, fontSize: getResponsiveFontSize(context, fontSize: 40), fontWeight: FontWeight.bold),
             ),
             SizedBox(width: MediaQuery.of(context).size.width * .02),
             HugeIcon(

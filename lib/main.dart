@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/utils/constants.dart';
 import 'package:tourism_app/features/authentication/login/data/models/login_model.dart';
+import 'package:tourism_app/features/home/manager/places/cubit/place_cubit.dart';
 import 'package:tourism_app/features/splashScreen/presentation/splash_screen.dart';
 import 'core/network/dio_helper.dart';
 import 'core/network/local/cache.dart';
@@ -76,27 +77,27 @@ class MyApp extends StatelessWidget {
     arabicLanguage = context.locale.toString() == 'ar_SA';
     Constants.tablet = MediaQuery.of(context).size.width > 600;
     return ScreenUtilInit(
-      minTextAdapt: true,
-      splitScreenMode: true,
-      designSize: const Size(360, 840),
-      // child: MultiBlocProvider(
-      //   providers: const [
-      //     // BlocProvider(create: (_) => ChatCubit()),
-      //     // BlocProvider(create: (_) => BottomNavBarCubit()),
-      //     // BlocProvider(create: (_) => ServiceDetailsCubit()),
-      //   ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        navigatorKey: navigatorKey,
-        //locale: DevicePreview.locale(context),
-        //builder: DevicePreview.appBuilder,
-        theme: light,
-        home: SplashScreen(),
-      ),
-    );
+        minTextAdapt: true,
+        splitScreenMode: true,
+        designSize: const Size(360, 840),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => PlaceCubit()),
+            // BlocProvider(create: (_) => BottomNavBarCubit()),
+            // BlocProvider(create: (_) => ServiceDetailsCubit()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            navigatorKey: navigatorKey,
+            //locale: DevicePreview.locale(context),
+            //builder: DevicePreview.appBuilder,
+            theme: light,
+            home: SplashScreen(),
+          ),
+        ));
   }
 }
 //updates

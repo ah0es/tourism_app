@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tourism_app/core/component/cache_image.dart';
 import 'package:tourism_app/core/component/notification_icon.dart';
+import 'package:tourism_app/core/network/local/cache.dart';
 import 'package:tourism_app/core/themes/colors.dart';
 import 'package:tourism_app/core/utils/constants.dart';
 
@@ -13,14 +14,15 @@ class HeaderHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: [
           CacheImage(
-            imageUrl: 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png',
+            imageUrl: userCacheValue?.user?.profilePictureUrl ?? '',
             circle: true,
             width: 40,
             height: 40,
+            errorColor: Colors.grey,
           ),
           const SizedBox(
             width: 10,
@@ -32,7 +34,8 @@ class HeaderHomePage extends StatelessWidget {
                 Text('Hi,'.tr(), style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: AppColors.textColor)),
                 FittedBox(
                   fit: BoxFit.scaleDown,
-                  child: Text(Constants.unKnown, style: Theme.of(context).textTheme.titleMedium!.copyWith(color: AppColors.black)),
+                  child: Text(userCacheValue?.user?.firstName ?? Constants.unKnown,
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(color: AppColors.black)),
                 ),
               ],
             ),

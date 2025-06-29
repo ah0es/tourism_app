@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tourism_app/core/component/buttons/favorite_icon.dart';
 import 'package:tourism_app/core/component/cache_image.dart';
@@ -7,10 +6,14 @@ import 'package:tourism_app/core/utils/app_icons.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
 import 'package:tourism_app/features/city/persentaiton/city_details_view.dart';
 import 'package:tourism_app/features/city/persentaiton/place_details_view.dart';
+import 'package:tourism_app/features/home/data/models/place_mode.dart';
+import 'package:tourism_app/features/home/data/models/plane_model.dart';
+import 'package:tourism_app/features/home/manager/places/cubit/place_cubit.dart';
 import 'package:tourism_app/features/home/plan/presentation/plan_view_body.dart';
 import 'package:tourism_app/features/home/plan/presentation/widgets/plane_card.dart';
 import 'package:tourism_app/features/home/presentation/widgets/event_list.dart';
 import 'package:tourism_app/features/home/presentation/widgets/header_page.dart';
+import 'package:tourism_app/features/home/presentation/widgets/place_section.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -20,6 +23,13 @@ class HomeView extends StatefulWidget {
 }
 
 class HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    super.initState();
+    // Initialize places data when the page loads
+    PlaceCubit.of(context).getPlaces(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,14 +72,7 @@ class HomeViewState extends State<HomeView> {
                   ],
                 ),
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(10, (index) {
-                    return PlaceCard();
-                  }),
-                ),
-              ),
+              PlaceSection(),
               SizedBox(
                 height: 10,
               ),
@@ -183,8 +186,11 @@ class CityCard extends StatelessWidget {
 }
 
 class PlaceCard extends StatelessWidget {
+  final PlaceModel? placeModel;
+
   const PlaceCard({
     super.key,
+    this.placeModel,
   });
 
   @override
@@ -214,21 +220,27 @@ class PlaceCard extends StatelessWidget {
                 CacheImage(
                   height: 150,
                   width: 130,
-                  imageUrl: '',
+                  imageUrl: placeModel?.thumbnailUrl ?? placeModel?.thumbnail ?? '',
                   errorColor: Colors.grey,
                 ),
                 Positioned(
                   bottom: 7,
                   left: 5,
+                  right: 5,
                   child: Row(
                     children: [
                       Icon(
                         Icons.location_on,
                         color: Colors.white,
+                        size: 16,
                       ),
-                      Text(
-                        'Egypt,Cairo',
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white),
+                      SizedBox(width: 4),
+                      Flexible(
+                        child: Text(
+                          placeModel != null ? '${placeModel!.country ?? ''}, ${placeModel!.city ?? ''}' : 'Egypt,Cairo',
+                          style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       )
                     ],
                   ),
@@ -245,8 +257,9 @@ class PlaceCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Pyramids',
+                        placeModel?.name ?? 'Pyramids',
                         style: Theme.of(context).textTheme.bodyMedium,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       SvgPicture.asset(AppIcons.starList),
                     ],

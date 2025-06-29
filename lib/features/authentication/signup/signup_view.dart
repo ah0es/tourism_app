@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tourism_app/core/utils/navigate.dart';
+import 'package:tourism_app/features/authentication/login/login_view.dart';
 import 'package:tourism_app/features/authentication/signup/manager/cubit/sign_up_cubit.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -50,23 +52,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
         body: BlocConsumer<SignUpCubit, SignUpState>(
           listener: (context, state) {
             if (state is SignUpSuccess) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: const Text('Account created successfully!'),
-                  backgroundColor: Colors.green[600],
-                  behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                ),
-              );
+              context.navigateToPage(LoginView());
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   SnackBar(
+              //     content: const Text('Account created successfully!'),
+              //     backgroundColor: Colors.green[600],
+              //     behavior: SnackBarBehavior.floating,
+              //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              //   ),
+              // );
             } else if (state is SignUpError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.e),
-                  backgroundColor: Colors.red[600],
-                  behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                ),
-              );
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   SnackBar(
+              //     content: Text(state.e),
+              //     backgroundColor: Colors.red[600],
+              //     behavior: SnackBarBehavior.floating,
+              //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              //   ),
+              // );
             }
           },
           builder: (context, state) {

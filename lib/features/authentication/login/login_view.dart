@@ -27,13 +27,12 @@ class LoginViewState extends State<LoginView> with SingleTickerProviderStateMixi
 
     _slideAnimation = Tween<Offset>(
       begin: Offset(0, -1),
-      end: Offset(0, 0), 
+      end: Offset(0, 0),
     ).animate(CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeOut,
     ));
 
-   
     _animationController.forward();
   }
 

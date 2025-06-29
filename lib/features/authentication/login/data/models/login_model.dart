@@ -28,7 +28,7 @@ class User {
   String? lastName;
   int? gender;
   String? email;
-  Null profilePictureUrl;
+  String? profilePictureUrl;
   List<String>? roles;
 
   User({this.id, this.firstName, this.lastName, this.gender, this.email, this.profilePictureUrl, this.roles});

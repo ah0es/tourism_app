@@ -23,7 +23,8 @@ class ServerFailure extends Failure {
       case DioExceptionType.badResponse:
         log('badResponse on url ${dioError.response!.realUri}');
         log('badResponse on data ${dioError.response!.data}');
-        return ServerFailure.fromResponse(dioError.response!.statusCode, dioError.response!.data);
+        return ServerFailure('${dioError.response!.data}');
+      //  return ServerFailure.fromResponse(dioError.response!.statusCode, dioError.response!.data);
       case DioExceptionType.badCertificate:
         return ServerFailure('Bad Certificate with ApiServer');
       case DioExceptionType.cancel:
