@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:tourism_app/core/utils/constants_models.dart';
 import 'package:tourism_app/core/utils/utils.dart';
 import 'package:tourism_app/features/home/data/dataSource/home_data_source.dart';

@@ -7,7 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tourism_app/core/utils/constants.dart';
 import 'package:tourism_app/features/authentication/login/data/models/login_model.dart';
+import 'package:tourism_app/features/home/manager/city/cubit/city_cubit.dart';
+import 'package:tourism_app/features/home/manager/events/cubit/event_cubit.dart';
 import 'package:tourism_app/features/home/manager/places/cubit/place_cubit.dart';
+import 'package:tourism_app/features/home/manager/plans/cubit/plans_cubit.dart';
 import 'package:tourism_app/features/splashScreen/presentation/splash_screen.dart';
 import 'core/network/dio_helper.dart';
 import 'core/network/local/cache.dart';
@@ -83,6 +86,9 @@ class MyApp extends StatelessWidget {
         child: MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => PlaceCubit()),
+            BlocProvider(create: (_) => EventCubit()),
+            BlocProvider(create: (_) => CityCubit()),
+            BlocProvider(create: (_) => PlansCubit()),
             // BlocProvider(create: (_) => BottomNavBarCubit()),
             // BlocProvider(create: (_) => ServiceDetailsCubit()),
           ],

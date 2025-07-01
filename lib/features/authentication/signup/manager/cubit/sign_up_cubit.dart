@@ -114,6 +114,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         "DateOfBirth": dateOfBirthController.text,
         "Gender": genderString,
         "Country": countryController.text.trim(),
+        "City": "test",
         "PhoneNumber": phoneNumberController.text.trim(),
         if (profileImage != null)
           "ProfilePicture": await MultipartFile.fromFile(

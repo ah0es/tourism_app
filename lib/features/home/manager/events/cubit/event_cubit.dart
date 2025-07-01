@@ -23,6 +23,8 @@ class EventCubit extends Cubit<EventState> {
           emit(EventError(e: l.errMessage));
         },
         (r) async {
+          Utils.showToast(title: 'success event', state: UtilState.success);
+
           ConstantsModels.eventModel = r;
           if (isClosed) return;
           emit(EventSuccess());

@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tourism_app/core/utils/constants_models.dart';
-import 'package:tourism_app/features/home/data/models/place_mode.dart';
-import 'package:tourism_app/features/home/manager/places/cubit/place_cubit.dart';
-import 'package:tourism_app/features/home/presentation/home_view.dart';
+import 'package:tourism_app/features/home/data/models/plane_model.dart';
+import 'package:tourism_app/features/home/manager/plans/cubit/plans_cubit.dart';
+import 'package:tourism_app/features/home/plan/presentation/widgets/plane_card.dart';
 
-class PlaceSection extends StatelessWidget {
-  const PlaceSection({
+class PlansSection extends StatelessWidget {
+  const PlansSection({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PlaceCubit, PlaceState>(
+    return BlocBuilder<PlansCubit, PlansState>(
       builder: (context, state) {
-        if (state is PlaceLoading) {
+        if (state is PlansLoading) {
           return SizedBox(
-            height: 200,
+            height: 170,
             child: Center(
               child: CircularProgressIndicator(),
             ),
           );
-        } else if (state is PlaceError) {
+        } else if (state is PlansError) {
           return SizedBox(
-            height: 200,
+            height: 170,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +35,7 @@ class PlaceSection extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Error loading places',
+                    'Error loading plans',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   SizedBox(height: 4),
@@ -50,27 +50,31 @@ class PlaceSection extends StatelessWidget {
               ),
             ),
           );
-        } else if (state is PlaceSuccess && ConstantsModels.placeModel != null && ConstantsModels.placeModel!.isNotEmpty) {
-          // Show only first 4 places
-          final displayPlaces = ConstantsModels.placeModel!.take(4).toList();
+        } else if (state is PlansSuccess && ConstantsModels.planModel != null && ConstantsModels.planModel!.isNotEmpty) {
+          // Show only first 4 plans
+          final displayPlans = ConstantsModels.planModel!.take(4).toList();
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Row(
-              children: displayPlaces.map((place) {
-                return PlaceCard(
-                  placeModel: (place as PlaceModel?) ?? PlaceModel(),
-                );
-              }).toList(),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: displayPlans.map((plan) {
+                  return PlanCardHorizontal(planModel: plan);
+                }).toList(),
+              ),
             ),
           );
         } else {
           // Initial state or no data - show placeholder cards
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Row(
-              children: List.generate(3, (index) {
-                return PlaceCard();
-              }),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: List.generate(3, (index) {
+                  return PlanCardHorizontal();
+                }),
+              ),
             ),
           );
         }

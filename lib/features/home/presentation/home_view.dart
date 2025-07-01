@@ -2,18 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tourism_app/core/component/buttons/favorite_icon.dart';
 import 'package:tourism_app/core/component/cache_image.dart';
+import 'package:tourism_app/core/network/end_points.dart';
 import 'package:tourism_app/core/utils/app_icons.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
-import 'package:tourism_app/features/city/persentaiton/city_details_view.dart';
 import 'package:tourism_app/features/city/persentaiton/place_details_view.dart';
 import 'package:tourism_app/features/home/data/models/place_mode.dart';
-import 'package:tourism_app/features/home/data/models/plane_model.dart';
 import 'package:tourism_app/features/home/manager/places/cubit/place_cubit.dart';
+import 'package:tourism_app/features/home/manager/plans/cubit/plans_cubit.dart';
+import 'package:tourism_app/features/home/manager/events/cubit/event_cubit.dart';
+import 'package:tourism_app/features/home/manager/city/cubit/city_cubit.dart';
 import 'package:tourism_app/features/home/plan/presentation/plan_view_body.dart';
-import 'package:tourism_app/features/home/plan/presentation/widgets/plane_card.dart';
+import 'package:tourism_app/features/home/presentation/all_places_view.dart';
+import 'package:tourism_app/features/home/presentation/all_cities_view.dart';
+import 'package:tourism_app/features/home/presentation/all_plans_view.dart';
+import 'package:tourism_app/features/home/presentation/widgets/city_section.dart';
 import 'package:tourism_app/features/home/presentation/widgets/event_list.dart';
 import 'package:tourism_app/features/home/presentation/widgets/header_page.dart';
 import 'package:tourism_app/features/home/presentation/widgets/place_section.dart';
+import 'package:tourism_app/features/home/presentation/widgets/plan_section.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -26,8 +32,11 @@ class HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    // Initialize places data when the page loads
+    // Initialize all data when the page loads
     PlaceCubit.of(context).getPlaces(context: context);
+    PlansCubit.of(context).getPlans(context: context);
+    EventCubit.of(context).getEvents(context: context);
+    CityCubit.of(context).getCities(context: context);
   }
 
   @override
@@ -65,9 +74,14 @@ class HomeViewState extends State<HomeView> {
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Spacer(),
-                    Text(
-                      'View All',
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.grey),
+                    InkWell(
+                      onTap: () {
+                        context.navigateToPage(AllPlacesView());
+                      },
+                      child: Text(
+                        'View All',
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.grey),
+                      ),
                     )
                   ],
                 ),
@@ -85,9 +99,14 @@ class HomeViewState extends State<HomeView> {
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Spacer(),
-                    Text(
-                      'View All',
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.grey),
+                    InkWell(
+                      onTap: () {
+                        context.navigateToPage(AllCitiesView());
+                      },
+                      child: Text(
+                        'View All',
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.grey),
+                      ),
                     )
                   ],
                 ),
@@ -95,17 +114,7 @@ class HomeViewState extends State<HomeView> {
               SizedBox(
                 height: 10,
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: List.generate(10, (index) {
-                      return CityCard();
-                    }),
-                  ),
-                ),
-              ),
+              CitySection(),
               SizedBox(
                 height: 10,
               ),
@@ -119,7 +128,9 @@ class HomeViewState extends State<HomeView> {
                     ),
                     Spacer(),
                     InkWell(
-                      onTap: () => context.navigateToPage(PlanViewBody()),
+                      onTap: () {
+                        context.navigateToPage(AllPlansView());
+                      },
                       child: Text(
                         'View All',
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.grey),
@@ -129,17 +140,7 @@ class HomeViewState extends State<HomeView> {
                 ),
               ),
 
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: List.generate(5, (index) {
-                      return PlanCardHorizontal();
-                    }),
-                  ),
-                ),
-              ),
+              PlansSection(),
               SizedBox(
                 height: 100,
               )
@@ -151,46 +152,14 @@ class HomeViewState extends State<HomeView> {
   }
 }
 
-class CityCard extends StatelessWidget {
-  const CityCard({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: Stack(
-        children: [
-          GestureDetector(
-            onTap: () => context.navigateToPage(CityDetailsView()),
-            child: CacheImage(
-              height: 130,
-              width: 300,
-              imageUrl: '',
-              errorColor: Colors.grey,
-            ),
-          ),
-          Positioned(
-            bottom: 10,
-            left: 10,
-            child: Text(
-              'Egypt',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
 class PlaceCard extends StatelessWidget {
   final PlaceModel? placeModel;
+  final bool isHorizontalScroll;
 
   const PlaceCard({
     super.key,
     this.placeModel,
+    this.isHorizontalScroll = true,
   });
 
   @override
@@ -198,8 +167,8 @@ class PlaceCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => context.navigateToPage(PlaceDetailsView()),
       child: Container(
-        width: 150,
-        margin: EdgeInsets.only(left: 10),
+        width: isHorizontalScroll ? 150 : null,
+        margin: isHorizontalScroll ? EdgeInsets.only(left: 10) : EdgeInsets.zero,
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black.withOpacity(0.05)),
@@ -219,8 +188,8 @@ class PlaceCard extends StatelessWidget {
               children: [
                 CacheImage(
                   height: 150,
-                  width: 130,
-                  imageUrl: placeModel?.thumbnailUrl ?? placeModel?.thumbnail ?? '',
+                  width: isHorizontalScroll ? 130 : double.infinity,
+                  imageUrl: '${EndPoints.domain} ${placeModel?.thumbnailUrl}',
                   errorColor: Colors.grey,
                 ),
                 Positioned(

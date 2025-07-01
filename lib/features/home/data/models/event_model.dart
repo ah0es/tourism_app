@@ -1,13 +1,13 @@
 class EventModel {
-  List<Data>? data;
+  List<EventData>? data;
 
   EventModel({this.data});
 
   EventModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <EventData>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(EventData.fromJson(v));
       });
     }
   }
@@ -21,7 +21,7 @@ class EventModel {
   }
 }
 
-class Data {
+class EventData {
   int? id;
   String? name;
   String? description;
@@ -34,7 +34,7 @@ class Data {
   num? price;
   String? thumbnailUrl;
 
-  Data(
+  EventData(
       {this.id,
       this.name,
       this.description,
@@ -47,7 +47,7 @@ class Data {
       this.price,
       this.thumbnailUrl});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  EventData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];

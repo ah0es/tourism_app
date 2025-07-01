@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:tourism_app/core/utils/constants.dart';
 
 abstract class Failure {
   final String errMessage;

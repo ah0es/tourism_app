@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tourism_app/core/component/cache_image.dart';
 import 'package:tourism_app/core/component/custom_app_bar.dart';
-import 'package:tourism_app/core/component/custom_card_image_attractions.dart';
 import 'package:tourism_app/core/component/custom_search_bar.dart';
 import 'package:tourism_app/core/themes/colors.dart';
 
