@@ -1,6 +1,6 @@
 class EndPoints {
   //static const domain = 'http://192.168.1.67:5200';
-  static const domain = 'https://0e73-156-209-20-112.ngrok-free.app';
+  static const domain = 'https://4fcf-41-69-61-85.ngrok-free.app';
   static const baseUrl = '$domain/api/';
 
   //Auth
@@ -11,8 +11,12 @@ class EndPoints {
   static const places = 'Places';
   static const plans = 'Plans';
   static const tourGuides = 'TourGuides';
+  static const bookGuide = 'Bookings';
   static const restaurants = 'Restaurants';
   static const hotels = 'Hotels';
   static const favorites = 'Favorites';
   static const reviews = 'Reviews';
+  static const activity = 'places';
+  static const myBookings = 'Bookings/my-bookings';
+  static const confirmBooking = 'Bookings';
 }

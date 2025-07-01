@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tourism_app/core/component/buttons/custom_text_button.dart';
 import 'package:tourism_app/core/component/cache_image.dart';
 import 'package:tourism_app/core/component/review_dialog.dart';
 import 'package:tourism_app/core/network/end_points.dart';
 import 'package:tourism_app/core/utils/app_icons.dart';
+import 'package:tourism_app/core/utils/constants_models.dart';
 import 'package:tourism_app/features/home/data/models/plane_model.dart';
 import 'package:tourism_app/features/home/data/models/place_mode.dart';
+import 'package:tourism_app/features/home/data/models/activity_model.dart';
 import 'package:tourism_app/features/home/plan/presentation/widgets/plan_gallery.dart';
 import 'package:tourism_app/features/home/presentation/home_view.dart';
 import 'package:tourism_app/features/tourguide/presentation/tourguide_details_view.dart';
@@ -118,13 +121,20 @@ class PlanDetailsView extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     PlanPlacesSection(planPlaces: planModel.planPlaces!),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 24),
                   ],
+
+                  // // Activities Section
+                  // if (planModel.planPlaces != null && planModel.planPlaces!.isNotEmpty) ...[
+                  //   ActivitiesSection(planPlaces: planModel.planPlaces!),
+                  //   const SizedBox(height: 24),
+                  // ],
+
                   ReviewingSection(
                     entityName: 'plan',
                     entityId: planModel.id?.toInt() ?? -1,
                   ),
-        
+
                   const SizedBox(height: 16),
                 ],
               ),
@@ -433,3 +443,382 @@ class ReviewCard extends StatelessWidget {
     );
   }
 }
+
+// Activities Section Widget
+// class ActivitiesSection extends StatefulWidget {
+//   final List<PlanPlaces> planPlaces;
+
+//   const ActivitiesSection({
+//     super.key,
+//     required this.planPlaces,
+//   });
+
+//   @override
+//   State<ActivitiesSection> createState() => _ActivitiesSectionState();
+// }
+
+// class _ActivitiesSectionState extends State<ActivitiesSection> {
+//   final Set<int> _loadedPlaceIds = {};
+//   bool _isExpanded = false;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _loadActivitiesForAllPlaces();
+//   }
+
+//   void _loadActivitiesForAllPlaces() {
+//     for (final planPlace in widget.planPlaces) {
+//       if (planPlace.placeId != null && !_loadedPlaceIds.contains(planPlace.placeId!.toInt())) {
+//         _loadedPlaceIds.add(planPlace.placeId!.toInt());
+//         GetActivitiesCubit.of(context).getActivityByPlaceId(placeId: planPlace.placeId!.toInt());
+//       }
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<GetActivitiesCubit, GetActivitiesState>(
+//       builder: (context, state) {
+//         return Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Row(
+//               children: [
+//                 Icon(
+//                   Icons.local_activity,
+//                   color: Theme.of(context).primaryColor,
+//                   size: 24,
+//                 ),
+//                 const SizedBox(width: 8),
+//                 Text(
+//                   'Activities & Experiences',
+//                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+//                         fontWeight: FontWeight.bold,
+//                       ),
+//                 ),
+//                 const Spacer(),
+//                 if (ConstantsModels.activityList != null && ConstantsModels.activityList!.isNotEmpty)
+//                   Container(
+//                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+//                     decoration: BoxDecoration(
+//                       color: Theme.of(context).primaryColor.withOpacity(0.1),
+//                       borderRadius: BorderRadius.circular(12),
+//                     ),
+//                     child: Text(
+//                       '${ConstantsModels.activityList!.length} available',
+//                       style: TextStyle(
+//                         color: Theme.of(context).primaryColor,
+//                         fontSize: 12,
+//                         fontWeight: FontWeight.w500,
+//                       ),
+//                     ),
+//                   ),
+//               ],
+//             ),
+//             const SizedBox(height: 12),
+//             if (state is GetActivitiesLoading)
+//               Container(
+//                 height: 120,
+//                 child: Center(
+//                   child: CircularProgressIndicator(
+//                     color: Theme.of(context).primaryColor,
+//                   ),
+//                 ),
+//               )
+//             else if (state is GetActivitiesError)
+//               Container(
+//                 padding: const EdgeInsets.all(16),
+//                 decoration: BoxDecoration(
+//                   color: Colors.red.withOpacity(0.1),
+//                   borderRadius: BorderRadius.circular(12),
+//                   border: Border.all(color: Colors.red.withOpacity(0.3)),
+//                 ),
+//                 child: Row(
+//                   children: [
+//                     Icon(Icons.error_outline, color: Colors.red, size: 20),
+//                     const SizedBox(width: 8),
+//                     Expanded(
+//                       child: Text(
+//                         'Failed to load activities',
+//                         style: TextStyle(color: Colors.red[700]),
+//                       ),
+//                     ),
+//                     TextButton(
+//                       onPressed: _loadActivitiesForAllPlaces,
+//                       child: Text('Retry'),
+//                     ),
+//                   ],
+//                 ),
+//               )
+//             else if (ConstantsModels.activityList == null || ConstantsModels.activityList!.isEmpty)
+//               Container(
+//                 padding: const EdgeInsets.all(20),
+//                 decoration: BoxDecoration(
+//                   color: Colors.grey[50],
+//                   borderRadius: BorderRadius.circular(12),
+//                   border: Border.all(color: Colors.grey[200]!),
+//                 ),
+//                 child: Column(
+//                   children: [
+//                     Icon(
+//                       Icons.local_activity_outlined,
+//                       size: 48,
+//                       color: Colors.grey[400],
+//                     ),
+//                     const SizedBox(height: 12),
+//                     Text(
+//                       'No activities available',
+//                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
+//                             color: Colors.grey[600],
+//                             fontWeight: FontWeight.w500,
+//                           ),
+//                     ),
+//                     const SizedBox(height: 4),
+//                     Text(
+//                       'Activities will be added for this plan soon',
+//                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
+//                             color: Colors.grey[500],
+//                           ),
+//                       textAlign: TextAlign.center,
+//                     ),
+//                   ],
+//                 ),
+//               )
+//             else
+//               Column(
+//                 children: [
+//                   // Show first 2 activities by default
+//                   ...ConstantsModels.activityList!
+//                       .take(_isExpanded ? ConstantsModels.activityList!.length : 2)
+//                       .map((activity) => ActivityCard(activity: activity))
+//                       .toList(),
+
+//                   // Show more button if there are more than 2 activities
+//                   if (ConstantsModels.activityList!.length > 2)
+//                     Padding(
+//                       padding: const EdgeInsets.only(top: 12),
+//                       child: InkWell(
+//                         onTap: () {
+//                           setState(() {
+//                             _isExpanded = !_isExpanded;
+//                           });
+//                         },
+//                         borderRadius: BorderRadius.circular(8),
+//                         child: Container(
+//                           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+//                           decoration: BoxDecoration(
+//                             border: Border.all(color: Theme.of(context).primaryColor.withOpacity(0.3)),
+//                             borderRadius: BorderRadius.circular(8),
+//                           ),
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.center,
+//                             children: [
+//                               Text(
+//                                 _isExpanded ? 'Show Less' : 'Show ${ConstantsModels.activityList!.length - 2} More Activities',
+//                                 style: TextStyle(
+//                                   color: Theme.of(context).primaryColor,
+//                                   fontWeight: FontWeight.w500,
+//                                 ),
+//                               ),
+//                               const SizedBox(width: 4),
+//                               Icon(
+//                                 _isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+//                                 color: Theme.of(context).primaryColor,
+//                                 size: 20,
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                 ],
+//               ),
+//           ],
+//         );
+//       },
+//     );
+//   }
+// }
+
+// // Professional Activity Card Widget
+// class ActivityCard extends StatelessWidget {
+//   final ActivityModel activity;
+
+//   const ActivityCard({
+//     super.key,
+//     required this.activity,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       margin: const EdgeInsets.only(bottom: 12),
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         borderRadius: BorderRadius.circular(16),
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.grey.withOpacity(0.08),
+//             blurRadius: 10,
+//             offset: const Offset(0, 2),
+//           ),
+//         ],
+//         border: Border.all(color: Colors.grey[100]!),
+//       ),
+//       child: ClipRRect(
+//         borderRadius: BorderRadius.circular(16),
+//         child: InkWell(
+//           onTap: () {
+//             // TODO: Navigate to activity details or show more info
+//             ScaffoldMessenger.of(context).showSnackBar(
+//               SnackBar(
+//                 content: Text('Activity details for ${activity.name}'),
+//                 backgroundColor: Theme.of(context).primaryColor,
+//               ),
+//             );
+//           },
+//           child: Row(
+//             children: [
+//               // Activity Image
+//               Container(
+//                 width: 100,
+//                 height: 100,
+//                 decoration: BoxDecoration(
+//                   color: Colors.grey[200],
+//                 ),
+//                 child: activity.thumbnailUrl != null
+//                     ? CacheImage(
+//                         imageUrl: '${EndPoints.domain}${activity.thumbnailUrl}',
+//                         width: 100,
+//                         height: 100,
+//                         boxFit: BoxFit.cover,
+//                         borderRadius: 0,
+//                         errorColor: Colors.grey[300]!,
+//                       )
+//                     : Container(
+//                         decoration: BoxDecoration(
+//                           gradient: LinearGradient(
+//                             begin: Alignment.topLeft,
+//                             end: Alignment.bottomRight,
+//                             colors: [
+//                               Theme.of(context).primaryColor.withOpacity(0.3),
+//                               Theme.of(context).primaryColor.withOpacity(0.1),
+//                             ],
+//                           ),
+//                         ),
+//                         child: Icon(
+//                           Icons.local_activity,
+//                           size: 32,
+//                           color: Theme.of(context).primaryColor,
+//                         ),
+//                       ),
+//               ),
+
+//               // Activity Details
+//               Expanded(
+//                 child: Padding(
+//                   padding: const EdgeInsets.all(16),
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       // Activity Name
+//                       Text(
+//                         activity.name ?? 'Unknown Activity',
+//                         style: Theme.of(context).textTheme.titleMedium?.copyWith(
+//                               fontWeight: FontWeight.w600,
+//                               color: Colors.grey[800],
+//                             ),
+//                         maxLines: 1,
+//                         overflow: TextOverflow.ellipsis,
+//                       ),
+
+//                       const SizedBox(height: 6),
+
+//                       // Activity Description
+//                       if (activity.description != null && activity.description!.isNotEmpty)
+//                         Text(
+//                           activity.description!,
+//                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
+//                                 color: Colors.grey[600],
+//                                 height: 1.3,
+//                               ),
+//                           maxLines: 2,
+//                           overflow: TextOverflow.ellipsis,
+//                         ),
+
+//                       const SizedBox(height: 8),
+
+//                       // Price and Action Row
+//                       Row(
+//                         children: [
+//                           // Price
+//                           if (activity.price != null)
+//                             Container(
+//                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+//                               decoration: BoxDecoration(
+//                                 color: Colors.green.withOpacity(0.1),
+//                                 borderRadius: BorderRadius.circular(8),
+//                               ),
+//                               child: Row(
+//                                 mainAxisSize: MainAxisSize.min,
+//                                 children: [
+//                                   Icon(
+//                                     Icons.attach_money,
+//                                     size: 14,
+//                                     color: Colors.green[700],
+//                                   ),
+//                                   Text(
+//                                     '${activity.price}',
+//                                     style: TextStyle(
+//                                       color: Colors.green[700],
+//                                       fontSize: 12,
+//                                       fontWeight: FontWeight.w600,
+//                                     ),
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+
+//                           const Spacer(),
+
+//                           // Action Button
+//                           Container(
+//                             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//                             decoration: BoxDecoration(
+//                               color: Theme.of(context).primaryColor.withOpacity(0.1),
+//                               borderRadius: BorderRadius.circular(20),
+//                             ),
+//                             child: Row(
+//                               mainAxisSize: MainAxisSize.min,
+//                               children: [
+//                                 Text(
+//                                   'Learn More',
+//                                   style: TextStyle(
+//                                     color: Theme.of(context).primaryColor,
+//                                     fontSize: 12,
+//                                     fontWeight: FontWeight.w500,
+//                                   ),
+//                                 ),
+//                                 const SizedBox(width: 4),
+//                                 Icon(
+//                                   Icons.arrow_forward_ios,
+//                                   size: 10,
+//                                   color: Theme.of(context).primaryColor,
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

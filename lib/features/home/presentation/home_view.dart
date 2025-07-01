@@ -5,16 +5,15 @@ import 'package:tourism_app/core/component/cache_image.dart';
 import 'package:tourism_app/core/network/end_points.dart';
 import 'package:tourism_app/core/utils/app_icons.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
-import 'package:tourism_app/features/city/persentaiton/place_details_view.dart';
 import 'package:tourism_app/features/home/data/models/place_mode.dart';
 import 'package:tourism_app/features/home/manager/places/cubit/place_cubit.dart';
 import 'package:tourism_app/features/home/manager/plans/cubit/plans_cubit.dart';
 import 'package:tourism_app/features/home/manager/events/cubit/event_cubit.dart';
 import 'package:tourism_app/features/home/manager/city/cubit/city_cubit.dart';
-import 'package:tourism_app/features/home/plan/presentation/plan_view_body.dart';
 import 'package:tourism_app/features/home/presentation/all_places_view.dart';
 import 'package:tourism_app/features/home/presentation/all_cities_view.dart';
 import 'package:tourism_app/features/home/presentation/all_plans_view.dart';
+import 'package:tourism_app/features/home/presentation/place_details_view.dart';
 import 'package:tourism_app/features/home/presentation/widgets/city_section.dart';
 import 'package:tourism_app/features/home/presentation/widgets/event_list.dart';
 import 'package:tourism_app/features/home/presentation/widgets/header_page.dart';
@@ -165,7 +164,9 @@ class PlaceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        context.navigateToPage(PlaceDetailsView(placeModel:placeModel??PlaceModel()));
+      },
       child: Container(
         width: isHorizontalScroll ? 150 : null,
         margin: isHorizontalScroll ? EdgeInsets.only(left: 10) : EdgeInsets.zero,

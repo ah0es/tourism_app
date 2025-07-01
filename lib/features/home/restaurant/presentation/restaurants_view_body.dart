@@ -3,7 +3,7 @@ import 'package:tourism_app/core/component/custom_app_bar.dart';
 import 'package:tourism_app/core/component/custom_card_image_restaurant.dart';
 import 'package:tourism_app/core/component/custom_search_bar.dart';
 import 'package:tourism_app/core/utils/app_images.dart';
-import 'package:tourism_app/features/city/persentaiton/place_details_view.dart';
+import 'package:tourism_app/features/city/persentaiton/city_details_view.dart';
 
 class RestaurantCafeViewBody extends StatelessWidget {
   RestaurantCafeViewBody({super.key});

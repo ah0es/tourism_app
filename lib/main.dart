@@ -9,9 +9,14 @@ import 'package:tourism_app/core/utils/constants.dart';
 import 'package:tourism_app/features/authentication/login/data/models/login_model.dart';
 import 'package:tourism_app/features/home/manager/city/cubit/city_cubit.dart';
 import 'package:tourism_app/features/home/manager/events/cubit/event_cubit.dart';
+import 'package:tourism_app/features/booking/views/manager/cubit/my_booking_cubit.dart';
+import 'package:tourism_app/features/home/manager/bookGuide/cubit/book_guide_cubit.dart';
 import 'package:tourism_app/features/home/manager/favorite/cubit/favorite_cubit.dart';
+import 'package:tourism_app/features/home/manager/getActivites/cubit/get_activities_cubit.dart';
+import 'package:tourism_app/features/home/manager/hotel/cubit/hotel_cubit.dart';
 import 'package:tourism_app/features/home/manager/places/cubit/place_cubit.dart';
 import 'package:tourism_app/features/home/manager/plans/cubit/plans_cubit.dart';
+import 'package:tourism_app/features/home/manager/restaurant/cubit/restaurant_cubit.dart';
 import 'package:tourism_app/features/home/manager/reviews/cubit/reviews_cubit.dart';
 import 'package:tourism_app/features/home/manager/tourGuid/cubit/tour_guides_cubit.dart';
 import 'package:tourism_app/features/splashScreen/presentation/splash_screen.dart';
@@ -95,6 +100,11 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (_) => TourGuidesCubit()),
             BlocProvider(create: (_) => ReviewsCubit()),
             BlocProvider(create: (_) => FavoriteCubit()),
+            BlocProvider(create: (_) => BookGuideCubit()),
+            BlocProvider(create: (_) => MyBookingCubit()),
+            BlocProvider(create: (_) => RestaurantCubit()),
+            BlocProvider(create: (_) => HotelCubit()),
+            BlocProvider(create: (_) => GetActivitiesCubit()),
             // BlocProvider(create: (_) => BottomNavBarCubit()),
             // BlocProvider(create: (_) => ServiceDetailsCubit()),
           ],

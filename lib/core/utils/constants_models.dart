@@ -1,4 +1,6 @@
 import 'package:tourism_app/features/authentication/login/data/models/login_model.dart';
+import 'package:tourism_app/features/home/data/models/activity_model.dart';
+import 'package:tourism_app/features/home/data/models/booking_model.dart';
 import 'package:tourism_app/features/home/data/models/city_model.dart';
 import 'package:tourism_app/features/home/data/models/event_model.dart';
 import 'package:tourism_app/features/home/data/models/favorite_model.dart';
@@ -20,4 +22,6 @@ class ConstantsModels {
   static List<TourGuidModel>? tourGuidModel;
   static List<FavoriteModel>? favoriteModel;
   static ReviewModel? reviewModel;
+  static List<ActivityModel>? activityList;
+  static List<BookingModel>? myBooking;
 }

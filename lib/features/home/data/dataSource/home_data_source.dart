@@ -3,6 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:tourism_app/core/network/dio_helper.dart';
 import 'package:tourism_app/core/network/end_points.dart';
 import 'package:tourism_app/core/network/errors/failures.dart';
+import 'package:tourism_app/features/Profile/Payment/mybooking/data/booking_model.dart';
+import 'package:tourism_app/features/home/data/models/activity_model.dart';
+import 'package:tourism_app/features/home/data/models/booking_model.dart';
 import 'package:tourism_app/features/home/data/models/city_model.dart';
 import 'package:tourism_app/features/home/data/models/event_model.dart';
 import 'package:tourism_app/features/home/data/models/favorite_model.dart';
@@ -115,6 +118,51 @@ class HomeDataSource {
         favorities = (response.data as List).map((place) => FavoriteModel.fromJson(place)).toList();
       }
       return Right(favorities);
+    } catch (error) {
+      if (error is DioException) {
+        return Left(ServerFailure.fromDioException(error));
+      }
+      return Left(ServerFailure(error.toString()));
+    }
+  }
+
+  static Future<Either<Failure, List<BookingModel>>> getMyBooking() async {
+    try {
+      final response = await DioHelper.getData(url: EndPoints.myBookings);
+      List<BookingModel> bookingModel = [];
+      if (response.data is List) {
+        bookingModel = (response.data as List).map((place) => BookingModel.fromJson(place)).toList();
+      }
+      return Right(bookingModel);
+    } catch (error) {
+      if (error is DioException) {
+        return Left(ServerFailure.fromDioException(error));
+      }
+      return Left(ServerFailure(error.toString()));
+    }
+  }
+
+  static Future<Either<Failure, String>> confirmBooking({required int bookingId}) async {
+    try {
+      await DioHelper.postData(endPoint: '${EndPoints.confirmBooking}/$bookingId/confirm', data: {"paymentMethodId": "pm_card_visa"});
+
+      return Right('success');
+    } catch (error) {
+      if (error is DioException) {
+        return Left(ServerFailure.fromDioException(error));
+      }
+      return Left(ServerFailure(error.toString()));
+    }
+  }
+
+  static Future<Either<Failure, List<ActivityModel>>> getActivityByPlaceId({required int placeId}) async {
+    try {
+      final response = await DioHelper.getData(url: '${EndPoints.activity}/$placeId/activities');
+      List<ActivityModel> activityModel = [];
+      if (response.data is List) {
+        activityModel = (response.data as List).map((place) => ActivityModel.fromJson(place)).toList();
+      }
+      return Right(activityModel);
     } catch (error) {
       if (error is DioException) {
         return Left(ServerFailure.fromDioException(error));

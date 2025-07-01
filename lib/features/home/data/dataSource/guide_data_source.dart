@@ -16,4 +16,16 @@ class GuideDataSource {
       return Left(ServerFailure(error.toString()));
     }
   }
+
+  static Future<Either<Failure, String>> bookGuide({required dynamic data}) async {
+    try {
+      await DioHelper.postData(endPoint: EndPoints.bookGuide, data: data);
+      return Right('Request created successfully');
+    } catch (error) {
+      if (error is DioException) {
+        return Left(ServerFailure.fromDioException(error));
+      }
+      return Left(ServerFailure(error.toString()));
+    }
+  }
 }

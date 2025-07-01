@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tourism_app/core/component/app_bar_sharred.dart';
-import 'package:tourism_app/core/component/custom_search_bar.dart';
 import 'package:tourism_app/core/utils/constants_models.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
-import 'package:tourism_app/features/home/data/models/tourguid_model.dart';
 import 'package:tourism_app/features/home/manager/tourGuid/cubit/tour_guides_cubit.dart';
 import 'package:tourism_app/features/tourguide/presentation/tourguide_details_view.dart';
 import 'package:tourism_app/features/tourguide/presentation/widgets/tourguide_card.dart';

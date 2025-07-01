@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tourism_app/features/bottomNavigationBar/presentation/widget/cusotm_bottom_navigation_bar.dart';
 import 'package:tourism_app/features/home/presentation/all_plans_view.dart';
 import 'package:tourism_app/features/home/presentation/home_view.dart';
+import 'package:tourism_app/features/menu/views/menu_view.dart';
 import 'package:tourism_app/features/tourguide/presentation/tourguide_view.dart';
 
 class BottomNavigationBarView extends StatefulWidget {
@@ -46,5 +47,5 @@ List<Widget> navBarViews = [
   TourGuideView(),
   Text('Camera View'),
   AllPlansView(),
-  Text('Menu View'),
+  MenuView(),
 ];
