@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tourism_app/core/component/buttons/custom_text_button.dart';
 import 'package:tourism_app/core/component/cache_image.dart';
-import 'package:tourism_app/core/component/custom_text_form_field.dart';
+import 'package:tourism_app/core/component/review_dialog.dart';
 import 'package:tourism_app/core/utils/app_icons.dart';
 import 'package:tourism_app/core/utils/app_images.dart';
 import 'package:tourism_app/core/utils/navigate.dart';
@@ -119,7 +118,15 @@ class PlaceDetailsView extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
                       ),
                       Spacer(),
-                      InkWell(onTap: () => showReviewDialog(context), child: SvgPicture.asset(AppIcons.addReview))
+                      InkWell(
+                        onTap: () => ReviewDialog.show(
+                          context: context,
+                          entityName: 'place',
+                          entityId: 1, // Replace with actual place ID
+                          entityTitle: 'Pyramids', // Replace with actual place name
+                        ),
+                        child: SvgPicture.asset(AppIcons.addReview),
+                      )
                     ],
                   ),
                 ),
@@ -153,66 +160,6 @@ class PlaceDetailsView extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  void showReviewDialog(BuildContext context) {
-    double rating = 3.0; // Initial rating value
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              backgroundColor: Colors.white,
-              title: Text('Write a Review'),
-              content: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('Score:'),
-                  const SizedBox(height: 8),
-                  RatingBar.builder(
-                    initialRating: rating,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                    itemBuilder: (context, _) => Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    onRatingUpdate: (rating) {
-                      setState(() {
-                        rating = rating;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  CustomTextFormField(
-                      contentPadding: EdgeInsets.all(5),
-                      maxLines: 6,
-                      outPadding: EdgeInsets.zero,
-                      controller: TextEditingController(),
-                      hintText: 'Review')
-                ],
-              ),
-              actions: <Widget>[
-                CustomTextButton(
-                    onPress: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      'Post',
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white),
-                    ))
-              ],
-            );
-          },
-        );
-      },
     );
   }
 }

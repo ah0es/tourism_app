@@ -14,4 +14,5 @@ class EndPoints {
   static const restaurants = 'Restaurants';
   static const hotels = 'Hotels';
   static const favorites = 'Favorites';
+  static const reviews = 'Reviews';
 }

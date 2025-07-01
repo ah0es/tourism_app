@@ -10,6 +10,7 @@ import 'package:tourism_app/features/home/data/models/hotel_model.dart';
 import 'package:tourism_app/features/home/data/models/place_mode.dart';
 import 'package:tourism_app/features/home/data/models/plane_model.dart';
 import 'package:tourism_app/features/home/data/models/restaurant_model.dart';
+import 'package:tourism_app/features/home/data/models/review_model.dart';
 import 'package:tourism_app/features/home/data/models/tourguid_model.dart';
 
 class HomeDataSource {
@@ -122,6 +123,19 @@ class HomeDataSource {
     }
   }
 
+  static Future<Either<Failure, String>> postFavorite({required String entityType, required int entityId}) async {
+    try {
+      await DioHelper.postData(endPoint: EndPoints.favorites, data: {"entityType": entityType, "entityId": entityId});
+
+      return Right('success');
+    } catch (error) {
+      if (error is DioException) {
+        return Left(ServerFailure.fromDioException(error));
+      }
+      return Left(ServerFailure(error.toString()));
+    }
+  }
+
   static Future<Either<Failure, List<TourGuidModel>>> getTourGuids() async {
     try {
       final response = await DioHelper.getData(url: EndPoints.tourGuides);
@@ -130,6 +144,34 @@ class HomeDataSource {
         tourGuids = (response.data as List).map((place) => TourGuidModel.fromJson(place)).toList();
       }
       return Right(tourGuids);
+    } catch (error) {
+      if (error is DioException) {
+        return Left(ServerFailure.fromDioException(error));
+      }
+      return Left(ServerFailure(error.toString()));
+    }
+  }
+
+  static Future<Either<Failure, ReviewModel>> getReviews({required String entityName, required int entityId}) async {
+    try {
+      final response = await DioHelper.getData(url: '${EndPoints.reviews}/$entityName/$entityId?sortOrder=recent&page=1&pageSize=10');
+
+      return Right(ReviewModel.fromJson(response.data));
+    } catch (error) {
+      if (error is DioException) {
+        return Left(ServerFailure.fromDioException(error));
+      }
+      return Left(ServerFailure(error.toString()));
+    }
+  }
+
+  static Future<Either<Failure, String>> createReview(
+      {required String entityName, required int entityId, required int rate, required String comment}) async {
+    try {
+      final response = await DioHelper.postData(
+          endPoint: EndPoints.reviews, data: {"entityType": entityName, "entityId": entityId, "rating": rate, "comment": comment});
+
+      return Right('your review createed successfully');
     } catch (error) {
       if (error is DioException) {
         return Left(ServerFailure.fromDioException(error));
