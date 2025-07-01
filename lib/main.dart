@@ -19,6 +19,7 @@ import 'package:tourism_app/features/home/manager/plans/cubit/plans_cubit.dart';
 import 'package:tourism_app/features/home/manager/restaurant/cubit/restaurant_cubit.dart';
 import 'package:tourism_app/features/home/manager/reviews/cubit/reviews_cubit.dart';
 import 'package:tourism_app/features/home/manager/tourGuid/cubit/tour_guides_cubit.dart';
+import 'package:tourism_app/features/menu/manager/cubit/apply_guide_cubit.dart';
 import 'package:tourism_app/features/splashScreen/presentation/splash_screen.dart';
 import 'core/network/dio_helper.dart';
 import 'core/network/local/cache.dart';
@@ -102,6 +103,7 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (_) => FavoriteCubit()),
             BlocProvider(create: (_) => BookGuideCubit()),
             BlocProvider(create: (_) => MyBookingCubit()),
+            BlocProvider(create: (_) => ApplyGuideCubit()),
             BlocProvider(create: (_) => RestaurantCubit()),
             BlocProvider(create: (_) => HotelCubit()),
             BlocProvider(create: (_) => GetActivitiesCubit()),

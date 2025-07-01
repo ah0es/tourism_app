@@ -15,6 +15,7 @@ import 'package:tourism_app/features/home/data/models/plane_model.dart';
 import 'package:tourism_app/features/home/data/models/restaurant_model.dart';
 import 'package:tourism_app/features/home/data/models/review_model.dart';
 import 'package:tourism_app/features/home/data/models/tourguid_model.dart';
+import 'package:tourism_app/features/menu/data/models/hotel_model.dart';
 
 class HomeDataSource {
   static Future<Either<Failure, List<CityModel>>> getCities() async {
@@ -86,22 +87,6 @@ class HomeDataSource {
         restaurants = (response.data as List).map((restaurant) => RestaurantModel.fromJson(restaurant)).toList();
       }
       return Right(restaurants);
-    } catch (error) {
-      if (error is DioException) {
-        return Left(ServerFailure.fromDioException(error));
-      }
-      return Left(ServerFailure(error.toString()));
-    }
-  }
-
-  static Future<Either<Failure, List<HotelModel>>> getHotels() async {
-    try {
-      final response = await DioHelper.getData(url: EndPoints.hotels);
-      List<HotelModel> hotels = [];
-      if (response.data is List) {
-        hotels = (response.data as List).map((restaurant) => HotelModel.fromJson(restaurant)).toList();
-      }
-      return Right(hotels);
     } catch (error) {
       if (error is DioException) {
         return Left(ServerFailure.fromDioException(error));
@@ -205,6 +190,22 @@ class HomeDataSource {
       final response = await DioHelper.getData(url: '${EndPoints.reviews}/$entityName/$entityId?sortOrder=recent&page=1&pageSize=10');
 
       return Right(ReviewModel.fromJson(response.data));
+    } catch (error) {
+      if (error is DioException) {
+        return Left(ServerFailure.fromDioException(error));
+      }
+      return Left(ServerFailure(error.toString()));
+    }
+  }
+
+  static Future<Either<Failure, List<HotelModel>>> getHotels() async {
+    try {
+      final response = await DioHelper.getData(url: EndPoints.hotels);
+      List<HotelModel> hotels = [];
+      if (response.data is List) {
+        hotels = (response.data as List).map((hotel) => HotelModel.fromJson(hotel)).toList();
+      }
+      return Right(hotels);
     } catch (error) {
       if (error is DioException) {
         return Left(ServerFailure.fromDioException(error));

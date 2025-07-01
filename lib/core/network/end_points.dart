@@ -11,6 +11,7 @@ class EndPoints {
   static const places = 'Places';
   static const plans = 'Plans';
   static const tourGuides = 'TourGuides';
+  static const applyTourGuides = 'TourGuides/apply';
   static const bookGuide = 'Bookings';
   static const restaurants = 'Restaurants';
   static const hotels = 'Hotels';
@@ -19,4 +20,5 @@ class EndPoints {
   static const activity = 'places';
   static const myBookings = 'Bookings/my-bookings';
   static const confirmBooking = 'Bookings';
+  static const toureGuideApplications = 'TourGuides/my-application';
 }

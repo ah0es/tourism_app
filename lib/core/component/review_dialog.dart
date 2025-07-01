@@ -225,15 +225,7 @@ class _ReviewDialogContentState extends State<_ReviewDialogContent> with TickerP
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
-                          if (widget.entityTitle != null) ...[
-                            SizedBox(height: 4),
-                            Text(
-                              'for ${widget.entityTitle}',
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: Colors.grey[600],
-                                  ),
-                            ),
-                          ],
+                     
                         ],
                       ),
                     ),
@@ -263,7 +255,7 @@ class _ReviewDialogContentState extends State<_ReviewDialogContent> with TickerP
                           child: Column(
                             children: [
                               Text(
-                                'How would you rate this $_entityDisplayName?',
+                                'How would you rate this ?',
                                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                       fontWeight: FontWeight.w600,
                                     ),

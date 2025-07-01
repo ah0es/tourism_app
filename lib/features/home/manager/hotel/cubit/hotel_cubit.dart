@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tourism_app/core/utils/constants_models.dart';
 import 'package:tourism_app/core/utils/utils.dart';
 import 'package:tourism_app/features/home/data/dataSource/home_data_source.dart';
+import 'package:tourism_app/features/menu/data/models/hotel_model.dart';
 
 part 'hotel_state.dart';
 

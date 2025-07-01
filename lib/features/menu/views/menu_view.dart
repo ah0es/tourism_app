@@ -6,6 +6,8 @@ import 'package:tourism_app/features/booking/views/my_booking_view.dart';
 import 'package:tourism_app/features/home/manager/favorite/cubit/favorite_cubit.dart';
 import 'package:tourism_app/features/home/restaurant/presentation/restaurants_view_body.dart';
 import 'package:tourism_app/features/home/hotelse/presentation/hotels_view_body.dart';
+import 'package:tourism_app/features/menu/views/apply_as_guide_view.dart';
+import 'package:tourism_app/features/menu/views/hotels_view.dart';
 
 class MenuView extends StatelessWidget {
   const MenuView({super.key});
@@ -102,21 +104,21 @@ class MenuView extends StatelessWidget {
                     },
                   ),
                   _buildDivider(),
-                  BlocBuilder<FavoriteCubit, FavoriteState>(
-                    builder: (context, state) {
-                      final favoriteCount = FavoriteCubit.of(context).totalFavoritesCount;
-                      return _buildMenuItem(
-                        context,
-                        icon: Icons.favorite_outline,
-                        title: 'My Favorites',
-                        subtitle: '$favoriteCount saved items',
-                        onTap: () {
-                          _showFavoritesDialog(context);
-                        },
-                      );
-                    },
-                  ),
-                  _buildDivider(),
+                  // BlocBuilder<FavoriteCubit, FavoriteState>(
+                  //   builder: (context, state) {
+                  //     final favoriteCount = FavoriteCubit.of(context).totalFavoritesCount;
+                  //     return _buildMenuItem(
+                  //       context,
+                  //       icon: Icons.favorite_outline,
+                  //       title: 'My Favorites',
+                  //       subtitle: '$favoriteCount saved items',
+                  //       onTap: () {
+                  //         _showFavoritesDialog(context);
+                  //       },
+                  //     );
+                  //   },
+                  // ),
+                  // _buildDivider(),
                   _buildMenuItem(
                     context,
                     icon: Icons.restaurant_outlined,
@@ -133,7 +135,7 @@ class MenuView extends StatelessWidget {
                     title: 'Hotels',
                     subtitle: 'Find perfect accommodations',
                     onTap: () {
-                      context.navigateToPage(HotelsViewBody());
+                      context.navigateToPage(HotelsView());
                     },
                   ),
                   _buildDivider(),
@@ -143,7 +145,7 @@ class MenuView extends StatelessWidget {
                     title: 'Apply as Tour Guide',
                     subtitle: 'Join our guide community',
                     onTap: () {
-                      _showApplyDialog(context);
+                      context.navigateToPage(ApplyAsGuideView());
                     },
                   ),
                 ],
