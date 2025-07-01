@@ -164,8 +164,8 @@ class PlaceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => context.navigateToPage(PlaceDetailsView()),
+    return InkWell(
+      onTap: () {},
       child: Container(
         width: isHorizontalScroll ? 150 : null,
         margin: isHorizontalScroll ? EdgeInsets.only(left: 10) : EdgeInsets.zero,

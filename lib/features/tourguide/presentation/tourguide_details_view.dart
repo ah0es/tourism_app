@@ -251,170 +251,9 @@ class _TourGuideDetailsViewState extends State<TourGuideDetailsView> {
                     ),
 
                   // Reviews Section
-                  Row(
-                    children: [
-                      Text(
-                        'Reviews',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      Spacer(),
-                      GestureDetector(
-                        onTap: () => ReviewDialog.show(
-                          context: context,
-                          entityName: 'tourguide',
-                          entityId: widget.tourGuide.id!.toInt(),
-                          entityTitle: '${widget.tourGuide.firstName ?? ''} ${widget.tourGuide.lastName ?? ''}'.trim(),
-                          onReviewSubmitted: () async {
-                            await ReviewsCubit.of(context).getReviews(
-                              context: context,
-                              entityName: 'tourguide',
-                              entityId: widget.tourGuide.id!.toInt(),
-                            );
-                          },
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.add,
-                                color: Colors.white,
-                                size: 16,
-                              ),
-                              SizedBox(width: 4),
-                              Text(
-                                'Add Review',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 12),
-
-                  // Reviews List
-                  BlocBuilder<ReviewsCubit, ReviewsState>(
-                    builder: (context, state) {
-                      if (state is ReviewsLoading) {
-                        return SizedBox(
-                          height: 100,
-                          child: Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        );
-                      } else if (state is ReviewsGetError) {
-                        return Container(
-                          padding: EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.red[50],
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: Colors.red[200]!),
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                'Error loading reviews',
-                                style: TextStyle(color: Colors.red[700]),
-                              ),
-                              SizedBox(height: 8),
-                              ElevatedButton(
-                                onPressed: () {
-                                  if (widget.tourGuide.id != null) {
-                                    ReviewsCubit.of(context).getReviews(
-                                      context: context,
-                                      entityName: 'tourguide',
-                                      entityId: widget.tourGuide.id!.toInt(),
-                                    );
-                                  }
-                                },
-                                child: Text('Retry'),
-                              ),
-                            ],
-                          ),
-                        );
-                      } else if (state is ReviewsGetSuccess) {
-                        final reviews = state.reviews;
-                        final reviewCount = reviews.data?.length ?? 0;
-                        final averageRating = ReviewsCubit.of(context).averageRating;
-
-                        if (reviewCount == 0) {
-                          return Container(
-                            padding: EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Colors.grey[100],
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              'No reviews yet. Be the first to leave a review!',
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: Colors.grey[600],
-                                  ),
-                            ),
-                          );
-                        }
-
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Reviews Summary
-                            Container(
-                              padding: EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                    size: 20,
-                                  ),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    '${averageRating.toStringAsFixed(1)} ($reviewCount review${reviewCount > 1 ? 's' : ''})',
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 12),
-
-                            // Reviews List
-                            ...reviews.data!.map((review) => _ReviewCard(review: review)),
-                          ],
-                        );
-                      }
-
-                      return Container(
-                        padding: EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          'No reviews yet. Be the first to leave a review!',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: Colors.grey[600],
-                              ),
-                        ),
-                      );
-                    },
+                  ReviewingSection(
+                    entityName: 'tourguide',
+                    entityId: widget.tourGuide.id?.toInt() ?? -1,
                   ),
 
                   SizedBox(height: 100), // Space for bottom button
@@ -450,6 +289,202 @@ class _TourGuideDetailsViewState extends State<TourGuideDetailsView> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ReviewingSection extends StatefulWidget {
+  const ReviewingSection({
+    super.key,
+    required this.entityName,
+    required this.entityId,
+  });
+  final String entityName;
+  final int entityId;
+
+  @override
+  State<ReviewingSection> createState() => _ReviewingSectionState();
+}
+
+class _ReviewingSectionState extends State<ReviewingSection> {
+  @override
+  void initState() {
+    ReviewsCubit.of(context).getReviews(
+      context: context,
+      entityName: widget.entityName,
+      entityId: widget.entityId,
+    );
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Text(
+              'Reviews',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            Spacer(),
+            GestureDetector(
+              onTap: () => ReviewDialog.show(
+                context: context,
+                entityName: 'tourguide',
+                entityId: widget.entityId,
+                entityTitle: '',
+                onReviewSubmitted: () async {
+                  await ReviewsCubit.of(context).getReviews(
+                    context: context,
+                    entityName: 'tourguide',
+                    entityId: widget.entityId,
+                  );
+                },
+              ),
+              child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.add,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      'Add Review',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 12),
+
+        // Reviews List
+        BlocBuilder<ReviewsCubit, ReviewsState>(
+          builder: (context, state) {
+            if (state is ReviewsLoading) {
+              return SizedBox(
+                height: 100,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            } else if (state is ReviewsGetError) {
+              return Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.red[50],
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.red[200]!),
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      'Error loading reviews',
+                      style: TextStyle(color: Colors.red[700]),
+                    ),
+                    SizedBox(height: 8),
+                    ElevatedButton(
+                      onPressed: () {
+                        ReviewsCubit.of(context).getReviews(
+                          context: context,
+                          entityName: 'tourguide',
+                          entityId: widget.entityId,
+                        );
+                      },
+                      child: Text('Retry'),
+                    ),
+                  ],
+                ),
+              );
+            } else if (state is ReviewsGetSuccess) {
+              final reviews = state.reviews;
+              final reviewCount = reviews.data?.length ?? 0;
+              final averageRating = ReviewsCubit.of(context).averageRating;
+
+              if (reviewCount == 0) {
+                return Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    'No reviews yet. Be the first to leave a review!',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.grey[600],
+                        ),
+                  ),
+                );
+              }
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Reviews Summary
+                  Container(
+                    padding: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          '${averageRating.toStringAsFixed(1)} ($reviewCount review${reviewCount > 1 ? 's' : ''})',
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 12),
+
+                  // Reviews List
+                  ...reviews.data!.map((review) => _ReviewCard(review: review)),
+                ],
+              );
+            }
+
+            return Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                'No reviews yet. Be the first to leave a review!',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.grey[600],
+                    ),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }

@@ -18,7 +18,11 @@ class PlanCardHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.navigateToPage(PlanDetailsView()),
+      onTap: () {
+        if (planModel != null) {
+          context.navigateToPage(PlanDetailsView(planModel: planModel!));
+        }
+      },
       child: Padding(
         padding: isHorizontalScroll ? const EdgeInsets.only(right: 10) : EdgeInsets.zero,
         child: Stack(
