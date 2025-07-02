@@ -177,7 +177,7 @@ class _RestaurantCardState extends State<RestaurantCard> {
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: () {
-          context.navigateToPage(RestaurantDetailsView(restaurant: widget.restaurant));
+          context.navigateToPage(RestaurantDetailsView(restaurantId: widget.restaurant.id?.toInt() ?? -1));
         },
         child: Container(
           decoration: BoxDecoration(

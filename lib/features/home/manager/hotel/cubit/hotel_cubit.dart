@@ -30,4 +30,23 @@ class HotelCubit extends Cubit<HotelState> {
       );
     });
   }
+
+  Future<void> getHotelById({required int hotelId}) async {
+    if (isClosed) return;
+    emit(HotelLoading());
+    await HomeDataSource.getHotelsById(hotelId: hotelId).then((value) async {
+      value.fold(
+        (l) {
+          Utils.showToast(title: l.errMessage, state: UtilState.error);
+          if (isClosed) return;
+          emit(HotelError(e: l.errMessage));
+        },
+        (r) async {
+          ConstantsModels.hotelObject = r;
+          if (isClosed) return;
+          emit(HotelSuccess());
+        },
+      );
+    });
+  }
 }

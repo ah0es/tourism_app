@@ -21,11 +21,11 @@ import 'package:tourism_app/features/home/restaurant/presentation/restaurants_vi
 import 'package:tourism_app/features/tourguide/presentation/tourguide_details_view.dart';
 
 class PlaceDetailsView extends StatefulWidget {
-  final PlaceModel placeModel;
+  final int placeId;
 
   const PlaceDetailsView({
     super.key,
-    required this.placeModel,
+    required this.placeId,
   });
 
   @override
@@ -42,27 +42,11 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
   @override
   void initState() {
     super.initState();
-    isFavorited = widget.placeModel.isFavorited ?? false;
+    isFavorited = false;
     _pageController = PageController();
 
-    // Start auto-scroll after widget is built
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _startAutoScroll();
-    });
-
-    // Load reviews for this place
-    if (widget.placeModel.id != null) {
-      ReviewsCubit.of(context).getReviews(
-        context: context,
-        entityName: 'place',
-        entityId: widget.placeModel.id!,
-      );
-
-      // Load activities for this place
-      GetActivitiesCubit.of(context).getActivityByPlaceId(
-        placeId: widget.placeModel.id!,
-      );
-    }
+    // Fetch place data by ID
+    PlaceCubit.of(context).getPlaceById(placeId: widget.placeId);
   }
 
   @override
@@ -73,7 +57,8 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
   }
 
   void _startAutoScroll() {
-    List<String> imageUrls = _getImageUrls();
+    if (ConstantsModels.placeObject == null) return;
+    List<String> imageUrls = _getImageUrls(ConstantsModels.placeObject!);
     if (imageUrls.length <= 1) return; // Don't auto-scroll if only one image
 
     _autoScrollTimer = Timer.periodic(Duration(seconds: 3), (timer) {
@@ -99,13 +84,13 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     }
   }
 
-  List<String> _getImageUrls() {
+  List<String> _getImageUrls(PlaceModel placeModel) {
     List<String> imageUrls = [];
-    if (widget.placeModel.thumbnailUrl != null) {
-      imageUrls.add('${EndPoints.domain}${widget.placeModel.thumbnailUrl}');
+    if (placeModel.thumbnailUrl != null) {
+      imageUrls.add('${EndPoints.domain}${placeModel.thumbnailUrl}');
     }
-    if (widget.placeModel.imageUrls != null) {
-      imageUrls.addAll(widget.placeModel.imageUrls!.map((url) => '${EndPoints.domain}$url'));
+    if (placeModel.imageUrls != null) {
+      imageUrls.addAll(placeModel.imageUrls!.map((url) => '${EndPoints.domain}$url'));
     }
 
     if (imageUrls.isEmpty) {
@@ -117,70 +102,179 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: shareAppBar(
-        context,
-        nameAppBar: widget.placeModel.name ?? 'Place Details',
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Image Gallery Section
-            _buildImageGallery(),
+    return BlocBuilder<PlaceCubit, PlaceState>(
+      builder: (context, state) {
+        if (state is PlaceLoading) {
+          return Scaffold(
+            appBar: shareAppBar(
+              context,
+              nameAppBar: 'Place Details',
+            ),
+            body: Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          );
+        }
 
-            // Main Content
-            Padding(
+        if (state is PlaceError) {
+          return Scaffold(
+            appBar: shareAppBar(
+              context,
+              nameAppBar: 'Place Details',
+            ),
+            body: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Header with title and favorite button
-                  _buildHeader(),
+                  Icon(
+                    Icons.error_outline,
+                    size: 64,
+                    color: Colors.red[300],
+                  ),
                   const SizedBox(height: 16),
-
-                  // Location and rating info
-                  _buildLocationRating(),
-                  const SizedBox(height: 16),
-
-                  // Price information
-                  if (widget.placeModel.averagePrice != null) ...[
-                    _buildPriceSection(),
-                    const SizedBox(height: 16),
-                  ],
-
-                  // Description Section
-                  _buildDescriptionSection(),
-                  const SizedBox(height: 16),
-
-                  // Place Information
-                  _buildPlaceInfoSection(),
-                  const SizedBox(height: 16),
-
-                  // Activities Section
-                  _buildActivitiesSection(),
-                  const SizedBox(height: 16),
-
-                  // Map Section (placeholder)
-                  _buildMapSection(),
-                  const SizedBox(height: 16),
-
-                  // Reviews Section
-                  _buildReviewsSection(entityId: widget.placeModel.id?.toInt() ?? -1),
-                  const SizedBox(height: 100), // Space for bottom button
+                  Text(
+                    'Failed to load place details',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: Colors.red[700],
+                          fontWeight: FontWeight.w600,
+                        ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    state.e,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.grey[600],
+                        ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      PlaceCubit.of(context).getPlaceById(placeId: widget.placeId);
+                    },
+                    icon: const Icon(Icons.refresh),
+                    label: const Text('Retry'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    ),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
+          );
+        }
 
-      // Floating Action Buttons
+        if (ConstantsModels.placeObject == null) {
+          return Scaffold(
+            appBar: shareAppBar(
+              context,
+              nameAppBar: 'Place Details',
+            ),
+            body: const Center(
+              child: Text('Place not found'),
+            ),
+          );
+        }
+
+        PlaceModel placeModel = ConstantsModels.placeObject!;
+
+        // Set up auto-scroll when data is loaded
+        if (!_userInteracting) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _startAutoScroll();
+          });
+        }
+
+        // Set favorite status and load additional data when place is loaded
+        if (isFavorited != (placeModel.isFavorited ?? false)) {
+          isFavorited = placeModel.isFavorited ?? false;
+        }
+
+        // Load reviews and activities for this place
+        if (placeModel.id != null) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            ReviewsCubit.of(context).getReviews(
+              context: context,
+              entityName: 'place',
+              entityId: placeModel.id!,
+            );
+
+            GetActivitiesCubit.of(context).getActivityByPlaceId(
+              placeId: placeModel.id!,
+            );
+          });
+        }
+
+        return Scaffold(
+          appBar: shareAppBar(
+            context,
+            nameAppBar: placeModel.name ?? 'Place Details',
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Image Gallery Section
+                _buildImageGallery(placeModel),
+
+                // Main Content
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Header with title and favorite button
+                      _buildHeader(placeModel),
+                      const SizedBox(height: 16),
+
+                      // Location and rating info
+                      _buildLocationRating(placeModel),
+                      const SizedBox(height: 16),
+
+                      // Price information
+                      if (placeModel.averagePrice != null) ...[
+                        _buildPriceSection(placeModel),
+                        const SizedBox(height: 16),
+                      ],
+
+                      // Description Section
+                      _buildDescriptionSection(placeModel),
+                      const SizedBox(height: 16),
+
+                      // Place Information
+                      _buildPlaceInfoSection(placeModel),
+                      const SizedBox(height: 16),
+
+                      // Activities Section
+                      _buildActivitiesSection(),
+                      const SizedBox(height: 16),
+
+                      // Map Section (placeholder)
+                      _buildMapSection(),
+                      const SizedBox(height: 16),
+
+                      // Reviews Section
+                      _buildReviewsSection(entityId: placeModel.id?.toInt() ?? -1),
+                      const SizedBox(height: 100), // Space for bottom button
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
-  Widget _buildImageGallery() {
-    List<String> imageUrls = _getImageUrls();
+  Widget _buildImageGallery(PlaceModel placeModel) {
+    List<String> imageUrls = _getImageUrls(placeModel);
 
     return SizedBox(
       height: 300,
@@ -316,7 +410,7 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(PlaceModel placeModel) {
     return Row(
       children: [
         Expanded(
@@ -324,12 +418,12 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.placeModel.name ?? 'Unknown Place',
+                placeModel.name ?? 'Unknown Place',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
               ),
-              if (widget.placeModel.type != null) ...[
+              if (placeModel.type != null) ...[
                 const SizedBox(height: 4),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -338,7 +432,7 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    widget.placeModel.type!,
+                    placeModel.type!,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.w500,
@@ -357,7 +451,7 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
             // TODO: Integrate with FavoriteCubit
             FavoriteCubit.of(context).toggleFavorite(
               context: context,
-              entityId: widget.placeModel.id ?? 0,
+              entityId: placeModel.id ?? 0,
               entityType: 'place',
             );
           },
@@ -385,25 +479,25 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     );
   }
 
-  Widget _buildLocationRating() {
+  Widget _buildLocationRating(PlaceModel placeModel) {
     return Row(
       children: [
         Icon(Icons.location_on, color: Colors.grey[600], size: 18),
         SizedBox(width: 4),
         Expanded(
           child: Text(
-            '${widget.placeModel.city ?? ''}, ${widget.placeModel.country ?? ''}',
+            '${placeModel.city ?? ''}, ${placeModel.country ?? ''}',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Colors.grey[600],
                 ),
           ),
         ),
-        if (widget.placeModel.stars != null) ...[
+        if (placeModel.stars != null) ...[
           SizedBox(width: 16),
           Icon(Icons.star, color: Colors.amber, size: 18),
           SizedBox(width: 4),
           Text(
-            widget.placeModel.stars!.toStringAsFixed(1),
+            placeModel.stars!.toStringAsFixed(1),
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -413,7 +507,7 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     );
   }
 
-  Widget _buildPriceSection() {
+  Widget _buildPriceSection(PlaceModel placeModel) {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -441,7 +535,7 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           Text(
-            '\$${widget.placeModel.averagePrice}',
+            '\$${placeModel.averagePrice}',
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).primaryColor,
@@ -459,7 +553,7 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     );
   }
 
-  Widget _buildDescriptionSection() {
+  Widget _buildDescriptionSection(PlaceModel placeModel) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -471,7 +565,7 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
         ),
         SizedBox(height: 8),
         Text(
-          widget.placeModel.description ??
+          placeModel.description ??
               'This is a wonderful place to visit with amazing attractions and beautiful scenery. Perfect for tourists looking for an authentic experience.',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 height: 1.5,
@@ -481,7 +575,7 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
     );
   }
 
-  Widget _buildPlaceInfoSection() {
+  Widget _buildPlaceInfoSection(PlaceModel placeModel) {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -499,8 +593,8 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                 ),
           ),
           SizedBox(height: 12),
-          if (widget.placeModel.location != null) _buildInfoRow('Location', widget.placeModel.location!, Icons.location_on),
-          if (widget.placeModel.type != null) _buildInfoRow('Category', widget.placeModel.type!, Icons.category),
+          if (placeModel.location != null) _buildInfoRow('Location', placeModel.location!, Icons.location_on),
+          if (placeModel.type != null) _buildInfoRow('Category', placeModel.type!, Icons.category),
           _buildInfoRow('Working Hours', '6:00 AM - 8:00 PM', Icons.access_time),
           _buildInfoRow('Contact', '+20 123 456 789', Icons.phone),
         ],
@@ -601,9 +695,9 @@ class _PlaceDetailsViewState extends State<PlaceDetailsView> {
                     ),
                     TextButton(
                       onPressed: () {
-                        if (widget.placeModel.id != null) {
+                        if (ConstantsModels.placeObject?.id != null) {
                           GetActivitiesCubit.of(context).getActivityByPlaceId(
-                            placeId: widget.placeModel.id!,
+                            placeId: ConstantsModels.placeObject!.id!,
                           );
                         }
                       },

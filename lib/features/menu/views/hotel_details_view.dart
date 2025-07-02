@@ -3,16 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tourism_app/core/component/app_bar_sharred.dart';
 import 'package:tourism_app/core/component/cache_image.dart';
 import 'package:tourism_app/core/network/end_points.dart';
+import 'package:tourism_app/core/utils/constants_models.dart';
 import 'package:tourism_app/features/home/manager/favorite/cubit/favorite_cubit.dart';
+import 'package:tourism_app/features/home/manager/hotel/cubit/hotel_cubit.dart';
 import 'package:tourism_app/features/menu/data/models/hotel_model.dart';
 import 'package:tourism_app/features/tourguide/presentation/tourguide_details_view.dart';
 
 class HotelDetailsView extends StatefulWidget {
-  final HotelModel hotel;
+  final int hotelId;
 
   const HotelDetailsView({
     super.key,
-    required this.hotel,
+    required this.hotelId,
   });
 
   @override
@@ -27,8 +29,10 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
   @override
   void initState() {
     super.initState();
-    isFavorited = widget.hotel.isFavorited ?? false;
+    isFavorited = false;
     _pageController = PageController();
+    // Fetch hotel details by ID
+    HotelCubit.of(context).getHotelById(hotelId: widget.hotelId);
   }
 
   @override
@@ -37,13 +41,13 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
     super.dispose();
   }
 
-  List<String> _getImageUrls() {
+  List<String> _getImageUrls(HotelModel? hotel) {
     List<String> imageUrls = [];
-    if (widget.hotel.thumbnailUrl != null) {
-      imageUrls.add('${EndPoints.domain}${widget.hotel.thumbnailUrl}');
+    if (hotel?.thumbnailUrl != null) {
+      imageUrls.add('${EndPoints.domain}${hotel!.thumbnailUrl}');
     }
-    if (widget.hotel.imageUrls != null) {
-      imageUrls.addAll(widget.hotel.imageUrls!.map((url) => '${EndPoints.domain}$url'));
+    if (hotel?.imageUrls != null) {
+      imageUrls.addAll(hotel!.imageUrls!.map((url) => '${EndPoints.domain}$url'));
     }
 
     if (imageUrls.isEmpty) {
@@ -56,73 +60,132 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: shareAppBar(
-        context,
-        nameAppBar: widget.hotel.name ?? 'Hotel Details',
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Image Gallery Section
-            _buildImageGallery(),
+    return BlocBuilder<HotelCubit, HotelState>(
+      builder: (context, state) {
+        final hotel = ConstantsModels.hotelObject;
 
-            // Main Content
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Header with title and favorite button
-                  _buildHeader(),
-                  const SizedBox(height: 16),
-
-                  // Location and rating info
-                  _buildLocationRating(),
-                  const SizedBox(height: 16),
-
-                  // Price information
-                  if (widget.hotel.startingPrice != null) ...[
-                    _buildPriceSection(),
-                    const SizedBox(height: 16),
-                  ],
-
-                  // Description Section
-                  _buildDescriptionSection(),
-                  const SizedBox(height: 16),
-
-                  // Hotel Information
-                  _buildHotelInfoSection(),
-                  const SizedBox(height: 16),
-
-                  // Rooms Section
-                  _buildRoomsSection(),
-                  const SizedBox(height: 16),
-
-                  // Map Section (placeholder)
-                  _buildMapSection(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ReviewingSection(
-                    entityName: 'hotel',
-                    entityId: widget.hotel.id?.toInt() ?? -1,
-                  ),
-                  const SizedBox(height: 100), // Space for bottom button
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      // floatingActionButton: _buildBookingButton(),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        return Scaffold(
+          appBar: shareAppBar(
+            context,
+            nameAppBar: hotel?.name ?? 'Hotel Details',
+          ),
+          body: _buildBody(state, hotel),
+        );
+      },
     );
   }
 
-  Widget _buildImageGallery() {
-    List<String> imageUrls = _getImageUrls();
+  Widget _buildBody(HotelState state, HotelModel? hotel) {
+    if (state is HotelLoading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    if (state is HotelError) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.error_outline,
+              size: 64,
+              color: Colors.red[400],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Failed to load hotel details',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Colors.red[700],
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              state.e,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Colors.grey[600],
+                  ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                HotelCubit.of(context).getHotelById(hotelId: widget.hotelId);
+              },
+              child: const Text('Retry'),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (hotel == null) {
+      return const Center(
+        child: Text('Hotel not found'),
+      );
+    }
+
+    // Update isFavorited when hotel data is loaded
+    isFavorited = hotel.isFavorited ?? false;
+
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Image Gallery Section
+          _buildImageGallery(hotel),
+
+          // Main Content
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Header with title and favorite button
+                _buildHeader(hotel),
+                const SizedBox(height: 16),
+
+                // Location and rating info
+                _buildLocationRating(hotel),
+                const SizedBox(height: 16),
+
+                // Price information
+                if (hotel.startingPrice != null) ...[
+                  _buildPriceSection(hotel),
+                  const SizedBox(height: 16),
+                ],
+
+                // Description Section
+                _buildDescriptionSection(hotel),
+                const SizedBox(height: 16),
+
+                // Hotel Information
+                _buildHotelInfoSection(hotel),
+                const SizedBox(height: 16),
+
+                // Rooms Section
+                _buildRoomsSection(hotel),
+                const SizedBox(height: 16),
+
+                // Map Section (placeholder)
+                _buildMapSection(hotel),
+                const SizedBox(height: 20),
+                ReviewingSection(
+                  entityName: 'hotel',
+                  entityId: hotel.id?.toInt() ?? -1,
+                ),
+                const SizedBox(height: 100), // Space for bottom button
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImageGallery(HotelModel hotel) {
+    List<String> imageUrls = _getImageUrls(hotel);
 
     return SizedBox(
       height: 300,
@@ -196,7 +259,7 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(HotelModel hotel) {
     return Row(
       children: [
         Expanded(
@@ -204,31 +267,32 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.hotel.name ?? 'Unknown Hotel',
+                hotel.name ?? 'Unknown Hotel',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
               ),
-              const SizedBox(height: 4),
-              if (widget.hotel.stars != null)
+              if (hotel.stars != null) ...[
+                const SizedBox(height: 4),
                 Row(
                   children: [
                     ...List.generate(5, (index) {
                       return Icon(
                         Icons.star,
-                        size: 20,
-                        color: index < widget.hotel.stars!.toInt() ? Colors.amber : Colors.grey[300],
+                        size: 16,
+                        color: index < hotel.stars!.toInt() ? Colors.amber : Colors.grey[300],
                       );
                     }),
                     const SizedBox(width: 8),
                     Text(
-                      '${widget.hotel.stars!.toStringAsFixed(1)} Stars',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      '${hotel.stars!.toStringAsFixed(1)} Stars',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontWeight: FontWeight.w500,
                           ),
                     ),
                   ],
                 ),
+              ],
             ],
           ),
         ),
@@ -239,7 +303,7 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
             });
             FavoriteCubit.of(context).toggleFavorite(
               context: context,
-              entityId: widget.hotel.id?.toInt() ?? 0,
+              entityId: hotel.id?.toInt() ?? 0,
               entityType: 'hotel',
             );
           },
@@ -267,25 +331,25 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
     );
   }
 
-  Widget _buildLocationRating() {
+  Widget _buildLocationRating(HotelModel hotel) {
     return Row(
       children: [
-        const Icon(Icons.location_on, color: Colors.grey, size: 18),
+        Icon(Icons.location_on, color: Colors.grey[600], size: 18),
         const SizedBox(width: 4),
         Expanded(
           child: Text(
-            '${widget.hotel.city ?? ''}, ${widget.hotel.country ?? ''}',
+            '${hotel.city ?? ''}, ${hotel.country ?? ''}',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Colors.grey[600],
                 ),
           ),
         ),
-        if (widget.hotel.rate != null) ...[
+        if (hotel.stars != null) ...[
           const SizedBox(width: 16),
-          const Icon(Icons.star, color: Colors.amber, size: 18),
+          Icon(Icons.star, color: Colors.amber, size: 18),
           const SizedBox(width: 4),
           Text(
-            widget.hotel.rate!.toStringAsFixed(1),
+            hotel.stars!.toStringAsFixed(1),
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -295,7 +359,7 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
     );
   }
 
-  Widget _buildPriceSection() {
+  Widget _buildPriceSection(HotelModel hotel) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -323,7 +387,7 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           Text(
-            '\$${widget.hotel.startingPrice}',
+            '\$${hotel.startingPrice}',
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).primaryColor,
@@ -341,7 +405,7 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
     );
   }
 
-  Widget _buildDescriptionSection() {
+  Widget _buildDescriptionSection(HotelModel hotel) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -353,8 +417,8 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
         ),
         const SizedBox(height: 8),
         Text(
-          widget.hotel.description ??
-              'Experience luxury and comfort at this beautiful hotel. Perfect for business travelers and tourists alike, offering exceptional service and modern amenities.',
+          hotel.description ??
+              'A wonderful hotel with excellent facilities and comfortable accommodations. Perfect for travelers looking for a memorable stay experience.',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 height: 1.5,
               ),
@@ -363,7 +427,7 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
     );
   }
 
-  Widget _buildHotelInfoSection() {
+  Widget _buildHotelInfoSection(HotelModel hotel) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -381,12 +445,11 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
                 ),
           ),
           const SizedBox(height: 12),
-          if (widget.hotel.location != null) _buildInfoRow('Address', widget.hotel.location!, Icons.location_on),
-          _buildInfoRow('Check-in', '3:00 PM', Icons.access_time),
-          _buildInfoRow('Check-out', '11:00 AM', Icons.access_time_filled),
+          if (hotel.location != null) _buildInfoRow('Location', hotel.location!, Icons.location_on),
+          if (hotel.stars != null) _buildInfoRow('Rating', '${hotel.stars} Stars', Icons.star),
+          _buildInfoRow('Check-in', '2:00 PM', Icons.access_time),
+          _buildInfoRow('Check-out', '11:00 AM', Icons.access_time),
           _buildInfoRow('Contact', '+20 123 456 789', Icons.phone),
-          if (widget.hotel.rooms != null && widget.hotel.rooms!.isNotEmpty)
-            _buildInfoRow('Total Rooms', '${widget.hotel.rooms!.length}', Icons.hotel),
         ],
       ),
     );
@@ -416,90 +479,70 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
     );
   }
 
-  Widget _buildRoomsSection() {
+  Widget _buildRoomsSection(HotelModel hotel) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Icon(
-              Icons.hotel,
-              color: Theme.of(context).primaryColor,
-              size: 24,
-            ),
-            const SizedBox(width: 8),
-            Text(
-              'Available Rooms',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-            const Spacer(),
-            if (widget.hotel.rooms != null && widget.hotel.rooms!.isNotEmpty)
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  '${widget.hotel.rooms!.length} rooms',
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+        Text(
+          'Room Types',
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
               ),
-          ],
         ),
         const SizedBox(height: 12),
-        if (widget.hotel.rooms == null || widget.hotel.rooms!.isEmpty)
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.grey[50],
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.grey[200]!),
-            ),
-            child: Column(
-              children: [
-                Icon(
-                  Icons.hotel_outlined,
-                  size: 48,
-                  color: Colors.grey[400],
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  'No rooms information available',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Colors.grey[600],
-                        fontWeight: FontWeight.w500,
-                      ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Contact hotel for room availability',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.grey[500],
-                      ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          )
-        else
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: widget.hotel.rooms!.map((room) => RoomCard(room: room)).toList(),
-            ),
-          ),
+        // Sample room types - you can modify this based on your hotel model
+        _buildRoomCard('Standard Room', '\$${hotel.startingPrice ?? 100}', 'Double bed, Wi-Fi, AC'),
+        const SizedBox(height: 8),
+        _buildRoomCard('Deluxe Room', '\$${(hotel.startingPrice ?? 100) + 50}', 'King bed, Sea view, Balcony'),
+        const SizedBox(height: 8),
+        _buildRoomCard('Suite', '\$${(hotel.startingPrice ?? 100) + 150}', 'Living area, Kitchenette, Premium amenities'),
       ],
     );
   }
 
-  Widget _buildMapSection() {
+  Widget _buildRoomCard(String roomType, String price, String amenities) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey[200]!),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  roomType,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  amenities,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Colors.grey[600],
+                      ),
+                ),
+              ],
+            ),
+          ),
+          Text(
+            '$price/night',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMapSection(HotelModel hotel) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -565,235 +608,6 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildBookingButton() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: SizedBox(
-        width: double.infinity,
-        child: FloatingActionButton.extended(
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: const Text('Booking functionality will be implemented soon!'),
-                backgroundColor: Theme.of(context).primaryColor,
-              ),
-            );
-          },
-          backgroundColor: Theme.of(context).primaryColor,
-          icon: const Icon(Icons.calendar_today, color: Colors.white),
-          label: const Text(
-            'Book Now',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// Room Card Widget
-class RoomCard extends StatelessWidget {
-  final Rooms room;
-
-  const RoomCard({
-    super.key,
-    required this.room,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 280,
-      margin: const EdgeInsets.only(right: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-        border: Border.all(color: Colors.grey[100]!),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Room Image
-            Container(
-              height: 140,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-              ),
-              child: room.thumbnailUrl != null
-                  ? CacheImage(
-                      imageUrl: '${EndPoints.domain}${room.thumbnailUrl}',
-                      width: double.infinity,
-                      height: 140,
-                      boxFit: BoxFit.cover,
-                      borderRadius: 0,
-                      errorColor: Colors.grey[300]!,
-                    )
-                  : Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Theme.of(context).primaryColor.withOpacity(0.3),
-                            Theme.of(context).primaryColor.withOpacity(0.1),
-                          ],
-                        ),
-                      ),
-                      child: Center(
-                        child: Icon(
-                          Icons.hotel,
-                          size: 48,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ),
-            ),
-
-            // Room Content
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Room Type
-                  Text(
-                    room.type ?? 'Standard Room',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey[800],
-                        ),
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  // Room Details
-                  Row(
-                    children: [
-                      Icon(Icons.people, size: 16, color: Colors.grey[600]),
-                      const SizedBox(width: 4),
-                      Text(
-                        '${room.capacity ?? 2} guests',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Colors.grey[600],
-                            ),
-                      ),
-                      const Spacer(),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: room.isAvailable == true ? Colors.green.withOpacity(0.1) : Colors.red.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          room.isAvailable == true ? 'Available' : 'Unavailable',
-                          style: TextStyle(
-                            color: room.isAvailable == true ? Colors.green[700] : Colors.red[700],
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  // Room Description
-                  if (room.description != null && room.description!.isNotEmpty)
-                    Text(
-                      room.description!,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Colors.grey[600],
-                            height: 1.4,
-                          ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-
-                  const SizedBox(height: 12),
-
-                  // Price and Book Button Row
-                  Row(
-                    children: [
-                      // Price
-                      if (room.pricePerNight != null)
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '\$${room.pricePerNight}',
-                                style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                'per night',
-                                style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                      const SizedBox(width: 8),
-
-                      // Book Button
-                      if (room.isAvailable == true)
-                        ElevatedButton(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Book ${room.type} room'),
-                                backgroundColor: Theme.of(context).primaryColor,
-                              ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: const Text(
-                            'Book',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

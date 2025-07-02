@@ -31,4 +31,23 @@ class RestaurantCubit extends Cubit<RestaurantState> {
       );
     });
   }
+
+  Future<void> getRestaurantById({required int restaurantId}) async {
+    if (isClosed) return;
+    emit(RestaurantLoading());
+    await HomeDataSource.getRestaurantById(restaurantId: restaurantId).then((value) async {
+      value.fold(
+        (l) {
+          Utils.showToast(title: l.errMessage, state: UtilState.error);
+          if (isClosed) return;
+          emit(RestaurantError(e: l.errMessage));
+        },
+        (r) async {
+          ConstantsModels.restaurantObject = r;
+          if (isClosed) return;
+          emit(RestaurantSuccess());
+        },
+      );
+    });
+  }
 }

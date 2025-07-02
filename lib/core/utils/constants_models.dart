@@ -15,8 +15,11 @@ import 'package:tourism_app/features/menu/data/models/resturant_model.dart';
 class ConstantsModels {
   static LoginModel? loginModel;
   static List<PlaceModel>? placeModel;
+  static PlaceModel? placeObject;
   static List<ResturantsModel>? restaurantModel;
+  static ResturantsModel? restaurantObject;
   static List<HotelModel>? hotelModel;
+  static HotelModel? hotelObject;
   static List<CityModel>? cityModel;
   static EventModel? eventModel;
   static List<PlanModel>? planModel;

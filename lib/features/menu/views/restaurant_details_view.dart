@@ -4,16 +4,18 @@ import 'package:tourism_app/core/component/app_bar_sharred.dart';
 import 'package:tourism_app/core/component/cache_image.dart';
 import 'package:tourism_app/core/component/review_dialog.dart';
 import 'package:tourism_app/core/network/end_points.dart';
+import 'package:tourism_app/core/utils/constants_models.dart';
 import 'package:tourism_app/features/home/manager/favorite/cubit/favorite_cubit.dart';
+import 'package:tourism_app/features/home/manager/restaurant/cubit/restaurant_cubit.dart';
 import 'package:tourism_app/features/menu/data/models/resturant_model.dart';
 import 'package:tourism_app/features/tourguide/presentation/tourguide_details_view.dart';
 
 class RestaurantDetailsView extends StatefulWidget {
-  final ResturantsModel restaurant;
+  final int restaurantId;
 
   const RestaurantDetailsView({
     super.key,
-    required this.restaurant,
+    required this.restaurantId,
   });
 
   @override
@@ -28,8 +30,11 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
   @override
   void initState() {
     super.initState();
-    isFavorited = widget.restaurant.isFavorited ?? false;
+    isFavorited = false;
     _pageController = PageController();
+
+    // Fetch restaurant data by ID
+    RestaurantCubit.of(context).getRestaurantById(restaurantId: widget.restaurantId);
   }
 
   @override
@@ -38,13 +43,13 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
     super.dispose();
   }
 
-  List<String> _getImageUrls() {
+  List<String> _getImageUrls(ResturantsModel restaurant) {
     List<String> imageUrls = [];
-    if (widget.restaurant.thumbnailUrl != null) {
-      imageUrls.add('${EndPoints.domain}${widget.restaurant.thumbnailUrl}');
+    if (restaurant.thumbnailUrl != null) {
+      imageUrls.add('${EndPoints.domain}${restaurant.thumbnailUrl}');
     }
-    if (widget.restaurant.imageUrls != null) {
-      imageUrls.addAll(widget.restaurant.imageUrls!.map((url) => '${EndPoints.domain}$url'));
+    if (restaurant.imageUrls != null) {
+      imageUrls.addAll(restaurant.imageUrls!.map((url) => '${EndPoints.domain}$url'));
     }
 
     if (imageUrls.isEmpty) {
@@ -57,73 +62,162 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: shareAppBar(
-        context,
-        nameAppBar: widget.restaurant.name ?? 'Restaurant Details',
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Image Gallery Section
-            _buildImageGallery(),
+    return BlocBuilder<RestaurantCubit, RestaurantState>(
+      builder: (context, state) {
+        if (state is RestaurantLoading) {
+          return Scaffold(
+            appBar: shareAppBar(
+              context,
+              nameAppBar: 'Restaurant Details',
+            ),
+            body: Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          );
+        }
 
-            // Main Content
-            Padding(
+        if (state is RestaurantError) {
+          return Scaffold(
+            appBar: shareAppBar(
+              context,
+              nameAppBar: 'Restaurant Details',
+            ),
+            body: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Header with title and favorite button
-                  _buildHeader(),
-                  const SizedBox(height: 16),
-
-                  // Location and rating info
-                  _buildLocationRating(),
-                  const SizedBox(height: 16),
-
-                  // Price information
-                  if (widget.restaurant.averagePrice != null) ...[
-                    _buildPriceSection(),
-                    const SizedBox(height: 16),
-                  ],
-
-                  // Description Section
-                  _buildDescriptionSection(),
-                  const SizedBox(height: 16),
-
-                  // Restaurant Information
-                  _buildRestaurantInfoSection(),
-                  const SizedBox(height: 16),
-
-                  // Menu/Meals Section
-                  _buildMenuSection(),
-                  const SizedBox(height: 16),
-
-                  // Map Section (placeholder)
-                  _buildMapSection(),
-                  const SizedBox(height: 20),
-
-                  // Reviews Section
-                  ReviewingSection(
-                    entityName: 'restaurant',
-                    entityId: widget.restaurant.id?.toInt() ?? -1,
+                  Icon(
+                    Icons.error_outline,
+                    size: 64,
+                    color: Colors.red[300],
                   ),
-                  const SizedBox(height: 100), // Space for bottom button
+                  const SizedBox(height: 16),
+                  Text(
+                    'Failed to load restaurant details',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: Colors.red[700],
+                          fontWeight: FontWeight.w600,
+                        ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    state.e,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.grey[600],
+                        ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      RestaurantCubit.of(context).getRestaurantById(restaurantId: widget.restaurantId);
+                    },
+                    icon: const Icon(Icons.refresh),
+                    label: const Text('Retry'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    ),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: _buildReservationButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          );
+        }
+
+        if (ConstantsModels.restaurantObject == null) {
+          return Scaffold(
+            appBar: shareAppBar(
+              context,
+              nameAppBar: 'Restaurant Details',
+            ),
+            body: const Center(
+              child: Text('Restaurant not found'),
+            ),
+          );
+        }
+
+        ResturantsModel restaurant = ConstantsModels.restaurantObject!;
+
+        // Set favorite status when restaurant is loaded
+        if (isFavorited != (restaurant.isFavorited ?? false)) {
+          isFavorited = restaurant.isFavorited ?? false;
+        }
+
+        return Scaffold(
+          appBar: shareAppBar(
+            context,
+            nameAppBar: restaurant.name ?? 'Restaurant Details',
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Image Gallery Section
+                _buildImageGallery(restaurant),
+
+                // Main Content
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Header with title and favorite button
+                      _buildHeader(restaurant),
+                      const SizedBox(height: 16),
+
+                      // Location and rating info
+                      _buildLocationRating(restaurant),
+                      const SizedBox(height: 16),
+
+                      // Price information
+                      if (restaurant.averagePrice != null) ...[
+                        _buildPriceSection(restaurant),
+                        const SizedBox(height: 16),
+                      ],
+
+                      // Description Section
+                      _buildDescriptionSection(restaurant),
+                      const SizedBox(height: 16),
+
+                      // Restaurant Information
+                      _buildRestaurantInfoSection(restaurant),
+                      const SizedBox(height: 16),
+
+                      // Menu/Meals Section
+                      _buildMenuSection(restaurant),
+                      const SizedBox(height: 16),
+
+                      // Map Section (placeholder)
+                      _buildMapSection(),
+                      const SizedBox(height: 20),
+
+                      // Reviews Section
+                      ReviewingSection(
+                        entityName: 'restaurant',
+                        entityId: restaurant.id?.toInt() ?? -1,
+                      ),
+                      const SizedBox(height: 100), // Space for bottom button
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // floatingActionButton: _buildReservationButton(restaurant),
+          // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        );
+      },
     );
   }
 
-  Widget _buildImageGallery() {
-    List<String> imageUrls = _getImageUrls();
+  Widget _buildImageGallery(ResturantsModel restaurant) {
+    List<String> imageUrls = _getImageUrls(restaurant);
 
     return SizedBox(
       height: 300,
@@ -197,7 +291,7 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(ResturantsModel restaurant) {
     return Row(
       children: [
         Expanded(
@@ -205,13 +299,13 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.restaurant.name ?? 'Unknown Restaurant',
+                restaurant.name ?? 'Unknown Restaurant',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
               ),
               const SizedBox(height: 4),
-              if (widget.restaurant.cuisine != null)
+              if (restaurant.cuisine != null)
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
@@ -219,7 +313,7 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    widget.restaurant.cuisine!,
+                    restaurant.cuisine!,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.w500,
@@ -236,7 +330,7 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
             });
             FavoriteCubit.of(context).toggleFavorite(
               context: context,
-              entityId: widget.restaurant.id?.toInt() ?? 0,
+              entityId: restaurant.id?.toInt() ?? 0,
               entityType: 'restaurant',
             );
           },
@@ -264,25 +358,25 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
     );
   }
 
-  Widget _buildLocationRating() {
+  Widget _buildLocationRating(ResturantsModel restaurant) {
     return Row(
       children: [
         const Icon(Icons.location_on, color: Colors.grey, size: 18),
         const SizedBox(width: 4),
         Expanded(
           child: Text(
-            '${widget.restaurant.city ?? ''}, ${widget.restaurant.country ?? ''}',
+            '${restaurant.city ?? ''}, ${restaurant.country ?? ''}',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Colors.grey[600],
                 ),
           ),
         ),
-        if (widget.restaurant.stars != null) ...[
+        if (restaurant.stars != null) ...[
           const SizedBox(width: 16),
           const Icon(Icons.star, color: Colors.amber, size: 18),
           const SizedBox(width: 4),
           Text(
-            widget.restaurant.stars!.toStringAsFixed(1),
+            restaurant.stars!.toStringAsFixed(1),
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -292,7 +386,7 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
     );
   }
 
-  Widget _buildPriceSection() {
+  Widget _buildPriceSection(ResturantsModel restaurant) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -320,7 +414,7 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           Text(
-            '\$${widget.restaurant.averagePrice}',
+            '\$${restaurant.averagePrice}',
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).primaryColor,
@@ -328,7 +422,7 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
           ),
           const Spacer(),
           Text(
-            'per meal',
+            'per person',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Colors.grey[600],
                 ),
@@ -338,7 +432,7 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
     );
   }
 
-  Widget _buildDescriptionSection() {
+  Widget _buildDescriptionSection(ResturantsModel restaurant) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -350,8 +444,8 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
         ),
         const SizedBox(height: 8),
         Text(
-          widget.restaurant.description ??
-              'Experience exceptional dining at this wonderful restaurant. Known for its authentic cuisine and warm atmosphere, perfect for any occasion.',
+          restaurant.description ??
+              'A wonderful dining experience with authentic cuisine and excellent service. Perfect for enjoying quality meals in a great atmosphere.',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 height: 1.5,
               ),
@@ -360,7 +454,7 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
     );
   }
 
-  Widget _buildRestaurantInfoSection() {
+  Widget _buildRestaurantInfoSection(ResturantsModel restaurant) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -378,12 +472,10 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
                 ),
           ),
           const SizedBox(height: 12),
-          if (widget.restaurant.location != null) _buildInfoRow('Address', widget.restaurant.location!, Icons.location_on),
-          if (widget.restaurant.cuisine != null) _buildInfoRow('Cuisine', widget.restaurant.cuisine!, Icons.restaurant_menu),
-          _buildInfoRow('Opening Hours', '11:00 AM - 10:00 PM', Icons.access_time),
+          if (restaurant.cuisine != null) _buildInfoRow('Cuisine', restaurant.cuisine!, Icons.restaurant_menu),
+          if (restaurant.location != null) _buildInfoRow('Location', restaurant.location!, Icons.location_on),
+          _buildInfoRow('Opening Hours', '10:00 AM - 11:00 PM', Icons.access_time),
           _buildInfoRow('Contact', '+20 123 456 789', Icons.phone),
-          if (widget.restaurant.meals != null && widget.restaurant.meals!.isNotEmpty)
-            _buildInfoRow('Menu Items', '${widget.restaurant.meals!.length}', Icons.menu_book),
         ],
       ),
     );
@@ -413,26 +505,26 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
     );
   }
 
-  Widget _buildMenuSection() {
+  Widget _buildMenuSection(ResturantsModel restaurant) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
             Icon(
-              Icons.restaurant_menu,
+              Icons.menu_book,
               color: Theme.of(context).primaryColor,
               size: 24,
             ),
             const SizedBox(width: 8),
             Text(
-              'Menu',
+              'Menu & Specialties',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
             ),
             const Spacer(),
-            if (widget.restaurant.meals != null && widget.restaurant.meals!.isNotEmpty)
+            if (restaurant.meals != null && restaurant.meals!.isNotEmpty)
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
@@ -440,7 +532,7 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  '${widget.restaurant.meals!.length} items',
+                  '${restaurant.meals!.length} items',
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 12,
@@ -451,7 +543,7 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
           ],
         ),
         const SizedBox(height: 12),
-        if (widget.restaurant.meals == null || widget.restaurant.meals!.isEmpty)
+        if (restaurant.meals == null || restaurant.meals!.isEmpty)
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
@@ -462,13 +554,13 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
             child: Column(
               children: [
                 Icon(
-                  Icons.restaurant_menu_outlined,
+                  Icons.restaurant_menu,
                   size: 48,
                   color: Colors.grey[400],
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'No menu available',
+                  'Menu Coming Soon',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: Colors.grey[600],
                         fontWeight: FontWeight.w500,
@@ -476,7 +568,7 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Menu will be updated soon',
+                  'We are working on bringing you detailed menu information',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: Colors.grey[500],
                       ),
@@ -489,7 +581,7 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children: widget.restaurant.meals!.map((meal) => MealCard(meal: meal)).toList(),
+              children: restaurant.meals!.map((meal) => MealCard(meal: meal)).toList(),
             ),
           ),
       ],
@@ -508,7 +600,7 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
         ),
         const SizedBox(height: 8),
         Container(
-          height: 200,
+          height: 150,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: Colors.grey[200],
@@ -520,7 +612,7 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
                 // Placeholder for map
                 Container(
                   width: double.infinity,
-                  height: 200,
+                  height: 150,
                   color: Colors.grey[300],
                   child: Icon(
                     Icons.map,
@@ -564,38 +656,9 @@ class _RestaurantDetailsViewState extends State<RestaurantDetailsView> {
       ],
     );
   }
-
-  Widget _buildReservationButton() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: SizedBox(
-        width: double.infinity,
-        child: FloatingActionButton.extended(
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: const Text('Reservation functionality will be implemented soon!'),
-                backgroundColor: Theme.of(context).primaryColor,
-              ),
-            );
-          },
-          backgroundColor: Theme.of(context).primaryColor,
-          icon: const Icon(Icons.restaurant, color: Colors.white),
-          label: const Text(
-            'Make Reservation',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }
 
-// Meal Card Widget
+// Meal Card Widget is already defined above
 class MealCard extends StatelessWidget {
   final Meals meal;
 

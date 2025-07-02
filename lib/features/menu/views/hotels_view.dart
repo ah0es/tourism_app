@@ -177,7 +177,7 @@ class _HotelCardState extends State<HotelCard> {
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
         onTap: () {
-          context.navigateToPage(HotelDetailsView(hotel: widget.hotel));
+          context.navigateToPage(HotelDetailsView(hotelId: widget.hotel.id?.toInt() ?? -1));
         },
         child: Container(
           decoration: BoxDecoration(

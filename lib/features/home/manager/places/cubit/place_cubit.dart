@@ -30,4 +30,23 @@ class PlaceCubit extends Cubit<PlaceState> {
       );
     });
   }
+
+  Future<void> getPlaceById({required int placeId}) async {
+    if (isClosed) return;
+    emit(PlaceLoading());
+    await HomeDataSource.getPlaceById(placeId: placeId).then((value) async {
+      value.fold(
+        (l) {
+          Utils.showToast(title: l.errMessage, state: UtilState.error);
+          if (isClosed) return;
+          emit(PlaceError(e: l.errMessage));
+        },
+        (r) async {
+          ConstantsModels.placeObject = r;
+          if (isClosed) return;
+          emit(PlaceSuccess());
+        },
+      );
+    });
+  }
 }

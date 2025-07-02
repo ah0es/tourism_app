@@ -165,7 +165,7 @@ class PlaceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.navigateToPage(PlaceDetailsView(placeModel:placeModel??PlaceModel()));
+        context.navigateToPage(PlaceDetailsView(placeId:placeModel?.id?.toInt()??-1));
       },
       child: Container(
         width: isHorizontalScroll ? 150 : null,

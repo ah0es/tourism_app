@@ -240,6 +240,19 @@ class HomeDataSource {
     }
   }
 
+  static Future<Either<Failure, HotelModel>> getHotelsById({required int hotelId}) async {
+    try {
+      final response = await DioHelper.getData(url: '${EndPoints.hotels}/$hotelId');
+
+      return Right(HotelModel.fromJson(response.data));
+    } catch (error) {
+      if (error is DioException) {
+        return Left(ServerFailure.fromDioException(error));
+      }
+      return Left(ServerFailure(error.toString()));
+    }
+  }
+
   static Future<Either<Failure, String>> createReview(
       {required String entityName, required int entityId, required int rate, required String comment}) async {
     try {
@@ -247,6 +260,32 @@ class HomeDataSource {
           endPoint: EndPoints.reviews, data: {"entityType": entityName, "entityId": entityId, "rating": rate, "comment": comment});
 
       return Right('your review createed successfully');
+    } catch (error) {
+      if (error is DioException) {
+        return Left(ServerFailure.fromDioException(error));
+      }
+      return Left(ServerFailure(error.toString()));
+    }
+  }
+
+  static Future<Either<Failure, PlaceModel>> getPlaceById({required int placeId}) async {
+    try {
+      final response = await DioHelper.getData(url: '${EndPoints.places}/$placeId');
+
+      return Right(PlaceModel.fromJson(response.data));
+    } catch (error) {
+      if (error is DioException) {
+        return Left(ServerFailure.fromDioException(error));
+      }
+      return Left(ServerFailure(error.toString()));
+    }
+  }
+
+  static Future<Either<Failure, ResturantsModel>> getRestaurantById({required int restaurantId}) async {
+    try {
+      final response = await DioHelper.getData(url: '${EndPoints.restaurants}/$restaurantId');
+
+      return Right(ResturantsModel.fromJson(response.data));
     } catch (error) {
       if (error is DioException) {
         return Left(ServerFailure.fromDioException(error));
