@@ -32,6 +32,8 @@ class ServerFailure extends Failure {
         return ServerFailure('No Internet Connection');
 
       case DioExceptionType.unknown:
+   //     log('badResponse on url ${dioError.response?.data}');
+
         return ServerFailure('Unexpected Error, Please try again!');
       default:
         return ServerFailure('Opps There was an Error, Please try again');

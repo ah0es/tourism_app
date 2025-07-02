@@ -1,5 +1,5 @@
-class RestaurantModel {
-  int? id;
+class ResturantsModel {
+  num? id;
   String? name;
   String? description;
   String? city;
@@ -8,14 +8,14 @@ class RestaurantModel {
   num? latitude;
   num? longitude;
   String? cuisine;
-  int? averagePrice;
-  int? stars;
+  num? averagePrice;
+  num? stars;
   String? thumbnailUrl;
   List<String>? imageUrls;
-  dynamic meals;
+  List<Meals>? meals;
   bool? isFavorited;
 
-  RestaurantModel(
+  ResturantsModel(
       {this.id,
       this.name,
       this.description,
@@ -32,7 +32,7 @@ class RestaurantModel {
       this.meals,
       this.isFavorited});
 
-  RestaurantModel.fromJson(Map<String, dynamic> json) {
+  ResturantsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];
@@ -46,12 +46,12 @@ class RestaurantModel {
     stars = json['stars'];
     thumbnailUrl = json['thumbnailUrl'];
     imageUrls = json['imageUrls'].cast<String>();
-    // if (json['meals'] != null) {
-    //   meals = <Null>[];
-    //   json['meals'].forEach((v) {
-    //     meals!.add(new Null.fromJson(v));
-    //   });
-    // }
+    if (json['meals'] != null) {
+      meals = <Meals>[];
+      json['meals'].forEach((v) {
+        meals!.add(Meals.fromJson(v));
+      });
+    }
     isFavorited = json['isFavorited'];
   }
 
@@ -74,6 +74,40 @@ class RestaurantModel {
       data['meals'] = meals!.map((v) => v.toJson()).toList();
     }
     data['isFavorited'] = isFavorited;
+    return data;
+  }
+}
+
+class Meals {
+  num? id;
+  num? restaurantId;
+  String? name;
+  num? price;
+  String? description;
+  String? thumbnailUrl;
+  List<String>? imageUrls;
+
+  Meals({this.id, this.restaurantId, this.name, this.price, this.description, this.thumbnailUrl, this.imageUrls});
+
+  Meals.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    restaurantId = json['restaurantId'];
+    name = json['name'];
+    price = json['price'];
+    description = json['description'];
+    thumbnailUrl = json['thumbnailUrl'];
+    imageUrls = json['imageUrls'] != null ? List<String>.from(json['imageUrls']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['restaurantId'] = restaurantId;
+    data['name'] = name;
+    data['price'] = price;
+    data['description'] = description;
+    data['thumbnailUrl'] = thumbnailUrl;
+    data['imageUrls'] = imageUrls;
     return data;
   }
 }

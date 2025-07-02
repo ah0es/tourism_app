@@ -3,19 +3,18 @@ import 'package:dio/dio.dart';
 import 'package:tourism_app/core/network/dio_helper.dart';
 import 'package:tourism_app/core/network/end_points.dart';
 import 'package:tourism_app/core/network/errors/failures.dart';
-import 'package:tourism_app/features/Profile/Payment/mybooking/data/booking_model.dart';
 import 'package:tourism_app/features/home/data/models/activity_model.dart';
+import 'package:tourism_app/features/home/data/models/ai_response_model.dart';
 import 'package:tourism_app/features/home/data/models/booking_model.dart';
 import 'package:tourism_app/features/home/data/models/city_model.dart';
 import 'package:tourism_app/features/home/data/models/event_model.dart';
 import 'package:tourism_app/features/home/data/models/favorite_model.dart';
-import 'package:tourism_app/features/home/data/models/hotel_model.dart';
 import 'package:tourism_app/features/home/data/models/place_mode.dart';
 import 'package:tourism_app/features/home/data/models/plane_model.dart';
-import 'package:tourism_app/features/home/data/models/restaurant_model.dart';
 import 'package:tourism_app/features/home/data/models/review_model.dart';
 import 'package:tourism_app/features/home/data/models/tourguid_model.dart';
 import 'package:tourism_app/features/menu/data/models/hotel_model.dart';
+import 'package:tourism_app/features/menu/data/models/resturant_model.dart';
 
 class HomeDataSource {
   static Future<Either<Failure, List<CityModel>>> getCities() async {
@@ -41,6 +40,33 @@ class HomeDataSource {
       return Right(EventModel.fromJson(response.data));
     } catch (error) {
       if (error is DioException) {
+        return Left(ServerFailure.fromDioException(error));
+      }
+      return Left(ServerFailure(error.toString()));
+    }
+  }
+
+  static Future<Either<Failure, AiResonseModel>> predictImageWithAi({required dynamic data}) async {
+    try {
+      final dio = Dio();
+
+      // Add headers for ngrok
+      dio.options.headers.addAll({
+        'ngrok-skip-browser-warning': 'true',
+        'Content-Type': 'multipart/form-data',
+      });
+
+      final response = await dio.post(
+        'https://6ea5-156-209-20-112.ngrok-free.app/predict',
+        data: data,
+      );
+
+      print('AI Response: ${response.data}'); // Debug log
+      return Right(AiResonseModel.fromJson(response.data));
+    } catch (error) {
+      print('AI Prediction Error: $error'); // Debug log
+      if (error is DioException) {
+        print('DioException details: ${error.response?.data}'); // Debug log
         return Left(ServerFailure.fromDioException(error));
       }
       return Left(ServerFailure(error.toString()));
@@ -79,12 +105,12 @@ class HomeDataSource {
     }
   }
 
-  static Future<Either<Failure, List<RestaurantModel>>> getRestaurant() async {
+  static Future<Either<Failure, List<ResturantsModel>>> getRestaurant() async {
     try {
       final response = await DioHelper.getData(url: EndPoints.restaurants);
-      List<RestaurantModel> restaurants = [];
+      List<ResturantsModel> restaurants = [];
       if (response.data is List) {
-        restaurants = (response.data as List).map((restaurant) => RestaurantModel.fromJson(restaurant)).toList();
+        restaurants = (response.data as List).map((restaurant) => ResturantsModel.fromJson(restaurant)).toList();
       }
       return Right(restaurants);
     } catch (error) {

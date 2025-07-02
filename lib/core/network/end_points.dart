@@ -1,6 +1,6 @@
 class EndPoints {
   //static const domain = 'http://192.168.1.67:5200';
-  static const domain = 'https://4fcf-41-69-61-85.ngrok-free.app';
+  static const domain = 'https://c6fd-156-209-20-112.ngrok-free.app';
   static const baseUrl = '$domain/api/';
 
   //Auth

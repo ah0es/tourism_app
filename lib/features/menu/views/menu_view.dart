@@ -8,6 +8,7 @@ import 'package:tourism_app/features/home/restaurant/presentation/restaurants_vi
 import 'package:tourism_app/features/home/hotelse/presentation/hotels_view_body.dart';
 import 'package:tourism_app/features/menu/views/apply_as_guide_view.dart';
 import 'package:tourism_app/features/menu/views/hotels_view.dart';
+import 'package:tourism_app/features/menu/views/restaurants_view.dart';
 
 class MenuView extends StatelessWidget {
   const MenuView({super.key});
@@ -125,7 +126,7 @@ class MenuView extends StatelessWidget {
                     title: 'Restaurants',
                     subtitle: 'Discover local dining',
                     onTap: () {
-                      context.navigateToPage(RestaurantCafeViewBody());
+                      context.navigateToPage(RestaurantsView());
                     },
                   ),
                   _buildDivider(),

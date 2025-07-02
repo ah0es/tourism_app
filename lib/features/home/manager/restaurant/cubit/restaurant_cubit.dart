@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:tourism_app/core/utils/constants_models.dart';
 import 'package:tourism_app/core/utils/utils.dart';
 import 'package:tourism_app/features/home/data/dataSource/home_data_source.dart';
+import 'package:tourism_app/features/menu/data/models/resturant_model.dart';
 
 part 'restaurant_state.dart';
 
